@@ -1,0 +1,8 @@
+// @import "../../node_modules/govuk-frontend/govuk/all";
+@import "govuk-frontend/govuk/all";
+
+.govuk-table__header-sortable {
+  display: flex;
+  align-items: center;
+  gap: 0 0.1em;
+}
