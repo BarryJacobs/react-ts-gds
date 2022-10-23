@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest"
-import { render, screen, extendExpectForAxe, configureAxeForReactComponents } from "utils/testUtils"
-import App from "../App"
+import { render, extendExpectForAxe, configureAxeForReactComponents } from "utils/testUtils"
+import Users from "./Users"
 
 extendExpectForAxe()
 
-describe("App", () => {
+describe("Users", () => {
   it("must be accessible", async () => {
-    const { container } = render(<App />)
+    const { container } = render(<Users />)
     const axe = configureAxeForReactComponents()
     const result = await axe(container)
     expect(result).toHaveNoViolations()

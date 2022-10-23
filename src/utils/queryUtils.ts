@@ -4,8 +4,13 @@ export const queryKeys = {
   users: "users"
 }
 
-const generateQueryClient = (): QueryClient => {
+export const generateQueryClient = (): QueryClient => {
   return new QueryClient({
+    logger: {
+      log: () => {},
+      warn: () => {},
+      error: () => {}
+    },
     defaultOptions: {
       queries: {
         retry: false,
