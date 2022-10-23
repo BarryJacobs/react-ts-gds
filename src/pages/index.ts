@@ -1,4 +1,2 @@
-import Users from "./Users/Users"
-import Home from "./Home/Home"
-
-export { Home, Users }
+export { Users } from "./Users/Users"
+export { Home } from "./Home/Home"

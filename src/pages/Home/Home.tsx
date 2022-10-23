@@ -1,6 +1,6 @@
 import { Content, NavLink } from "components"
 
-const Home = () => {
+export const Home = () => {
   return (
     <div className="govuk-width-container">
       <main className="govuk-main-wrapper">
@@ -32,4 +32,3 @@ const Home = () => {
     </div>
   )
 }
-export default Home
