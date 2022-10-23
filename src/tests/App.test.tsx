@@ -11,10 +11,4 @@ describe("App", () => {
     const result = await axe(container)
     expect(result).toHaveNoViolations()
   })
-
-  it("renders correctly", () => {
-    render(<App />)
-    const welcomeText = screen.getByText("Hello World")
-    expect(welcomeText).toBeInTheDocument()
-  })
 })

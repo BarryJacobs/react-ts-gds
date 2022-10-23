@@ -1,5 +1,12 @@
-// @import "../../node_modules/govuk-frontend/govuk/all";
 @import "govuk-frontend/govuk/all";
+
+body {
+  margin: 0;
+}
+
+.govuk-header__product-name {
+  margin: 0.3em 1em 0.5em 1em;
+}
 
 .govuk-table__header-sortable {
   display: flex;
