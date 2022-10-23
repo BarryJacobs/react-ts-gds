@@ -7,15 +7,15 @@ const Home = () => {
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-full" id="content">
             <Content>
-              <Content>
-                The{" "}
-                <NavLink
-                  to="https://design-system.service.gov.uk/"
-                  external
-                  text="GOV.UK Design System"
-                />{" "}
-                is a set of components and styles designed for consistency and accessibility.
-              </Content>
+              The{" "}
+              <NavLink
+                to="https://design-system.service.gov.uk/"
+                external
+                text="GOV.UK Design System"
+              />{" "}
+              is a set of components and styles designed for consistency and accessibility.
+            </Content>
+            <Content>
               <NavLink to="https://vitejs.dev/" external text="Vite" /> is a build tool created by
               Evan You, the creator of Vue. It allows for faster development thanks to super fast
               Hot Module Reload (HMR), fast cold start times, and CSS + JSX + TypeScript support out
