@@ -17,8 +17,6 @@ const isErrorResponse = (value: unknown): value is ErrorResponse => {
   )
 }
 
-// TODO: Can we access state inside this fn e.g: header data
-
 const request = async <T, U = void>(
   method: HttpMethodEnum,
   url: string,
