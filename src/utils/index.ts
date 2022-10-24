@@ -1,2 +1,2 @@
-export { queryKeys, queryClient } from "./queryUtils"
-export { getUsers } from "./apiUtils"
+export { queryKeys, queryClient } from "./query"
+export { getUsers } from "./api"

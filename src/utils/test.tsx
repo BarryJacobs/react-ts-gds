@@ -2,7 +2,7 @@ import { render, RenderOptions } from "@testing-library/react"
 import { ReactElement, ReactNode } from "react"
 import { configureAxe } from "vitest-axe"
 import { QueryClientProvider } from "@tanstack/react-query"
-import { generateQueryClient } from "utils/queryUtils"
+import { generateQueryClient } from "utils/query"
 import * as matchers from "vitest-axe/matchers"
 import userEvent from "@testing-library/user-event"
 

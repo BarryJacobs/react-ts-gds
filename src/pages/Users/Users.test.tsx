@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { render, extendExpectForAxe, configureAxeForReactComponents } from "utils/testUtils"
+import { render, extendExpectForAxe, configureAxeForReactComponents } from "utils/test"
 import { Users } from "./Users"
 
 extendExpectForAxe()
