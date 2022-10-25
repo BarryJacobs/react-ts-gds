@@ -5,3 +5,5 @@ export enum HttpMethodEnum {
   DELETE = "DELETE",
   PATCH = "PATCH"
 }
+
+export type StringDictionary = Record<string, string>
