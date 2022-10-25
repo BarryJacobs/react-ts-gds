@@ -9,13 +9,13 @@ export interface NavLinkProps {
   overrideClass?: string
 }
 
-export function NavLink({
+export const NavLink = ({
   to,
   text,
   assistiveText,
   external,
   overrideClass
-}: NavLinkProps & React.HTMLProps<HTMLLinkElement>) {
+}: NavLinkProps & React.HTMLProps<HTMLLinkElement>) => {
   const navAttr = {
     "aria-label": assistiveText,
     className: overrideClass || "govuk-link"
