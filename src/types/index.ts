@@ -6,4 +6,7 @@ export enum HttpMethodEnum {
   PATCH = "PATCH"
 }
 
-export type StringDictionary = Record<string, string>
+export type Dictionary<T> = Record<string, T>
+export type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T
+}

@@ -1,7 +1,8 @@
 import { ErrorResponse, User } from "interfaces"
-import { HttpMethodEnum, StringDictionary } from "types"
+import { HttpMethodEnum, Dictionary } from "types"
+import { loadMockData } from "utils"
 
-const JsonHeaders: StringDictionary = {
+const JsonHeaders: Dictionary<string> = {
   "Content-Type": "application/json",
   Accept: "application/json"
 }
@@ -24,15 +25,19 @@ const isErrorResponse = (value: unknown): value is ErrorResponse => {
 
 const request = async <T, U = void>(
   method: HttpMethodEnum,
-  url: string,
-  headers: StringDictionary,
-  requestData?: U
+  path: string,
+  headers: Dictionary<string>,
+  request?: U
 ): Promise<T> => {
+  if (import.meta.env.VITE_USE_MOCK_API === "true") {
+    return loadMockData<T>(method, path)
+  }
+
   const fetchAttributes: RequestInit = { method }
-  if (requestData) fetchAttributes["body"] = JSON.stringify(requestData)
+  if (request) fetchAttributes["body"] = JSON.stringify(request)
   fetchAttributes["headers"] = headers
 
-  return await fetch(`${url}`, fetchAttributes)
+  return await fetch(`${import.meta.env.VITE_API_BASE_URL}${path}`, fetchAttributes)
     .then(async response => {
       if (response.ok) {
         const responseData = await response.json()
@@ -46,5 +51,4 @@ const request = async <T, U = void>(
     })
 }
 
-export const getUsers = () =>
-  request<User[]>(HttpMethodEnum.GET, "https://jsonplaceholder.typicode.com/users", JsonHeaders)
+export const getUsers = () => request<User[]>(HttpMethodEnum.GET, "/users", JsonHeaders)
