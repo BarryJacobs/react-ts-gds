@@ -33,7 +33,7 @@ export const loadMockData = <T, U = void>(
 
     fetch(`/mocks${filePath}`)
       .then(res => res.json())
-      .then(data => resolve(data))
+      .then(data => resolve(data as T))
       .catch(_ => reject("Unable to load mock data for request"))
   })
 }

@@ -30,7 +30,7 @@ const request = async <T, U = void>(
   request?: U
 ): Promise<T> => {
   if (import.meta.env.VITE_USE_MOCK_API === "true") {
-    return loadMockData<T>(method, path)
+    return loadMockData<T, U>(method, path, request)
   }
 
   const fetchAttributes: RequestInit = { method }
