@@ -1,19 +1,20 @@
 import { HttpMethodEnum, PartialRecord } from "types"
-import { IdRequest, NameRequest } from "interfaces"
+import { ErrorResponse, IdRequest, NameRequest } from "interfaces"
 
 type RequestType = IdRequest | NameRequest
 type RequestFilePathFunction = (request?: Extract<any, RequestType>) => string
 
-export const FileLocationMap: PartialRecord<
-  HttpMethodEnum,
-  Record<string, RequestFilePathFunction>
-> = {
+const FileLocationMap: PartialRecord<HttpMethodEnum, Record<string, RequestFilePathFunction>> = {
   POST: {
     "/users": (request: IdRequest) => {
       console.log(request)
       return ""
     }
   }
+}
+
+const isErrorResponse = (obj: any): obj is ErrorResponse => {
+  return typeof obj === "object" && "status" in obj && "title" in obj && "description" in obj
 }
 
 export const loadMockData = <T, U = void>(
@@ -33,7 +34,7 @@ export const loadMockData = <T, U = void>(
 
     fetch(`/mocks${filePath}`)
       .then(res => res.json())
-      .then(data => resolve(data as T))
+      .then(data => (isErrorResponse(data) ? reject(data) : resolve(data)))
       .catch(_ => reject("Unable to load mock data for request"))
   })
 }
