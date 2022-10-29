@@ -20,8 +20,8 @@ export const Home = () => {
         </Content>
         <Content>
           <NavLink to="https://tanstack.com/" external text="TanStack" /> is high-quality
-          open-source software, developed by Tanner Lindsay. This demo integrates React Query, React
-          Location and React Table with GDS.
+          open-source software, developed by Tanner Lindsay. This demo integrates React Query and
+          React Table with GDS.
         </Content>
       </div>
     </div>
