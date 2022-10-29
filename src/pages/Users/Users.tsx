@@ -6,8 +6,7 @@ import { ErrorResponse, User } from "interfaces"
 import { Table } from "components"
 
 export const Users = (): ReactElement => {
-  const { data, error } = useQuery<User[], ErrorResponse>([queryKeys.users], getUsers)
-  console.log(error)
+  const { data } = useQuery<User[], ErrorResponse>([queryKeys.users], getUsers)
   const columns = useMemo<ColumnDef<User>[]>(
     () => [
       {
@@ -34,5 +33,5 @@ export const Users = (): ReactElement => {
     []
   )
 
-  return <>{data && <Table columns={columns} data={data} />}</>
+  return <>{data && <Table columns={columns} data={data} pageSize={10} />}</>
 }

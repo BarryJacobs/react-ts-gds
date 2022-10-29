@@ -1,11 +1,7 @@
-import { ReactNode } from "react"
+import { Outlet } from "react-router-dom"
 import { Navbar } from "./Navbar"
 
-interface PageProps {
-  children: ReactNode
-}
-
-export const Page = ({ children }: PageProps) => {
+export const Page = () => {
   return (
     <div className="govuk-template__body">
       <header className="govuk-header app-header" role="banner" data-module="govuk-header">
@@ -15,7 +11,9 @@ export const Page = ({ children }: PageProps) => {
       </header>
       <Navbar />
       <div className="govuk-width-container">
-        <main className="govuk-main-wrapper">{children}</main>
+        <main className="govuk-main-wrapper">
+          <Outlet />
+        </main>
       </div>
     </div>
   )
