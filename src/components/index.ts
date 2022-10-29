@@ -1,6 +1,6 @@
 import { Content } from "./GDS/Content"
-import { Page } from "./Page"
 import { NavLink } from "./GDS/NavLink"
 import { Table } from "./Table"
+import { Pagination } from "./GDS/Paging/Pagination"
 
-export { Content, Page, NavLink, Table }
+export { Content, NavLink, Table, Pagination }

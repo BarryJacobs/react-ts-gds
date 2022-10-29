@@ -11,9 +11,24 @@ export const Users = (): ReactElement => {
   const columns = useMemo<ColumnDef<User>[]>(
     () => [
       {
+        header: "Username",
+        cell: info => info.getValue(),
+        accessorFn: row => row.username
+      },
+      {
         header: "Name",
         cell: info => info.getValue(),
         accessorFn: row => row.name
+      },
+      {
+        header: "Email",
+        cell: info => info.getValue(),
+        accessorFn: row => row.email
+      },
+      {
+        header: "Phone",
+        cell: info => info.getValue(),
+        accessorFn: row => row.phone
       }
     ],
     []

@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Leanne Graham",
-    "username": "Bret",
+    "username": "Leanne",
     "email": "Sincere@april.biz",
     "address": {
       "street": "Kulas Light",
@@ -25,8 +25,8 @@
   {
     "id": 2,
     "name": "Barry Jacobs",
-    "username": "Bret",
-    "email": "Sincere@april.biz",
+    "username": "Barry",
+    "email": "jacobs@hotmail.com",
     "address": {
       "street": "Kulas Light",
       "suite": "Apt. 556",
@@ -37,7 +37,7 @@
         "lng": "81.1496"
       }
     },
-    "phone": "1-770-736-8031 x56442",
+    "phone": "1-770-736-8031 x56443",
     "website": "hildegard.org",
     "company": {
       "name": "Romaguera-Crona",

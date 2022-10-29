@@ -8,7 +8,7 @@ describe("Users", () => {
   it("must be accessible", async () => {
     const { container } = render(<Users />)
     const axe = configureAxeForReactComponents()
-    const result = await axe(container)
-    expect(result).toHaveNoViolations()
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
   })
 })

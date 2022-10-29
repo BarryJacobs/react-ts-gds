@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { Navbar } from "./Navbar"
 
 interface PageProps {
   children: ReactNode
@@ -12,6 +13,7 @@ export const Page = ({ children }: PageProps) => {
           <div className="govuk-header__product-name">Vite React TanStack GDS Demo</div>
         </div>
       </header>
+      <Navbar />
       <div className="govuk-width-container">
         <main className="govuk-main-wrapper">{children}</main>
       </div>

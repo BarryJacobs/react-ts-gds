@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { queryClient } from "utils"
 import { MakeGenerics, Router, ReactLocation, Outlet } from "@tanstack/react-location"
 import { ReactLocationDevtools } from "@tanstack/react-location-devtools"
-import { Page } from "components"
+import { Page } from "layout"
 
 type LocationGenerics = MakeGenerics<{
   Params: never

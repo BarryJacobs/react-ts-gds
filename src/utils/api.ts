@@ -1,17 +1,7 @@
+import { ConnectionError, JsonHeaders } from "global/constants"
 import { ErrorResponse, User } from "interfaces"
 import { HttpMethodEnum, Dictionary } from "types"
 import { loadMockData } from "utils"
-
-const JsonHeaders: Dictionary<string> = {
-  "Content-Type": "application/json",
-  Accept: "application/json"
-}
-
-const ConnectionError: ErrorResponse = {
-  status: 500,
-  title: "There has been a problem with the server",
-  description: "Please try again later"
-}
 
 const isErrorResponse = (value: unknown): value is ErrorResponse => {
   const response = value as ErrorResponse
