@@ -35,7 +35,7 @@ export const Table = <T,>({
       }
     }
     return state
-  }, [pageIndex])
+  }, [pageIndex, usePaginationSize])
 
   const table = useReactTable({
     data,
