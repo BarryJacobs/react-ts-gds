@@ -93,7 +93,7 @@ export const Table = <T,>({
           })}
         </tbody>
       </table>
-      {data && usePaginationSize && (
+      {usePaginationSize && (
         <Pagination
           pageNumbers={
             data.length < usePaginationSize ? 1 : Math.ceil(data.length / usePaginationSize)
