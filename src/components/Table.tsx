@@ -100,9 +100,7 @@ export const Table = <T,>({
           }
           currentPage={pageIndex + 1}
           label="pagination"
-          onPageChange={(pageNumber: number) => {
-            setPageIndex(pageNumber - 1)
-          }}
+          onPageChange={(pageNumber: number) => setPageIndex(pageNumber - 1)}
         />
       )}
     </>
