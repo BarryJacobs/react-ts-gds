@@ -3253,10 +3253,10 @@ valtio@^1.7.4:
     proxy-compare "2.3.0"
     use-sync-external-store "1.2.0"
 
-vite-plugin-static-copy@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-static-copy/-/vite-plugin-static-copy-0.11.0.tgz#fe2f19e26867dc3592b6da9b02a7c264d8ee213d"
-  integrity sha512-/FjyNggFESEBCdPstFOWZYIamqXwPEceMfMk2YaSA4ymeCFN3wx9TKd8nNbXA1E5uN0EEM24LBJ8GaFfeXG64A==
+vite-plugin-static-copy@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-static-copy/-/vite-plugin-static-copy-0.11.1.tgz#91e58d928f392b3ed53389f701c367bf8d802925"
+  integrity sha512-SPNxP/6Sj4rdPSZnuacIdJr1nHaF8YDnu2RWWVurQSv8I+tXrdoOU5r3Xsw/5mVrOtK84LhD4HsZ8tAG1epJ7Q==
   dependencies:
     chokidar "^3.5.3"
     fast-glob "^3.2.11"

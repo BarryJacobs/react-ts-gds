@@ -6,12 +6,7 @@ import tsconfigPaths from "vite-tsconfig-paths"
 import { viteStaticCopy, Target } from "vite-plugin-static-copy"
 
 export default defineConfig(({ command }) => {
-  const copyTargets: Target[] = [
-    {
-      src: "./node_modules/govuk-frontend/govuk/assets/fonts/**/*",
-      dest: "/assets/fonts"
-    }
-  ]
+  const copyTargets: Target[] = []
   if (command === "serve") {
     copyTargets.push({
       src: "src/data/mocks/**/*",
