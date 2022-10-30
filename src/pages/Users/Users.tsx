@@ -33,5 +33,5 @@ export const Users = (): ReactElement => {
     []
   )
 
-  return <>{data && <Table columns={columns} data={data} pageSize={10} />}</>
+  return <>{data && <Table columns={columns} data={data} usePaginationSize={7} />}</>
 }

@@ -1,11 +1,13 @@
-import { ReactElement } from "react"
+import { ReactElement, useState, useMemo } from "react"
 import { Pagination } from "components"
 import {
   flexRender,
   useReactTable,
   getCoreRowModel,
   getSortedRowModel,
-  ColumnDef
+  getPaginationRowModel,
+  ColumnDef,
+  TableState
 } from "@tanstack/react-table"
 import { IoArrowDown, IoArrowUp } from "react-icons/io5"
 
@@ -13,21 +15,36 @@ interface TableProps<T> {
   data: T[]
   columns: ColumnDef<T>[]
   disableSorting?: boolean
-  pageSize?: number
+  usePaginationSize?: number
 }
 
 export const Table = <T,>({
   data,
   columns,
   disableSorting = false,
-  pageSize
+  usePaginationSize
 }: TableProps<T>): ReactElement => {
+  const [pageIndex, setPageIndex] = useState(0)
+
+  const tableState = useMemo(() => {
+    const state: Partial<TableState> = {}
+    if (usePaginationSize) {
+      state.pagination = {
+        pageIndex: pageIndex,
+        pageSize: usePaginationSize
+      }
+    }
+    return state
+  }, [pageIndex])
+
   const table = useReactTable({
     data,
     columns,
     enableSorting: !disableSorting,
+    state: tableState,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel()
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel()
   })
 
   return (
@@ -61,30 +78,31 @@ export const Table = <T,>({
           ))}
         </thead>
         <tbody className="govuk-table__body">
-          {table
-            .getRowModel()
-            .rows.slice(0, 10)
-            .map(row => {
-              return (
-                <tr className="govuk-table__row" key={row.id}>
-                  {row.getVisibleCells().map(cell => {
-                    return (
-                      <td className="govuk-table__cell" key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    )
-                  })}
-                </tr>
-              )
-            })}
+          {table.getRowModel().rows.map(row => {
+            return (
+              <tr className="govuk-table__row" key={row.id}>
+                {row.getVisibleCells().map(cell => {
+                  return (
+                    <td className="govuk-table__cell" key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  )
+                })}
+              </tr>
+            )
+          })}
         </tbody>
       </table>
-      {pageSize && (
+      {data && usePaginationSize && (
         <Pagination
-          pageNumbers={10}
-          currentPage={1}
-          label="Hello"
-          onPageChange={(_: number) => {}}
+          pageNumbers={
+            data.length < usePaginationSize ? 1 : Math.ceil(data.length / usePaginationSize)
+          }
+          currentPage={pageIndex + 1}
+          label="pagination"
+          onPageChange={(pageNumber: number) => {
+            setPageIndex(pageNumber - 1)
+          }}
         />
       )}
     </>
