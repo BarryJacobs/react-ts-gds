@@ -3,10 +3,10 @@ import { useQuery } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import { queryKeys, getUsers } from "utils"
 import { ErrorResponse, User } from "interfaces"
-import { Table } from "components"
+import { Table, ErrorMessage } from "components"
 
 export const Users = (): ReactElement => {
-  const { data } = useQuery<User[], ErrorResponse>([queryKeys.users], getUsers)
+  const { data, error } = useQuery<User[], ErrorResponse>([queryKeys.users], getUsers)
   const columns = useMemo<ColumnDef<User>[]>(
     () => [
       {
@@ -33,5 +33,10 @@ export const Users = (): ReactElement => {
     []
   )
 
-  return <>{data && <Table columns={columns} data={data} usePaginationSize={7} />}</>
+  return (
+    <>
+      {error && <ErrorMessage title={error.title} description={error.description} />}
+      {data && <Table columns={columns} data={data} usePaginationSize={7} />}
+    </>
+  )
 }
