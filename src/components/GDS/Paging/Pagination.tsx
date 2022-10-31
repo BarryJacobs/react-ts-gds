@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react"
+import { useLayoutEffect, useRef, useState, memo } from "react"
 import { v4 as uuidv4 } from "uuid"
 import PageLink from "./PageLink"
 
@@ -12,7 +12,7 @@ interface PaginationProps {
 const maxMiniPaging = 3
 const maxNormalPaging = 10
 
-export const Pagination = ({ pageNumbers, currentPage, label, onPageChange }: PaginationProps) => {
+const Pagination = ({ pageNumbers, currentPage, label, onPageChange }: PaginationProps) => {
   const firstUpdate = useRef(true)
   const [currentPagedValue, setCurrentPagedValue] = useState(currentPage)
 
@@ -250,3 +250,5 @@ export const Pagination = ({ pageNumbers, currentPage, label, onPageChange }: Pa
     </nav>
   )
 }
+
+export default memo(Pagination)

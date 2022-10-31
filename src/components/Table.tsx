@@ -1,4 +1,4 @@
-import { ReactElement, useState, useMemo } from "react"
+import { ReactElement, useState, useMemo, useCallback } from "react"
 import { Pagination } from "components"
 import {
   flexRender,
@@ -46,6 +46,16 @@ export const Table = <T,>({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel()
   })
+
+  const pageSize = useMemo(() => {
+    if (usePaginationSize == undefined || data === undefined || data.length === 0) return 0
+    return data.length < usePaginationSize ? 1 : Math.ceil(data.length / usePaginationSize)
+  }, [data, usePaginationSize])
+
+  const onPageChangeHandler = useCallback(
+    (pageNumber: number) => setPageIndex(pageNumber - 1),
+    [setPageIndex]
+  )
 
   return (
     <>
@@ -95,12 +105,10 @@ export const Table = <T,>({
       </table>
       {usePaginationSize && (
         <Pagination
-          pageNumbers={
-            data.length < usePaginationSize ? 1 : Math.ceil(data.length / usePaginationSize)
-          }
+          pageNumbers={pageSize}
           currentPage={pageIndex + 1}
           label="pagination"
-          onPageChange={(pageNumber: number) => setPageIndex(pageNumber - 1)}
+          onPageChange={onPageChangeHandler}
         />
       )}
     </>
