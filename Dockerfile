@@ -7,7 +7,7 @@ RUN yarn install --network-timeout 1000000
 COPY . .
 RUN yarn run build
 
-FROM nginx:1.16.0-alpine
+FROM nginx:1.23.2-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY deploy/nginx/nginx.conf /etc/nginx/conf.d
