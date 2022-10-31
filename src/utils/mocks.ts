@@ -2,15 +2,27 @@ import { HttpMethodEnum, PartialRecord } from "types"
 import { ErrorResponse, IdRequest, NameRequest } from "interfaces"
 
 type RequestType = IdRequest | NameRequest
-type RequestFilePathFunction = (request?: Extract<any, RequestType>) => string
+type RequestFilePathFunction = (path: string, request?: Extract<any, RequestType>) => string
+type MethodMap = Record<string, RequestFilePathFunction>
 
-const FileLocationMap: PartialRecord<HttpMethodEnum, Record<string, RequestFilePathFunction>> = {
+const FileLocationMap: PartialRecord<HttpMethodEnum, MethodMap> = {
   POST: {
-    "/users": (request: IdRequest) => {
-      console.log(request)
+    "^/posts$": (path: string, request: IdRequest) => {
+      console.log(path, request)
       return ""
     }
+  },
+  GET: {
+    "^/users$": (path: string) => {
+      return `${path}/data.json`
+    }
   }
+}
+
+const getMethodPath = <T>(path: string, methodMap: MethodMap, request: T): string => {
+  const expressions = Object.keys(methodMap)
+  const match = expressions.find(exp => RegExp(path).test(exp))
+  return match ? methodMap[match](path, request) : ""
 }
 
 const isErrorResponse = (obj: any): obj is ErrorResponse => {
@@ -26,9 +38,9 @@ export const loadMockData = <T, U = void>(
     let filePath = `${path}/data.json`
     const methodMap = FileLocationMap[method]
     if (methodMap) {
-      const methodPath = methodMap[path]
+      const methodPath = getMethodPath(path, methodMap, request)
       if (methodPath) {
-        filePath = methodPath(request)
+        filePath = methodPath
       }
     }
 
