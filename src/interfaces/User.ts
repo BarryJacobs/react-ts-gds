@@ -18,8 +18,8 @@ export interface Address {
 }
 
 export interface Location {
-  lat: number
-  lng: number
+  lat: string
+  lng: string
 }
 
 export interface Company {

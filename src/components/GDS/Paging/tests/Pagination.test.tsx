@@ -6,7 +6,7 @@ import {
   configureAxeForReactComponents,
   userEvent
 } from "utils/test"
-import { Pagination } from "../Pagination"
+import Pagination from "../Pagination"
 
 extendExpectForAxe()
 
