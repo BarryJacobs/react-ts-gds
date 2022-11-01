@@ -19,9 +19,14 @@ export const Home = () => {
           Reload (HMR), fast cold start times, and CSS + JSX + TypeScript support out of the box.
         </Content>
         <Content>
+          <NavLink to="https://vitest.dev/" external text="Vitest" /> is a blazingly fast unit test
+          framework. Powered by Vite, Vitest also has a dev server under the hood when running the
+          tests. This allows Vitest to provide a beautiful UI to view and interact with your tests.
+        </Content>
+        <Content>
           <NavLink to="https://tanstack.com/" external text="TanStack" /> is high-quality
           open-source software, developed by Tanner Lindsay. This demo integrates React Query and
-          React Table with GDS.
+          React Table.
         </Content>
       </div>
     </div>
