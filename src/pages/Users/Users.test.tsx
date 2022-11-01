@@ -1,9 +1,15 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 import { render, screen, extendExpectForAxe, configureAxeForReactComponents } from "utils/test"
 import { createServer, Server } from "miragejs"
 import { Users } from "./Users"
 
 import mockUserData from "data/mocks/users/data.json"
+import { User } from "interfaces"
+
+vi.mock("react-router-dom", async () => ({
+  ...(await vi.importActual<any>("react-router-dom")),
+  useLoaderData: () => mockUserData
+}))
 
 extendExpectForAxe()
 
@@ -29,16 +35,16 @@ describe("Users", () => {
     const { container } = render(<Users />)
     const axe = configureAxeForReactComponents()
     const results = await axe(container)
-
-    await screen.findByText("Username")
     expect(results).toHaveNoViolations()
   })
 
-  // it("renders user correctly", async () => {
-  //   render(<Users />)
-  //   mockUserData.forEach((user: User) => {
-  //     console.log(user.name)
-  //     expect(screen.getByText(user.name)).toBeInTheDocument()
-  //   })
-  // })
+  it("renders correctly", async () => {
+    render(<Users />)
+    mockUserData.forEach((user: User) => {
+      expect(screen.getByText(user.name)).toBeInTheDocument()
+      expect(screen.getByText(user.username)).toBeInTheDocument()
+      expect(screen.getByText(user.email)).toBeInTheDocument()
+      expect(screen.getByText(user.phone)).toBeInTheDocument()
+    })
+  })
 })
