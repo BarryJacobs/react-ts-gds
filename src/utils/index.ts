@@ -10,4 +10,4 @@ export const concatenateStrings = (separator: string, ...args: string[]): string
 
 export { queryKeys, queryClient } from "./query"
 export { loadMockData } from "./mocks"
-export { getUsers } from "./api"
+export { request } from "./api"

@@ -1,12 +1,30 @@
 import { ReactElement, useMemo } from "react"
-import { useQuery } from "@tanstack/react-query"
+import { useLoaderData } from "react-router-dom"
+import { useQuery, QueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
-import { queryKeys, getUsers } from "utils"
+import { useAuthorisation } from "hooks"
+import { queryKeys } from "utils"
 import { ErrorResponse, User } from "interfaces"
 import { Table, ErrorMessage } from "components"
+import { request } from "utils"
+import { HttpMethodEnum, AuthorisationHeaders } from "types"
+
+const getUsers = (headers: AuthorisationHeaders) => ({
+  queryKey: [queryKeys.users],
+  queryFn: async () => request<User[]>(HttpMethodEnum.GET, "/users", headers)
+})
+
+export const loader =
+  (queryClient: QueryClient, headers: AuthorisationHeaders) => async (): Promise<User[]> => {
+    const query = getUsers(headers)
+    return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query))
+  }
 
 export const Users = (): ReactElement => {
-  const { data, error } = useQuery<User[], ErrorResponse>([queryKeys.users], getUsers)
+  const { jsonHeaders } = useAuthorisation()
+  const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof loader>>>
+  const { data, error } = useQuery<User[], ErrorResponse>({ ...getUsers(jsonHeaders), initialData })
+
   const columns = useMemo<ColumnDef<User>[]>(
     () => [
       {

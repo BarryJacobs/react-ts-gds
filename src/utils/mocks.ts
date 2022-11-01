@@ -14,7 +14,7 @@ const FileLocationMap: PartialRecord<HttpMethodEnum, MethodMap> = {
   },
   GET: {
     "^/users$": (path: string) => {
-      return `${path}/data.json`
+      return `${path}/error.json`
     }
   }
 }

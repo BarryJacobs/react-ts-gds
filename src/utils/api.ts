@@ -1,5 +1,5 @@
 import { ConnectionError, JsonHeaders } from "global/constants"
-import { ErrorResponse, User } from "interfaces"
+import { ErrorResponse } from "interfaces"
 import { HttpMethodEnum, Dictionary } from "types"
 import { loadMockData } from "utils"
 
@@ -13,10 +13,10 @@ const isErrorResponse = (value: unknown): value is ErrorResponse => {
   )
 }
 
-const request = async <T, U = void>(
+export const request = async <T, U = void>(
   method: HttpMethodEnum,
   path: string,
-  headers: Dictionary<string>,
+  headers: Dictionary<string> = JsonHeaders,
   request?: U
 ): Promise<T> => {
   if (import.meta.env.VITE_USE_MOCK_API === "true") {
@@ -39,5 +39,3 @@ const request = async <T, U = void>(
       return Promise.reject(isErrorResponse(error) ? error : ConnectionError)
     })
 }
-
-export const getUsers = () => request<User[]>(HttpMethodEnum.GET, "/users", JsonHeaders)
