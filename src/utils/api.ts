@@ -29,6 +29,7 @@ export const request = async <T, U = void>({
   if (import.meta.env.VITE_USE_MOCK_API === "true") {
     return loadMockData<T, U>(method, path, request)
   }
+
   const fetchAttributes: RequestInit = { method }
   if (request) fetchAttributes["body"] = JSON.stringify(request)
   fetchAttributes["headers"] = headers
