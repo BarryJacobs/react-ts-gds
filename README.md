@@ -15,7 +15,7 @@ As a developer primarily working with [GDS](https://design-system.service.gov.uk
 - API development mocking mechanism to elimate the need for additional test server functionality
 - [GDS Table](https://design-system.service.gov.uk/components/table/) component supporting sorting and pagination built on top of [React Table v8](https://tanstack.com/table/v8/)
 - [GDS Sass](https://frontend.design-system.service.gov.uk/sass-api-reference/) styling integrated into Vite build
-- [Docker Compose](https://docs.docker.com/compose/gettingstarted/) configuration implemented combined with [Nginx](https://www.nginx.com/)
+- [Docker Compose](https://docs.docker.com/compose/gettingstarted/) configuration hosted with [Nginx](https://www.nginx.com/)
 - Vitest unit tests including server mocking with [Mirage](https://miragejs.com/)
 - Vitest accessibility testing with [Vitest Axe](https://github.com/chaance/vitest-axe)
 
