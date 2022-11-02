@@ -11,7 +11,7 @@ import { HttpMethodEnum, AuthorisationHeaders } from "types"
 
 const getUsers = (headers: AuthorisationHeaders) => ({
   queryKey: [queryKeys.users],
-  queryFn: async () => request<User[]>(HttpMethodEnum.GET, "/users", headers)
+  queryFn: async () => request<User[]>({ method: HttpMethodEnum.GET, path: "/users", headers })
 })
 
 export const loader =

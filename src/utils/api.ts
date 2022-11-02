@@ -13,12 +13,19 @@ const isErrorResponse = (value: unknown): value is ErrorResponse => {
   )
 }
 
-export const request = async <T, U = void>(
-  method: HttpMethodEnum,
-  path: string,
-  headers: Dictionary<string> = JsonHeaders,
+interface RequestProps<U> {
+  method: HttpMethodEnum
+  path: string
+  headers?: Dictionary<string>
   request?: U
-): Promise<T> => {
+}
+
+export const request = async <T, U = void>({
+  method,
+  path,
+  headers = JsonHeaders,
+  request
+}: RequestProps<U>): Promise<T> => {
   if (import.meta.env.VITE_USE_MOCK_API === "true") {
     return loadMockData<T, U>(method, path, request)
   }

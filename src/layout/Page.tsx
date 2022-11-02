@@ -6,7 +6,7 @@ export const Page = () => {
     <div className="govuk-template__body">
       <header className="govuk-header app-header" role="banner" data-module="govuk-header">
         <div className="govuk-header__container app-width-container app-header__container">
-          <div className="govuk-header__product-name">Vite React TanStack GDS Demo</div>
+          <div className="govuk-header__product-name">Vite React GDS Demo</div>
         </div>
       </header>
       <Navbar />
