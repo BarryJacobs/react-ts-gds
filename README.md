@@ -6,7 +6,7 @@ As a developer primarily working with [GDS](https://design-system.service.gov.uk
 
 ## Features
 
-- Template project utilising [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/)
+- Template project with [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/)
 - Code built with [React](https://reactjs.org/) and [Typescript](https://www.typescriptlang.org/)
 - Routing, including pre-loading data with [React Router 6.4](https://reactrouter.com/en/main)
 - API calls handled by a Fetch wrapper built with [Typescript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
