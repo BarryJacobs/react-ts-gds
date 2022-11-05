@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from "react"
+import { ReactElement, ReactNode, useMemo } from "react"
 import { useLoaderData } from "react-router-dom"
 import { useQuery, QueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
@@ -7,7 +7,7 @@ import { queryKeys } from "utils"
 import { ErrorResponse, User } from "interfaces"
 import { Table, ErrorMessage } from "components"
 import { request } from "utils"
-import { HttpMethodEnum, AuthorisationHeaders } from "types"
+import { HttpMethodEnum, AuthorisationHeaders, GDSSize } from "types"
 
 const getUsers = (headers: AuthorisationHeaders) => ({
   queryKey: [queryKeys.users],
@@ -29,23 +29,28 @@ export const Users = (): ReactElement => {
     () => [
       {
         header: "Username",
-        cell: info => info.getValue(),
-        accessorFn: row => row.username
-      },
-      {
-        header: "Name",
-        cell: info => info.getValue(),
-        accessorFn: row => row.name
+        cell: info => (
+          <span className="govuk-!-font-weight-bold">{info.getValue() as ReactNode}</span>
+        ),
+        accessorFn: row => row.username,
+        meta: {
+          colClassExt: "govuk-!-width-one-quarter"
+        }
       },
       {
         header: "Email",
-        cell: info => info.getValue(),
-        accessorFn: row => row.email
+        accessorFn: row => row.email,
+        meta: {
+          colClassExt: "govuk-!-width-one-half"
+        }
       },
       {
         header: "Phone",
-        cell: info => info.getValue(),
-        accessorFn: row => row.phone
+        accessorFn: row => row.phone,
+        meta: {
+          colClassExt: "govuk-!-width-one-quarter",
+          dataClassExt: "numeric"
+        }
       }
     ],
     []
@@ -54,7 +59,16 @@ export const Users = (): ReactElement => {
   return (
     <>
       {error && <ErrorMessage title={error.title} description={error.description} />}
-      {data && <Table columns={columns} data={data} usePaginationSize={7} />}
+      {data && (
+        <Table
+          caption="Users"
+          captionSize={GDSSize.large}
+          columns={columns}
+          data={data}
+          usePaginationSize={7}
+          disableSorting={false}
+        />
+      )}
     </>
   )
 }

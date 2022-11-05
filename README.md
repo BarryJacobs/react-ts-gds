@@ -14,8 +14,9 @@ As a developer primarily working with [GDS](https://design-system.service.gov.uk
 - API headers implemented using a custom hook integrated with simple state management from [Valtio](https://github.com/pmndrs/valtio)
 - API development mocking mechanism to eliminate the need for additional test server functionality
 - [GDS Table](https://design-system.service.gov.uk/components/table/) component supporting sorting and pagination built on top of [React Table v8](https://tanstack.com/table/v8/)
+- Extending React Table types with custom overrides
 - [GDS Sass](https://frontend.design-system.service.gov.uk/sass-api-reference/) styling integrated into Vite build
-- [Docker Compose](https://docs.docker.com/compose/gettingstarted/) configuration hosted with [Nginx](https://www.nginx.com/)
+- [Docker Compose](https://docs.docker.com/compose/gettingstarted/) configuration and hosted with [Nginx](https://www.nginx.com/)
 - Vitest unit tests including server mocking with [Mirage](https://miragejs.com/)
 - Vitest accessibility testing with [Vitest Axe](https://github.com/chaance/vitest-axe)
 
@@ -59,8 +60,6 @@ yarn test:ui
 
 ## Future Work
 
-- Test Form functionailty
-- Add additional features of the [GDS Table](https://design-system.service.gov.uk/components/table/)
 - Create Headless UI implementation of the [GDS Accordion](https://design-system.service.gov.uk/components/accordion/)
 
 ## Credits

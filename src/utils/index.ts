@@ -1,4 +1,4 @@
-export const concatenateStrings = (separator: string, ...args: string[]): string => {
+export const concatenateStrings = (separator: string, ...args: (string | undefined)[]): string => {
   let result = ""
   if (args && args.length !== 0) {
     args.forEach(

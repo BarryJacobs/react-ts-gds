@@ -1,4 +1,4 @@
-import { ReactElement, useState, useMemo, useCallback } from "react"
+import { ReactElement, useState, useMemo, useCallback, AriaAttributes } from "react"
 import { Pagination } from "components"
 import {
   flexRender,
@@ -10,10 +10,14 @@ import {
   TableState
 } from "@tanstack/react-table"
 import { IoArrowDown, IoArrowUp } from "react-icons/io5"
+import { concatenateStrings } from "utils"
+import { GDSSize } from "types"
 
 interface TableProps<T> {
   data: T[]
   columns: ColumnDef<T>[]
+  caption?: string
+  captionSize?: GDSSize
   disableSorting?: boolean
   usePaginationSize?: number
 }
@@ -21,6 +25,8 @@ interface TableProps<T> {
 export const Table = <T,>({
   data,
   columns,
+  caption,
+  captionSize = GDSSize.medium,
   disableSorting = false,
   usePaginationSize
 }: TableProps<T>): ReactElement => {
@@ -60,25 +66,45 @@ export const Table = <T,>({
   return (
     <>
       <table className="govuk-table">
+        {caption && (
+          <caption className={`govuk-table__caption govuk-table__caption--${captionSize}`}>
+            {caption}
+          </caption>
+        )}
         <thead className="govuk-table__head">
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => {
+                const columnSorted = header.column.getIsSorted()
                 return (
-                  <th className="govuk-table__header" key={header.id} colSpan={header.colSpan}>
+                  <th
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className={concatenateStrings(
+                      " ",
+                      "govuk-table__header",
+                      header.column.columnDef.meta?.colClassExt,
+                      `govuk-table__header--${header.column.columnDef.meta?.dataClassExt}`
+                    )}
+                    scope="col"
+                    onClick={header.column.getToggleSortingHandler()}
+                    aria-sort={
+                      {
+                        asc: "ascending",
+                        desc: "descending",
+                        false: undefined
+                      }[columnSorted as string] as AriaAttributes["aria-sort"]
+                    }>
                     {header.isPlaceholder ? null : (
                       <span
-                        {...{
-                          className: header.column.getCanSort()
-                            ? "govuk-table__header-sortable"
-                            : "",
-                          onClick: header.column.getToggleSortingHandler()
-                        }}>
+                        className={
+                          header.column.getCanSort() ? "govuk-table__header-sortable" : ""
+                        }>
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {{
                           asc: <IoArrowUp />,
                           desc: <IoArrowDown />
-                        }[header.column.getIsSorted() as string] ?? null}
+                        }[columnSorted as string] ?? null}
                       </span>
                     )}
                   </th>
@@ -93,7 +119,13 @@ export const Table = <T,>({
               <tr className="govuk-table__row" key={row.id}>
                 {row.getVisibleCells().map(cell => {
                   return (
-                    <td className="govuk-table__cell" key={cell.id}>
+                    <td
+                      className={`govuk-table__cell${
+                        cell.column.columnDef.meta?.dataClassExt
+                          ? ` govuk-table__cell--${cell.column.columnDef.meta?.dataClassExt}`
+                          : ""
+                      }`}
+                      key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   )

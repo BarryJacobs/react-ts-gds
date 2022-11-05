@@ -6,6 +6,13 @@ export enum HttpMethodEnum {
   PATCH = "PATCH"
 }
 
+export enum GDSSize {
+  small = "s",
+  medium = "m",
+  large = "l",
+  extraLarge = "xl"
+}
+
 export type Dictionary<T> = Record<string, T>
 export type PartialRecord<K extends keyof any, T> = {
   [P in K]?: T
