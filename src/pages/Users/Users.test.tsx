@@ -41,7 +41,6 @@ describe("Users", () => {
   it("renders correctly", async () => {
     render(<Users />)
     mockUserData.forEach((user: User) => {
-      expect(screen.getByText(user.name)).toBeInTheDocument()
       expect(screen.getByText(user.username)).toBeInTheDocument()
       expect(screen.getByText(user.email)).toBeInTheDocument()
       expect(screen.getByText(user.phone)).toBeInTheDocument()
