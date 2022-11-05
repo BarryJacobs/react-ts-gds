@@ -16,7 +16,7 @@ As a developer primarily working with [GDS](https://design-system.service.gov.uk
 - [GDS Table](https://design-system.service.gov.uk/components/table/) component supporting sorting and pagination built on top of [React Table v8](https://tanstack.com/table/v8/)
 - Extending React Table types with custom overrides
 - [GDS Sass](https://frontend.design-system.service.gov.uk/sass-api-reference/) styling integrated into Vite build
-- [Docker Compose](https://docs.docker.com/compose/gettingstarted/) configuration and hosted with [Nginx](https://www.nginx.com/)
+- [Docker Compose](https://docs.docker.com/compose/gettingstarted/) implementation hosted at http://localhost:3000/
 - Vitest unit tests including server mocking with [Mirage](https://miragejs.com/)
 - Vitest accessibility testing with [Vitest Axe](https://github.com/chaance/vitest-axe)
 - [Storybook v7](https://storybook.js.org/docs/7.0/react/get-started/introduction) demos implementing the examples shown in [GDS Tables](https://design-system.service.gov.uk/components/table/)
