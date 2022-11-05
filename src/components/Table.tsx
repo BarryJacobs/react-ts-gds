@@ -118,7 +118,11 @@ export const Table = <T,>({
             return (
               <tr className="govuk-table__row" key={row.id}>
                 {row.getVisibleCells().map(cell => {
-                  return (
+                  return cell.column.columnDef.meta?.useRowHeader ? (
+                    <th scope="row" className="govuk-table__header" key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </th>
+                  ) : (
                     <td
                       className={`govuk-table__cell${
                         cell.column.columnDef.meta?.dataClassExt
