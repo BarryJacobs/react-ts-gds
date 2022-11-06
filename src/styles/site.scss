@@ -19,6 +19,7 @@ body {
 
 .govuk-table__header-sortable {
   @extend .no-select;
+  cursor: pointer;
   display: inline-block;
   vertical-align: middle;
   svg {
