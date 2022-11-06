@@ -30,7 +30,7 @@ export const Users = (): ReactElement => {
       {
         header: "Username",
         cell: info => (
-          <span className="govuk-!-font-weight-bold">{info.getValue() as ReactNode}</span>
+          <span className="govuk-!-font-weight-regular">{info.getValue() as ReactNode}</span>
         ),
         accessorFn: row => row.username,
         meta: {
