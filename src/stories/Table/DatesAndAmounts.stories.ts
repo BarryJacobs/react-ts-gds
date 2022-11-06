@@ -7,7 +7,7 @@ import { DateAndAmount } from "./interfaces"
 import "styles/site.scss"
 
 const meta: Meta<typeof Table<DateAndAmount>> = {
-  title: "Example/Table/GDS/DatesAndAmounts",
+  title: "GDS/Table/DatesAndAmounts",
   component: Table,
   decorators: [withRouter],
   parameters: {

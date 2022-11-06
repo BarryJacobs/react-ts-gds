@@ -7,7 +7,7 @@ import { MonthAndRate } from "./interfaces"
 import "styles/site.scss"
 
 const meta: Meta<typeof Table<MonthAndRate>> = {
-  title: "Example/Table/GDS/MonthsAndRates",
+  title: "GDS/Table/MonthsAndRates",
   component: Table,
   decorators: [withRouter],
   parameters: {

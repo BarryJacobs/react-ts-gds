@@ -1680,7 +1680,7 @@
     memoizerific "^1.11.3"
     prop-types "^15.7.2"
 
-"@storybook/addons@6.5.13", "@storybook/addons@^6.5.13":
+"@storybook/addons@6.5.13":
   version "6.5.13"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.5.13.tgz#61ec5eab07879400d423d60bb397880d10ee5e73"
   integrity sha512-18CqzNnrGMfeZtiKz+R/3rHtSNnfNwz6y6prIQIbWseK16jY8ELTfIFGviwO5V2OqpbHDQi5+xQQ63QAIb89YA==
@@ -1697,7 +1697,7 @@
     global "^4.4.0"
     regenerator-runtime "^0.13.7"
 
-"@storybook/addons@7.0.0-alpha.47":
+"@storybook/addons@7.0.0-alpha.47", "@storybook/addons@^7.0.0-alpha.47":
   version "7.0.0-alpha.47"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-7.0.0-alpha.47.tgz#d204f5756d232b09bcd322f4f770c08012592686"
   integrity sha512-O5t6zOWRG8I7B1W30Hx+LG9TuRJJxa6QmG2AQ74G0CtwJqGhlhnkuQPyFqUEDY0yJuHZGDHG7QTSqXOkIvZ61w==
@@ -1805,7 +1805,7 @@
     slash "^3.0.0"
     util "^0.12.4"
 
-"@storybook/builder-vite@7.0.0-alpha.47":
+"@storybook/builder-vite@7.0.0-alpha.47", "@storybook/builder-vite@^7.0.0-alpha.47":
   version "7.0.0-alpha.47"
   resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-7.0.0-alpha.47.tgz#9b5923da1d94add4e3862f08c9b817b0bbc19c74"
   integrity sha512-i2Tr4YfaFZHyXvkbJn78iKi2zXn3ljQlF0xVf7MC8pV4fpA8uZ1ibWDP0I7lXtNTHvN2crIETBgRK+zzdk3fLQ==
@@ -2340,7 +2340,7 @@
     "@testing-library/user-event" "^13.2.1"
     ts-dedent "^2.2.0"
 
-"@storybook/theming@6.5.13", "@storybook/theming@^6.5.13":
+"@storybook/theming@6.5.13":
   version "6.5.13"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.5.13.tgz#3f905eb9f72ddc28d096384290999057987f3083"
   integrity sha512-oif5NGFAUQhizo50r+ctw2hZNLWV4dPHai+L/gFvbaSeRBeHSNkIcMoZ2FlrO566HdGZTDutYXcR+xus8rI28g==
@@ -2350,7 +2350,7 @@
     memoizerific "^1.11.3"
     regenerator-runtime "^0.13.7"
 
-"@storybook/theming@7.0.0-alpha.47":
+"@storybook/theming@7.0.0-alpha.47", "@storybook/theming@^7.0.0-alpha.47":
   version "7.0.0-alpha.47"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-7.0.0-alpha.47.tgz#054f9774afe79631a8214750df5039c3b6fa8e11"
   integrity sha512-rUELl2veyU89esSFAKBYpiKG46XqlKpETiokJLHd/jsNdJcTm71SmP685P/8jyuMPggx+lga3710kvSoyVZbXw==

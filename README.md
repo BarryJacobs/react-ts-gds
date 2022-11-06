@@ -67,7 +67,7 @@ yarn storybook
 
 ## Future Work
 
-- Create Headless UI implementation of the [GDS Accordion](https://design-system.service.gov.uk/components/accordion/)
+- Create Headless UI Accordion component to implement the [GDS Accordion](https://design-system.service.gov.uk/components/accordion/)
 
 ## Credits
 
