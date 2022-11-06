@@ -1,7 +1,8 @@
+import { ReactElement } from "react"
 import { Outlet } from "react-router-dom"
 import { Navbar } from "./Navbar"
 
-export const Page = () => {
+export const Page = (): ReactElement => {
   return (
     <div className="govuk-template__body">
       <header className="govuk-header app-header" role="banner" data-module="govuk-header">

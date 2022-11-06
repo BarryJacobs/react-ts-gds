@@ -1,6 +1,7 @@
 import { Content, NavLink } from "components"
+import { ReactElement } from "react"
 
-export const Home = () => {
+export const Home = (): ReactElement => {
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-full" id="content">
