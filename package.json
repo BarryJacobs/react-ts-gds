@@ -52,6 +52,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-storybook": "^0.6.7",
+    "eslint-plugin-valtio": "^0.6.1",
     "jsdom": "^20.0.1",
     "miragejs": "^0.1.45",
     "prettier": "^2.7.1",
