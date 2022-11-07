@@ -6,10 +6,10 @@ interface Store {
   bearerToken: string
 }
 
-const store = proxy<Store>({
+const state = proxy<Store>({
   bearerToken: uuidv4()
 })
 
-devtools(store)
+devtools(state)
 
-export default store
+export default state

@@ -5,11 +5,9 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { queryClient } from "utils"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { useAuthorisation } from "hooks"
 import { Page } from "layout"
 
 const App = (): ReactElement => {
-  const { jsonHeaders } = useAuthorisation()
   const router = createBrowserRouter([
     {
       element: <Page />,
@@ -22,7 +20,7 @@ const App = (): ReactElement => {
           path: "/users",
           element: <Users />,
           errorElement: <ErrorBoundary />,
-          loader: usersLoader(queryClient, jsonHeaders)
+          loader: usersLoader(queryClient)
         }
       ]
     }

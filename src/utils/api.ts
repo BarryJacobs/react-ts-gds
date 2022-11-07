@@ -2,6 +2,7 @@ import { ConnectionError, JsonHeaders } from "global/constants"
 import { ErrorResponse } from "interfaces"
 import { HttpMethodEnum, Dictionary } from "types"
 import { loadMockData } from "utils"
+import state from "global/state"
 
 const isErrorResponse = (value: unknown): value is ErrorResponse => {
   const response = value as ErrorResponse
@@ -18,13 +19,15 @@ interface RequestProps<U> {
   path: string
   headers?: Dictionary<string>
   request?: U
+  authorise?: boolean
 }
 
 export const request = async <T, U = void>({
   method,
   path,
   headers = JsonHeaders,
-  request
+  request,
+  authorise = true
 }: RequestProps<U>): Promise<T> => {
   if (import.meta.env.VITE_USE_MOCK_API === "true") {
     return loadMockData<T, U>(method, path, request)
@@ -32,6 +35,8 @@ export const request = async <T, U = void>({
 
   const fetchAttributes: RequestInit = { method }
   if (request) fetchAttributes["body"] = JSON.stringify(request)
+
+  if (authorise) headers["Authorization"] = `Bearer ${state.bearerToken}`
   fetchAttributes["headers"] = headers
 
   return await fetch(`${import.meta.env.VITE_API_BASE_URL}${path}`, fetchAttributes)
