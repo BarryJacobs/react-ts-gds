@@ -11,7 +11,7 @@ As a developer primarily working with [GDS](https://design-system.service.gov.uk
 - Routing, including pre-loading data with [React Router 6.4](https://reactrouter.com/en/main)
 - API calls handled by a Fetch wrapper built with [Typescript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
 - API caching and additional features supported by [React Query v4](https://tanstack.com/query/v4/)
-- API headers implemented using a custom hook integrated with simple state management from [Valtio](https://github.com/pmndrs/valtio)
+- API headers with simple state management from [Valtio](https://github.com/pmndrs/valtio)
 - API development mocking mechanism to eliminate the need for additional test server functionality
 - [GDS Table](https://design-system.service.gov.uk/components/table/) component supporting sorting and pagination built on top of [React Table v8](https://tanstack.com/table/v8/)
 - Extending React Table types with custom overrides
