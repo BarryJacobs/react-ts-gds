@@ -29,6 +29,14 @@ export default defineConfig(({ command }) => {
         }
       }
     },
+    resolve: {
+      alias: [
+        {
+          find: /^~(.*)$/,
+          replacement: "$1"
+        }
+      ]
+    },
     test: {
       globals: true,
       environment: "jsdom",
