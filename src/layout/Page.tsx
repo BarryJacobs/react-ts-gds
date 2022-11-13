@@ -4,7 +4,7 @@ import { Navbar } from "./Navbar"
 
 export const Page = (): ReactElement => {
   return (
-    <div className="govuk-template__body">
+    <div className="govuk-template__body js-enabled">
       <header className="govuk-header app-header" role="banner" data-module="govuk-header">
         <div className="govuk-header__container app-width-container app-header__container">
           <div className="govuk-header__product-name">Vite React GDS Demo</div>
