@@ -1,7 +1,7 @@
 import { ReactNode, useState, useEffect, useCallback } from "react"
 import AccordionSection from "./AccordionSection"
 
-import "./Accordion.scss"
+import "styles/accordion-v1.scss"
 
 interface AccordionProps<T> {
   renderHeader: (item: T) => ReactNode
@@ -43,7 +43,7 @@ export const Accordion = <T,>({
   }, [sectionStates])
 
   return (
-    <div className="govuk-accordion">
+    <div className="govuk-accordion-v1">
       <div className="govuk-accordion__controls">
         <button
           className="govuk-accordion__open-all"
@@ -61,7 +61,7 @@ export const Accordion = <T,>({
           <div className="govuk-accordion__section-header">
             <h2 className="govuk-accordion__section-heading">
               <button className="govuk-accordion__section-button">
-                {renderHeader(item)}
+                <span>{renderHeader(item)}</span>
                 <span className="govuk-accordion__icon" aria-hidden="true" />
               </button>
             </h2>

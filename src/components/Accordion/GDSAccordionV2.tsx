@@ -16,7 +16,7 @@ export const GDSAccordionV2 = <T,>({ definition, data }: GDSAccordionV2Props<T>)
   const showOpenAll = accordion.getShowOpenAll()
   return (
     <div className="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-      <div className="govuk-accordion__controls govuk-accordion__controls-v2">
+      <div className="govuk-accordion__controls">
         <button
           type="button"
           className="govuk-accordion__show-all"
@@ -61,8 +61,13 @@ export const GDSAccordionV2 = <T,>({ definition, data }: GDSAccordionV2Props<T>)
                   </span>
                   <span className="govuk-accordion__section-toggle" data-nosnippet="">
                     <span className="govuk-accordion__section-toggle-focus">
-                      <span className="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down"></span>
-                      <span className="govuk-accordion__section-toggle-text">Show</span>
+                      <span
+                        className={`govuk-accordion-nav__chevron${
+                          !section.isExpanded ? " govuk-accordion-nav__chevron--down" : ""
+                        }`}></span>
+                      <span className="govuk-accordion__section-toggle-text">
+                        {section.isExpanded ? "Hide" : "Show"}
+                      </span>
                     </span>
                   </span>
                 </button>

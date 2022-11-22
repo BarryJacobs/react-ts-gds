@@ -2,13 +2,13 @@ import { ReactElement, useMemo } from "react"
 import { Tabs, Accordion, GDSAccordionV1, GDSAccordionV2 } from "components"
 import { SectionDefinition } from "components/Accordion/types"
 
-interface TestItem {
+interface Book {
   title: string
   author: string
   summary: string
 }
 
-const testData: TestItem[] = [
+const books: Book[] = [
   {
     title: "Heart of Darkness",
     author: "Joseph Conrad",
@@ -30,7 +30,7 @@ const testData: TestItem[] = [
 ]
 
 export const Accordions = (): ReactElement => {
-  const gdsDefinition = useMemo<SectionDefinition<TestItem>>(() => {
+  const gdsDefinition = useMemo<SectionDefinition<Book>>(() => {
     return {
       header: item => item.getValue().title,
       summary: item => item.getValue().author,
@@ -45,21 +45,21 @@ export const Accordions = (): ReactElement => {
         {
           title: "Component",
           children: (
-            <Accordion<TestItem>
+            <Accordion<Book>
               renderHeader={item => item.title}
               renderSummary={item => item.author}
               renderContent={item => item.summary}
-              data={testData}
+              data={books}
             />
           )
         },
         {
           title: "Headless GDS V1",
-          children: <GDSAccordionV1 definition={gdsDefinition} data={testData} />
+          children: <GDSAccordionV1 definition={gdsDefinition} data={books} />
         },
         {
           title: "Headless GDS V2",
-          children: <GDSAccordionV2 definition={gdsDefinition} data={testData} />
+          children: <GDSAccordionV2 definition={gdsDefinition} data={books} />
         }
       ]}
     />

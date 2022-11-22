@@ -40,6 +40,11 @@ export const useAccordion = <T>(options: AccordionOptions<T>): Accordion<T> => {
       produce(draft => {
         const section = draft.sections[index]
         section.isExpanded = !section.isExpanded
+        if (draft.sections.every(x => x.isExpanded === true)) {
+          draft.showOpenAll = false
+        } else if (draft.sections.some(x => x.isExpanded === false)) {
+          draft.showOpenAll = true
+        }
       })
     )
   }, [])

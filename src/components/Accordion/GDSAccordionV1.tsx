@@ -1,6 +1,10 @@
+// 3.14.0
+
 import { ReactElement } from "react"
 import { SectionDefinition, flexRender } from "./types"
 import { useAccordion } from "./hooks/useAccordion"
+
+import "styles/accordion-v1.scss"
 
 interface GDSAccordionV1Props<T> {
   definition: SectionDefinition<T>
@@ -14,7 +18,7 @@ export const GDSAccordionV1 = <T,>({ definition, data }: GDSAccordionV1Props<T>)
   })
 
   return (
-    <div className="govuk-accordion">
+    <div className="govuk-accordion-v1">
       <div className="govuk-accordion__controls">
         <button
           className="govuk-accordion__open-all"
@@ -39,7 +43,7 @@ export const GDSAccordionV1 = <T,>({ definition, data }: GDSAccordionV1Props<T>)
                   type="button"
                   className="govuk-accordion__section-button"
                   aria-expanded={section.isExpanded}>
-                  {flexRender(section.definition.header, section)}
+                  <span>{flexRender(section.definition.header, section)}</span>
                   <span className="govuk-accordion__icon" aria-hidden="true" />
                 </button>
               </h2>

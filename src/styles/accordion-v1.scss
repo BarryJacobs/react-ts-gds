@@ -1,0 +1,106 @@
+@use "src/styles";
+
+.govuk-accordion-v1 {
+  .govuk-accordion__controls {
+    text-align: right;
+    padding-bottom: 0.3em;
+  }
+
+  .govuk-accordion__open-all {
+    font-size: 1rem;
+    color: styles.$govuk-link-colour !important;
+    background: none;
+    text-decoration: underline;
+    border-width: 0;
+    cursor: pointer;
+  }
+
+  .govuk-accordion__open-all:focus {
+    outline: 3px solid transparent;
+    color: styles.$govuk-text-colour !important;
+    background-color: styles.$govuk-focus-colour;
+    box-shadow: 0 -2px styles.$govuk-focus-colour, 0 4px styles.$govuk-focus-text-colour !important;
+    text-decoration: none;
+  }
+
+  .govuk-accordion__section {
+    cursor: pointer;
+  }
+
+  .govuk-accordion__section-button {
+    position: relative;
+    color: styles.$govuk-link-colour !important;
+    padding-top: 1em !important;
+    padding-bottom: 0em !important;
+    border-bottom: 0px !important;
+    background-color: transparent !important;
+    &:focus > span:first-child {
+      outline: 3px solid transparent;
+      color: styles.$govuk-text-colour;
+      background-color: styles.$govuk-focus-colour;
+      box-shadow: 0 -2px styles.$govuk-focus-colour, 0 4px styles.$govuk-focus-text-colour !important;
+      text-decoration: none;
+    }
+    &:hover:not(:focus) {
+      color: styles.govuk-colour("dark-blue") !important;
+      text-decoration: underline;
+      text-decoration-thickness: max(3px, 0.1875rem, 0.12rem);
+      text-underline-offset: 0.1em;
+      text-decoration-skip-ink: none;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+
+  .govuk-accordion__section-summary {
+    margin-top: 0.625em !important;
+    & > p {
+      margin: 0 !important;
+    }
+  }
+
+  .govuk-accordion__icon {
+    position: absolute;
+    top: 80%;
+    right: 1em;
+    width: 1em;
+    height: 1em;
+    &::before,
+    &::after {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 15%;
+      height: 15%;
+      margin: auto;
+      border: 2px solid transparent;
+      background-color: styles.govuk-colour("black");
+    }
+    &::before {
+      width: 65%;
+    }
+    &::after {
+      height: 65%;
+    }
+  }
+
+  .govuk-accordion__section--expanded .govuk-accordion__icon:after {
+    content: "";
+    display: none;
+  }
+
+  .govuk-accordion__section-content {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+  }
+}
