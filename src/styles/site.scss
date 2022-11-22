@@ -27,6 +27,11 @@ body {
   }
 }
 
+.govuk-accordion__controls-v2 {
+  text-align: left;
+  padding-bottom: 0;
+}
+
 .app-navigation {
   display: block;
   border-bottom: 1px solid #b1b4b6;

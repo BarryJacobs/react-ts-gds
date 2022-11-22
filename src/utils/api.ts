@@ -39,7 +39,7 @@ export const request = async <T, U = void>({
   if (authorise) headers["Authorization"] = `Bearer ${state.bearerToken}`
   fetchAttributes["headers"] = headers
 
-  return await fetch(`${import.meta.env.VITE_API_BASE_URL}${path}`, fetchAttributes)
+  return fetch(`${import.meta.env.VITE_API_BASE_URL}${path}`, fetchAttributes)
     .then(async response => {
       if (response.ok) {
         const responseData = await response.json()

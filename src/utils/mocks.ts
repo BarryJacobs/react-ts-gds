@@ -50,7 +50,7 @@ export const loadMockData = <T, U = void>(
       .catch(_ =>
         reject({
           title: "There has been a problem",
-          description: `Unable to load mock data for file at location: ${path}`
+          description: `Unable to load mock data for file at location: ${filePath}`
         })
       )
   })

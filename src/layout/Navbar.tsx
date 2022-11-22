@@ -19,7 +19,7 @@ export const Navbar = (): ReactElement => {
           <NavLink to="/users" text="Table" />
         </li>
         <li className="app-navigation__list-item ">
-          <NavLink to="/canvas" text="Canvas" />
+          <NavLink to="/accordions" text="Accordions" />
         </li>
       </ul>
     </nav>

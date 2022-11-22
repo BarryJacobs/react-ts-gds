@@ -36,7 +36,7 @@ export const Accordion = <T,>({
     if (sectionStates.every(item => item === true)) {
       setShowOpenAll(false)
       setOpenAllSections(undefined)
-    } else if (sectionStates.every(item => item === false)) {
+    } else if (sectionStates.includes(false)) {
       setShowOpenAll(true)
       setOpenAllSections(undefined)
     }
@@ -62,11 +62,11 @@ export const Accordion = <T,>({
             <h2 className="govuk-accordion__section-heading">
               <button className="govuk-accordion__section-button">
                 {renderHeader(item)}
-                <span className="govuk-accordion__icon" />
+                <span className="govuk-accordion__icon" aria-hidden="true" />
               </button>
             </h2>
             <div className="govuk-accordion__section-summary govuk-body">{renderSummary(item)}</div>
-            <div className="govuk-accordion__section-content">{renderContent(item)}</div>
+            <div className="govuk-accordion__section-content govuk-body">{renderContent(item)}</div>
           </div>
         </AccordionSection>
       ))}
