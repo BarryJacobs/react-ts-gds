@@ -42,12 +42,12 @@ export const Accordions = (): ReactElement => {
           children: <GDSAccordionV1 definition={accordionDefinitionNoSummary} data={movies} />
         },
         {
-          title: "Headless V2",
-          children: <GDSAccordionV2 definition={accordionDefinitionNoSummary} data={movies} />
-        },
-        {
           title: "Headless V1 + Summary",
           children: <GDSAccordionV1 definition={accordionDefinitionWithSummary} data={books} />
+        },
+        {
+          title: "Headless V2",
+          children: <GDSAccordionV2 definition={accordionDefinitionNoSummary} data={movies} />
         },
         {
           title: "Headless V2 + Summary",
