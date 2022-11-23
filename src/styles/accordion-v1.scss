@@ -27,6 +27,14 @@
     cursor: pointer;
   }
 
+  .govuk-accordion__section-heading-no-summary {
+    margin-bottom: 1em;
+  }
+
+  .govuk-accordion__icon-no-summary {
+    margin-top: -0.75em;
+  }
+
   .govuk-accordion__section-button {
     position: relative;
     color: styles.$govuk-link-colour !important;

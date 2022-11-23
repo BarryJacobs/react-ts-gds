@@ -1,30 +1,32 @@
 /* eslint-disable */
-export interface AccordionMeta<T> {}
-export interface SectionMeta<T> {}
+export type Data = unknown | object | any[]
+export type DefinitionTemplate<TProps extends Data> = (props: TProps) => any
 
-export type DefinitionTemplate<TProps extends object> = (props: TProps) => any
+export interface AccordionMeta<T extends Data> {}
+export interface SectionMeta<T extends Data> {}
 
-export interface Section<T> {
+export interface SectionDefinition<T extends Data> {
+  header: DefinitionTemplate<Section<T>>
+  content: DefinitionTemplate<Section<T>>
+  descriptiveText: DefinitionTemplate<T>
+  summary?: DefinitionTemplate<Section<T>>
+  meta?: SectionMeta<T>
+}
+
+export interface Section<T extends Data> {
   id: number
   definition: SectionDefinition<T>
   isExpanded: boolean
   getValue: () => T
 }
 
-export interface SectionDefinition<T> {
-  header?: DefinitionTemplate<Section<T>>
-  summary?: DefinitionTemplate<Section<T>>
-  content?: DefinitionTemplate<Section<T>>
-  meta?: SectionMeta<T>
-}
-
-export interface AccordionOptions<T> {
+export interface AccordionOptions<T extends Data> {
   data: T[]
   definition: SectionDefinition<T>
   meta?: AccordionMeta<T>
 }
 
-export interface Accordion<T> {
+export interface Accordion<T extends Data> {
   options: AccordionOptions<T>
   setOptions: (newOptions: AccordionOptions<T>) => void
   getSections: () => Section<T>[]

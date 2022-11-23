@@ -14,8 +14,14 @@ export const GDSAccordionV2 = <T,>({ definition, data }: GDSAccordionV2Props<T>)
   })
 
   const showOpenAll = accordion.getShowOpenAll()
+  const hasSummary = accordion.options.definition.summary !== undefined
+  const accordionType = hasSummary ? "with-summary-sections" : "default"
+
   return (
-    <div className="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+    <div
+      className="govuk-accordion"
+      data-module="govuk-accordion"
+      id={`accordion-${accordionType}`}>
       <div className="govuk-accordion__controls">
         <button
           type="button"
@@ -45,21 +51,37 @@ export const GDSAccordionV2 = <T,>({ definition, data }: GDSAccordionV2Props<T>)
               <h2 className="govuk-accordion__section-heading">
                 <button
                   type="button"
-                  aria-controls={`accordion-default-content-${section.id}`}
+                  aria-controls={`accordion-${accordionType}-content-${section.id}`}
                   className="govuk-accordion__section-button"
                   aria-expanded={section.isExpanded}
-                  aria-label={`Writing well for the web , Show this section`}>
+                  aria-label={`${section.definition.descriptiveText(section.getValue())} , ${
+                    section.isExpanded ? "Hide" : "Show"
+                  } this section`}>
                   <span
                     className="govuk-accordion__section-heading-text"
-                    id={`accordion-default-heading-${section.id}`}>
+                    id={`accordion-${accordionType}-heading-${section.id}`}>
                     <span className="govuk-accordion__section-heading-text-focus">
                       {flexRender(section.definition.header, section)}
                     </span>
                   </span>
+                  {hasSummary && (
+                    <>
+                      <span className="govuk-visually-hidden govuk-accordion__section-heading-divider">
+                        ,{" "}
+                      </span>
+                      <span
+                        className="govuk-accordion__section-summary govuk-body"
+                        id={`accordion-with-summary-sections-summary-${section.id}`}>
+                        <span className="govuk-accordion__section-summary-focus">
+                          {flexRender(section.definition.summary, section)}
+                        </span>
+                      </span>
+                    </>
+                  )}
                   <span className="govuk-visually-hidden govuk-accordion__section-heading-divider">
                     ,{" "}
                   </span>
-                  <span className="govuk-accordion__section-toggle" data-nosnippet="">
+                  <span className="govuk-accordion__section-toggle" data-nosnippet>
                     <span className="govuk-accordion__section-toggle-focus">
                       <span
                         className={`govuk-accordion-nav__chevron${
@@ -74,9 +96,9 @@ export const GDSAccordionV2 = <T,>({ definition, data }: GDSAccordionV2Props<T>)
               </h2>
             </div>
             <div
-              id={`accordion-default-content-${section.id}`}
+              id={`accordion-${accordionType}-content-${section.id}`}
               className="govuk-accordion__section-content"
-              aria-labelledby={`accordion-default-heading-${section.id}`}>
+              aria-labelledby={`accordion-${accordionType}-heading-${section.id}`}>
               <p className="govuk-body">{flexRender(section.definition.content, section)}</p>
             </div>
           </div>

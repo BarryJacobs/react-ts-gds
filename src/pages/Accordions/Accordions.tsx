@@ -1,40 +1,24 @@
 import { ReactElement, useMemo } from "react"
 import { Tabs, Accordion, GDSAccordionV1, GDSAccordionV2 } from "components"
 import { SectionDefinition } from "components/Accordion/types"
-
-interface Book {
-  title: string
-  author: string
-  summary: string
-}
-
-const books: Book[] = [
-  {
-    title: "Heart of Darkness",
-    author: "Joseph Conrad",
-    summary:
-      "The story details an incident when Marlow, an Englishman, took a foreign assignment from a Belgian trading company as a ferry-boat captain in Africa."
-  },
-  {
-    title: "The Odyssey",
-    author: "Homer",
-    summary:
-      "The Odyssey is one of two major ancient Greek epic poems attributed to Homer. It is, in part, a sequel to the Iliad, the other work traditionally ascribed to Homer."
-  },
-  {
-    title: "War and Peace",
-    author: "Leo Tolstoy",
-    summary:
-      "Epic in scale, War and Peace delineates in graphic detail events leading up to Napoleon's invasion of Russia, and the impact of the Napoleonic era on Tsarist society, as seen through the eyes of five Russian aristocratic families."
-  }
-]
+import { Book, books } from "./data/books"
+import { Movie, movies } from "./data/movies"
 
 export const Accordions = (): ReactElement => {
-  const gdsDefinition = useMemo<SectionDefinition<Book>>(() => {
+  const accordionDefinitionNoSummary = useMemo<SectionDefinition<Movie>>(() => {
     return {
-      header: item => item.getValue().title,
-      summary: item => item.getValue().author,
-      content: item => item.getValue().summary
+      header: section => section.getValue().name,
+      content: section => section.getValue().synopsis,
+      descriptiveText: movie => movie.name
+    }
+  }, [])
+
+  const accordionDefinitionWithSummary = useMemo<SectionDefinition<Book>>(() => {
+    return {
+      header: section => section.getValue().title,
+      summary: section => section.getValue().author,
+      content: section => section.getValue().summary,
+      descriptiveText: book => `${book.title} , ${book.author}`
     }
   }, [])
 
@@ -54,12 +38,20 @@ export const Accordions = (): ReactElement => {
           )
         },
         {
-          title: "Headless GDS V1",
-          children: <GDSAccordionV1 definition={gdsDefinition} data={books} />
+          title: "Headless V1",
+          children: <GDSAccordionV1 definition={accordionDefinitionNoSummary} data={movies} />
         },
         {
-          title: "Headless GDS V2",
-          children: <GDSAccordionV2 definition={gdsDefinition} data={books} />
+          title: "Headless V2",
+          children: <GDSAccordionV2 definition={accordionDefinitionNoSummary} data={movies} />
+        },
+        {
+          title: "Headless V1 + Summary",
+          children: <GDSAccordionV1 definition={accordionDefinitionWithSummary} data={books} />
+        },
+        {
+          title: "Headless V2 + Summary",
+          children: <GDSAccordionV2 definition={accordionDefinitionWithSummary} data={books} />
         }
       ]}
     />
