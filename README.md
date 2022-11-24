@@ -14,7 +14,7 @@ As a developer primarily working with [GDS](https://design-system.service.gov.uk
 - API headers with simple state management from [Valtio](https://github.com/pmndrs/valtio)
 - API development mocking mechanism to eliminate the need for additional test server functionality
 - [GDS Table](https://design-system.service.gov.uk/components/table/) component supporting sorting and pagination built on top of [React Table v8](https://tanstack.com/table/v8/)
-- Extending React Table types with custom overrides
+- [GDS Accordion](https://design-system.service.gov.uk/components/accordion/) components, built using Headless UI, implementing both the original and latest designs
 - [GDS Sass](https://frontend.design-system.service.gov.uk/sass-api-reference/) styling integrated into Vite build
 - [Docker Compose](https://docs.docker.com/compose/gettingstarted/) implementation hosted at http://localhost:3000/
 - Vitest unit tests including server mocking with [Mirage](https://miragejs.com/)
@@ -67,14 +67,13 @@ yarn storybook
 
 ## Future Work
 
-- Create Headless UI Accordion component to implement the [GDS Accordion](https://design-system.service.gov.uk/components/accordion/)
 - Create Headless UI List component to implement the [GDS Summary List](https://design-system.service.gov.uk/components/summary-list/)
 
 ## Credits
 
 Thanks to:
 
-- [Andrew Marshall](https://www.linkedin.com/in/andrew-marshall-210966/) for his work on GDS in [PA Consulting](https://www.paconsulting.com/)
+- [Andrew Marshall](https://www.linkedin.com/in/andrew-marshall-210966/) for his work on GDS in [PA Consulting](https://www.paconsulting.com/). These components are contained in the folder components/GDS.
 
 ## License
 

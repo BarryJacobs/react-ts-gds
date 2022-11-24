@@ -1,4 +1,4 @@
-// 3.14.0
+// Accordion component supporting design in govuk-frontend 3.14.0
 
 import { ReactElement } from "react"
 import { SectionDefinition, flexRender } from "./types"
@@ -6,12 +6,12 @@ import { useAccordion } from "./hooks/useAccordion"
 
 import "styles/accordion-v1.scss"
 
-interface GDSAccordionV1Props<T> {
+interface AccordionV1Props<T> {
   definition: SectionDefinition<T>
   data: T[]
 }
 
-export const GDSAccordionV1 = <T,>({ definition, data }: GDSAccordionV1Props<T>): ReactElement => {
+export const AccordionV1 = <T,>({ definition, data }: AccordionV1Props<T>): ReactElement => {
   const accordion = useAccordion({
     definition,
     data

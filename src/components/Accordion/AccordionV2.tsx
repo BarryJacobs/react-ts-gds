@@ -2,12 +2,12 @@ import { ReactElement } from "react"
 import { SectionDefinition, flexRender } from "./types"
 import { useAccordion } from "./hooks/useAccordion"
 
-interface GDSAccordionV2Props<T> {
+interface AccordionV2Props<T> {
   definition: SectionDefinition<T>
   data: T[]
 }
 
-export const GDSAccordionV2 = <T,>({ definition, data }: GDSAccordionV2Props<T>): ReactElement => {
+export const AccordionV2 = <T,>({ definition, data }: AccordionV2Props<T>): ReactElement => {
   const accordion = useAccordion({
     definition,
     data

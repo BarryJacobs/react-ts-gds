@@ -32,7 +32,7 @@
   }
 
   .govuk-accordion__icon-no-summary {
-    margin-top: -0.75em;
+    top: 50% !important;
   }
 
   .govuk-accordion__section-button {
@@ -95,10 +95,10 @@
       background-color: styles.govuk-colour("black");
     }
     &::before {
-      width: 65%;
+      width: 100%;
     }
     &::after {
-      height: 65%;
+      height: 100%;
     }
   }
 

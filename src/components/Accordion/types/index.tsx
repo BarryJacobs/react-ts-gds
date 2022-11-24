@@ -1,4 +1,6 @@
-/* eslint-disable */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 export type Data = unknown | object | any[]
 export type DefinitionTemplate<TProps extends Data> = (props: TProps) => any
 
