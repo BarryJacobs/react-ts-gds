@@ -1,4 +1,4 @@
-import { Home, Users, usersLoader } from "pages"
+import { Home, Users, usersLoader, Accordions } from "pages"
 import { ReactElement } from "react"
 import { ErrorBoundary } from "components"
 import { QueryClientProvider } from "@tanstack/react-query"
@@ -15,6 +15,10 @@ const App = (): ReactElement => {
         {
           path: "/",
           element: <Home />
+        },
+        {
+          path: "/accordions",
+          element: <Accordions />
         },
         {
           path: "/users",
