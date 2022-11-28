@@ -1,14 +1,14 @@
 import { ReactElement, useMemo } from "react"
 import { Tabs, AccordionV1, AccordionV2 } from "components"
 import { SectionDefinition } from "components/Accordion/types"
-import { Book, books } from "./data/books"
-import { Movie, movies } from "./data/movies"
+import { Book, books } from "data/books"
+import { Movie, movies } from "data/movies"
 
 export const Accordions = (): ReactElement => {
   const accordionDefinitionNoSummary = useMemo<SectionDefinition<Movie>>(() => {
     return {
       header: section => section.getValue().name,
-      content: section => section.getValue().synopsis,
+      content: section => <p className="govuk-body">{section.getValue().synopsis}</p>,
       descriptiveText: movie => movie.name
     }
   }, [])
@@ -17,7 +17,7 @@ export const Accordions = (): ReactElement => {
     return {
       header: section => section.getValue().title,
       summary: section => section.getValue().author,
-      content: section => section.getValue().summary,
+      content: section => <p className="govuk-body">{section.getValue().summary}</p>,
       descriptiveText: book => `${book.title} , ${book.author}`
     }
   }, [])

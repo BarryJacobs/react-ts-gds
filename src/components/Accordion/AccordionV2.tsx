@@ -99,7 +99,7 @@ export const AccordionV2 = <T,>({ definition, data }: AccordionV2Props<T>): Reac
               id={`accordion-${accordionType}-content-${section.id}`}
               className="govuk-accordion__section-content"
               aria-labelledby={`accordion-${accordionType}-heading-${section.id}`}>
-              <p className="govuk-body">{flexRender(section.definition.content, section)}</p>
+              {flexRender(section.definition.content, section)}
             </div>
           </div>
         )

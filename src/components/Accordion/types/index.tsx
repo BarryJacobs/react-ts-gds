@@ -30,7 +30,6 @@ export interface AccordionOptions<T extends Data> {
 
 export interface Accordion<T extends Data> {
   options: AccordionOptions<T>
-  setOptions: (newOptions: AccordionOptions<T>) => void
   getSections: () => Section<T>[]
   getShowOpenAll: () => boolean
   toggleSectionExpanded: (index: number) => void

@@ -56,7 +56,7 @@ export const useAccordion = <T>(options: AccordionOptions<T>): Accordion<T> => {
     getShowOpenAll,
     toggleSectionExpanded,
     toggleAllExpanded
-  }
+  } satisfies Accordion<T>
 
   return accordionRef.current as unknown as Accordion<T>
 }
