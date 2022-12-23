@@ -54,7 +54,7 @@ export const Table = <T,>({
   })
 
   const pageSize = useMemo(() => {
-    if (usePaginationSize == undefined || data === undefined || data.length === 0) return 0
+    if (usePaginationSize === undefined || data === undefined || data.length === 0) return 0
     return data.length < usePaginationSize ? 1 : Math.ceil(data.length / usePaginationSize)
   }, [data, usePaginationSize])
 
