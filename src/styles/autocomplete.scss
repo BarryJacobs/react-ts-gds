@@ -6,7 +6,7 @@
     text-align: left;
     background-color: #fafafa;
     color: #646b6f;
-    cursor: no-allowed;
+    cursor: not-allowed;
   }
   .gds-autocomplete__control {
     font-size: 19px;
@@ -44,6 +44,7 @@
       .gds-autocomplete__option {
         font-size: 19px;
         color: #0b0c0c;
+        min-height: 2em;
 
         &:not(
             .gds-autocomplete__option--is-focused,

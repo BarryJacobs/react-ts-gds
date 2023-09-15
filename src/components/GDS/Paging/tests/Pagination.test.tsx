@@ -4,7 +4,8 @@ import {
   screen,
   extendExpectForAxe,
   configureAxeForReactComponents,
-  userEvent
+  userEvent,
+  act
 } from "utils/test"
 import Pagination from "../Pagination"
 
@@ -80,7 +81,6 @@ describe("Pagination component is accessible", () => {
     )
     const axe = configureAxeForReactComponents()
     const results = await axe(container)
-
     expect(results).toHaveNoViolations()
   })
 })
@@ -457,7 +457,9 @@ describe("Pagination functions correctly", () => {
 
     const page4Link = screen.getByText("4")
     expect(page4Link).toBeInTheDocument()
-    await userEvent.click(page4Link)
+    await act(async () => {
+      await userEvent.click(page4Link)
+    })
 
     const paginationPostClickPagesItems = screen.getAllByRole("listitem")
     expect(paginationPostClickPagesItems).toHaveLength(5)
@@ -496,7 +498,9 @@ describe("Pagination functions correctly", () => {
     expect(paginationPagesItems[3]).toHaveClass("govuk-pagination__item")
     expect(paginationPagesItems[4]).toHaveClass("govuk-pagination__item")
 
-    await userEvent.click(paginationPreviousText)
+    await act(async () => {
+      await userEvent.click(paginationPreviousText)
+    })
 
     const paginationPostClickPagesItems = screen.getAllByRole("listitem")
     expect(paginationPostClickPagesItems).toHaveLength(5)
@@ -535,7 +539,9 @@ describe("Pagination functions correctly", () => {
     expect(paginationPagesItems[3]).toHaveClass("govuk-pagination__item")
     expect(paginationPagesItems[4]).toHaveClass("govuk-pagination__item")
 
-    await userEvent.click(paginationPreviousText)
+    await act(async () => {
+      await userEvent.click(paginationPreviousText)
+    })
 
     const paginationPostPagesItems = screen.getAllByRole("listitem")
     expect(paginationPostPagesItems).toHaveLength(5)
@@ -575,7 +581,9 @@ describe("Pagination functions correctly", () => {
     expect(paginationPagesItems[3]).toHaveClass("govuk-pagination__item")
     expect(paginationPagesItems[4]).toHaveClass("govuk-pagination__item")
 
-    await userEvent.click(paginationNextText)
+    await act(async () => {
+      await userEvent.click(paginationNextText)
+    })
 
     const paginationPostPagesItems = screen.getAllByRole("listitem")
     expect(paginationPostPagesItems).toHaveLength(5)
@@ -616,7 +624,9 @@ describe("Pagination functions correctly", () => {
     )
     expect(paginationPagesItems[4]).toHaveClass("govuk-pagination__item")
 
-    await userEvent.click(paginationNextText)
+    await act(async () => {
+      await userEvent.click(paginationNextText)
+    })
 
     const paginationPostPagesItems = screen.getAllByRole("listitem")
     expect(paginationPostPagesItems).toHaveLength(5)

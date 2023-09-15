@@ -1,2 +1,2 @@
 import "@testing-library/jest-dom"
-import "vitest-axe/extend-expect"
+import "vitest-canvas-mock"

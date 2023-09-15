@@ -1,9 +1,9 @@
 /// <reference types="vitest" />
 
 import { defineConfig } from "vite"
+import { viteStaticCopy, Target } from "vite-plugin-static-copy"
 import react from "@vitejs/plugin-react"
 import tsconfigPaths from "vite-tsconfig-paths"
-import { viteStaticCopy, Target } from "vite-plugin-static-copy"
 
 export default defineConfig(({ command }) => {
   const copyTargets: Target[] = []
@@ -38,9 +38,18 @@ export default defineConfig(({ command }) => {
       ]
     },
     test: {
+      setupFiles: ["./setupTests.ts"],
       globals: true,
       environment: "jsdom",
-      setupFiles: ["./setupTests.ts"]
+      css: true,
+      // For this config, check https://github.com/vitest-dev/vitest/issues/740
+      minThreads: 0,
+      maxThreads: 1,
+      environmentOptions: {
+        jsdom: {
+          resources: "usable"
+        }
+      }
     }
   }
 

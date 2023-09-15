@@ -26,11 +26,13 @@ const DropdownArrow = () => {
   )
 }
 
-interface AutoCompleteProps<T> {
+interface AutoCompleteProps<T extends { value: string }> {
   identifier: string
   label: string
   hint?: string
   error?: string
+  isLoading?: boolean
+  isDisabled?: boolean
   placeholder?: string
   required?: boolean
   containerClassExt?: string
@@ -41,7 +43,7 @@ interface AutoCompleteProps<T> {
   onChange: (value: SingleValue<T>) => void
 }
 
-export const AutoComplete = <T,>({
+export const AutoComplete = <T extends { value: string }>({
   identifier,
   label,
   hint,
@@ -52,6 +54,8 @@ export const AutoComplete = <T,>({
   labelClassExt = "",
   options,
   value,
+  isLoading = false,
+  isDisabled = false,
   getOptionLabel,
   onChange
 }: AutoCompleteProps<T>) => {
@@ -89,8 +93,8 @@ export const AutoComplete = <T,>({
     )
   }
 
-  const changeHandler = (value: SingleValue<T>) => {
-    onChange(value)
+  const changeHandler = (selectedValue: SingleValue<T>) => {
+    onChange(selectedValue)
     const inputElement = document.querySelector<HTMLInputElement>(`#${identifier}`)
     if (inputElement) {
       inputElement.blur()
@@ -137,6 +141,8 @@ export const AutoComplete = <T,>({
         value={value}
         getOptionLabel={getOptionLabel}
         onChange={changeHandler}
+        isDisabled={isDisabled}
+        isLoading={isLoading}
       />
     </div>
   )

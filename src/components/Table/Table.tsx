@@ -7,7 +7,8 @@ import {
   getSortedRowModel,
   getPaginationRowModel,
   ColumnDef,
-  TableState
+  TableState,
+  ColumnSort
 } from "@tanstack/react-table"
 import { IoArrowDown, IoArrowUp } from "react-icons/io5"
 import { concatenateStrings } from "utils"
@@ -20,6 +21,8 @@ interface TableProps<T> {
   captionSize?: GDSSize
   disableSorting?: boolean
   usePaginationSize?: number
+  sortBy?: ColumnSort[]
+  classExt?: string
 }
 
 export const Table = <T,>({
@@ -28,7 +31,9 @@ export const Table = <T,>({
   caption,
   captionSize = GDSSize.medium,
   disableSorting = false,
-  usePaginationSize
+  usePaginationSize,
+  sortBy,
+  classExt
 }: TableProps<T>): ReactElement => {
   const [pageIndex, setPageIndex] = useState(0)
 
@@ -39,6 +44,11 @@ export const Table = <T,>({
         pageIndex: pageIndex,
         pageSize: usePaginationSize
       }
+    } else {
+      state.pagination = {
+        pageIndex: 0,
+        pageSize: data.length
+      }
     }
     return state
   }, [pageIndex, usePaginationSize])
@@ -47,6 +57,9 @@ export const Table = <T,>({
     data,
     columns,
     enableSorting: !disableSorting,
+    initialState: {
+      sorting: sortBy
+    },
     state: tableState,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -63,9 +76,17 @@ export const Table = <T,>({
     [setPageIndex]
   )
 
+  const tableHeaderSortableClassName = (isSortable: boolean): string =>
+    isSortable ? "govuk-table__header-sortable" : ""
+
+  const tableCellClassName = (dataClassExtension: string | undefined): string =>
+    dataClassExtension
+      ? `govuk-table__cell govuk-table__cell--${dataClassExtension}`
+      : "govuk-table__cell"
+
   return (
     <>
-      <table className="govuk-table">
+      <table className={`govuk-table ${classExt}`}>
         {caption && (
           <caption className={`govuk-table__caption govuk-table__caption--${captionSize}`}>
             {caption}
@@ -96,10 +117,7 @@ export const Table = <T,>({
                       }[columnSorted as string] as AriaAttributes["aria-sort"]
                     }>
                     {header.isPlaceholder ? null : (
-                      <span
-                        className={
-                          header.column.getCanSort() ? "govuk-table__header-sortable" : ""
-                        }>
+                      <span className={tableHeaderSortableClassName(header.column.getCanSort())}>
                         {flexRender(header.column.columnDef.header, header.getContext())}
                         {{
                           asc: <IoArrowUp />,
@@ -124,11 +142,7 @@ export const Table = <T,>({
                     </th>
                   ) : (
                     <td
-                      className={`govuk-table__cell${
-                        cell.column.columnDef.meta?.dataClassExt
-                          ? ` govuk-table__cell--${cell.column.columnDef.meta?.dataClassExt}`
-                          : ""
-                      }`}
+                      className={tableCellClassName(cell.column.columnDef.meta?.dataClassExt)}
                       key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
