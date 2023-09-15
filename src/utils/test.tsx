@@ -1,10 +1,9 @@
 import { render, RenderOptions } from "@testing-library/react"
 import { ReactElement, ReactNode } from "react"
 import { MemoryRouter } from "react-router-dom"
-import { configureAxe } from "vitest-axe"
+import { configureAxe, toHaveNoViolations } from "jest-axe"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { generateQueryClient } from "utils/query"
-import * as matchers from "vitest-axe/matchers"
 import userEvent from "@testing-library/user-event"
 
 interface RenderProps {
@@ -27,7 +26,7 @@ const customRender = (ui: ReactElement, options?: Omit<RenderOptions, "wrapper">
   })
 
 const extendExpectForAxe = () => {
-  expect.extend(matchers)
+  expect.extend(toHaveNoViolations)
 }
 
 const configureAxeForReactComponents = () => {
@@ -40,4 +39,4 @@ const configureAxeForReactComponents = () => {
 }
 
 export * from "@testing-library/react"
-export { customRender as render, userEvent, configureAxeForReactComponents, extendExpectForAxe }
+export { customRender as render, userEvent, extendExpectForAxe, configureAxeForReactComponents }

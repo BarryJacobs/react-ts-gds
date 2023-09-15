@@ -4,7 +4,8 @@ import {
   screen,
   extendExpectForAxe,
   configureAxeForReactComponents,
-  userEvent
+  userEvent,
+  act
 } from "utils/test"
 import { SectionDefinition } from "components/Accordion/types"
 import { Book, books } from "data/books"
@@ -24,6 +25,7 @@ describe("Accordion V1", () => {
     const { container } = render(
       <AccordionV1 definition={accordionDefinitionWithSummary} data={books} />
     )
+
     const axe = configureAxeForReactComponents()
     const results = await axe(container)
     expect(results).toHaveNoViolations()
@@ -36,7 +38,9 @@ describe("Accordion V1", () => {
 
     const showAllElement = screen.getByText("Open all")
     expect(showAllElement).toBeInTheDocument()
-    await userEvent.click(showAllElement)
+    await act(async () => {
+      await userEvent.click(showAllElement)
+    })
 
     const axe = configureAxeForReactComponents()
     const results = await axe(container)

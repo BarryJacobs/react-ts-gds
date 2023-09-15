@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { render, screen, extendExpectForAxe, configureAxeForReactComponents } from "utils/test"
+import { render, screen, configureAxeForReactComponents, extendExpectForAxe } from "utils/test"
 import { NavLink } from "../NavLink"
 
 extendExpectForAxe()

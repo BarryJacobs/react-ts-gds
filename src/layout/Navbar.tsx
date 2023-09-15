@@ -21,6 +21,9 @@ export const Navbar = (): ReactElement => {
         <li className="app-navigation__list-item ">
           <NavLink to="/accordions" text="Accordions" />
         </li>
+        <li className="app-navigation__list-item ">
+          <NavLink to="/autocomplete" text="AutoComplete" />
+        </li>
       </ul>
     </nav>
   )
