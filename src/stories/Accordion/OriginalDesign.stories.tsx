@@ -10,7 +10,7 @@ const meta: Meta<typeof AccordionV1<AgileProcess>> = {
   component: AccordionV1,
   decorators: [
     Story => (
-      <div className="js-enabled">
+      <div className="govuk-template__body js-enabled govuk-frontend-supported">
         <Story />
       </div>
     )

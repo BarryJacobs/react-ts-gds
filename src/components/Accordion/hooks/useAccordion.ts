@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react"
 import { AccordionOptions, Accordion, Section } from "../types"
-import produce from "immer"
+import { produce } from "immer"
 
 interface AccordionState<T> {
   showOpenAll: boolean

@@ -42,9 +42,6 @@ export default defineConfig(({ command }) => {
       globals: true,
       environment: "jsdom",
       css: true,
-      // For this config, check https://github.com/vitest-dev/vitest/issues/740
-      minThreads: 0,
-      maxThreads: 1,
       environmentOptions: {
         jsdom: {
           resources: "usable"
