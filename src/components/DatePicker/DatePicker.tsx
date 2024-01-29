@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 
 import "./DatePicker.scss"
 
@@ -16,14 +16,7 @@ export const DatePicker = () => {
   const [hasFocus, setHasFocus] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    selectDatePart(selectedPart)
-  }, [date, selectedPart])
-
   const selectDatePart = (part: DatePart) => {
-    const input = inputRef.current
-    if (!input) return
-
     if (part !== selectedPart) {
       setTrackInput(true)
     }
