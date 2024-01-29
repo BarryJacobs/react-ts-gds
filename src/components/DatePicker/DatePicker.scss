@@ -1,0 +1,112 @@
+@use "src/styles";
+
+.date-picker-container {
+  position: relative;
+  span {
+    font-weight: 400;
+    font-family: "Roboto";
+    display: inline-block;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    // padding: 4px;
+    @media (min-width: 40.0625em) {
+      font-size: 1.1875rem;
+      font-size: 19px;
+      line-height: 1.3157894737;
+      // height: 40px;
+    }
+  }
+}
+
+.section-selected {
+  background-color: styles.$govuk-focus-colour;
+}
+
+.date-spans {
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  @media (min-width: 40.0625em) {
+    top: 8px;
+    left: 6px;
+  }
+}
+
+.day-section {
+  // position: absolute;
+  // top: 8px;
+  // left: 6px;
+  // background-color: lightblue;
+  padding: 0 2px; /* Adjust padding as needed */
+}
+
+// .day-month-separator {
+//   // position: absolute;
+//   // top: 8px;
+//   // left: 30px;
+//   //background-color: lightblue;
+//   // padding: 0 2px; /* Adjust padding as needed */
+// }
+
+// .month-year-separator {
+//   // position: absolute;
+//   // top: 8px;
+//   // left: 76px;
+//   //background-color: lightblue;
+//   // padding: 0 2px; /* Adjust padding as needed */
+// }
+
+.month-section {
+  // position: absolute;
+  // top: 8px;
+  // left: 40px; /* Adjust left position based on your design */
+  // background-color: lightgreen;
+  padding: 0 2px; /* Adjust padding as needed */
+}
+
+.year-section {
+  // position: absolute;
+  // top: 8px;
+  // left: 86px; /* Adjust left position based on your design */
+  // background-color: lightcoral;
+  padding: 0 2px; /* Adjust padding as needed */
+}
+
+.date-input {
+  font-weight: 400;
+  font-family: "Roboto";
+  caret-color: transparent;
+  cursor: default;
+  color: white;
+  // -webkit-touch-callout: none; /* iOS Safari */
+  // -webkit-user-select: none; /* Safari */
+  // -khtml-user-select: none; /* Konqueror HTML */
+  // -moz-user-select: none; /* Firefox */
+  // -ms-user-select: none; /* Internet Explorer/Edge */
+  // user-select: none !important;
+
+  &:focus {
+    outline: 3px solid #ddff 00 !important;
+    box-shadow: inset 0 0 0 2px black !important;
+  }
+
+  @media (min-width: 40.0625em) {
+    font-size: 1.1875rem;
+    font-size: 19px;
+    line-height: 1.3157894737;
+    height: 40px;
+  }
+}
+
+.date-input::selection {
+  // background-color: styles.$govuk-focus-colour;
+  background-color: transparent;
+}
