@@ -249,7 +249,7 @@ export const DatePicker = () => {
       if (event.target.value) {
         setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
       } else {
-        // setDate("dd/mm/yyyy")
+        setDate("dd/mm/yyyy")
       }
     }
   }
