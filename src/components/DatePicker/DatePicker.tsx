@@ -17,6 +17,8 @@ export const DatePicker = () => {
   const [selectedPart, setSelectedPart] = useState<DatePart>(DatePart.None)
   const [hasFocus, setHasFocus] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const [updateValue, setUpdateValue] = useState("")
   const isMobile = useIsMobile()
 
   const selectDatePart = (part: DatePart) => {
@@ -239,6 +241,7 @@ export const DatePicker = () => {
   }
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdateValue(event.target.value)
     if (isMobile) {
       if (event.target.value) {
         setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
@@ -308,6 +311,7 @@ export const DatePicker = () => {
           e.preventDefault()
         }}
       />
+      <div className="govuk-!-margin-top-2">{`On Change Value: '${updateValue}'`}</div>
     </div>
   )
 }
