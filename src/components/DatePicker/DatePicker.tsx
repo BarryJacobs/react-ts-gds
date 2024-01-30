@@ -283,7 +283,7 @@ export const DatePicker = () => {
       <input
         ref={inputRef}
         type={isMobile ? "date" : "text"}
-        // spellCheck={false}
+        spellCheck={false}
         className="govuk-input date-input"
         value={date}
         onChange={e => handleDateChange(e)}
