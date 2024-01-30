@@ -270,7 +270,7 @@ export const DatePicker = () => {
       </div>
       <input
         ref={inputRef}
-        readOnly={true}
+        // readOnly={true}
         type={isMobile ? "date" : "text"}
         className="govuk-input date-input"
         value={date}
