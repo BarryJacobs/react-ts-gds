@@ -264,7 +264,7 @@ export const DatePicker = () => {
       <input
         ref={inputRef}
         readOnly={true}
-        type="text"
+        type="date"
         className="govuk-input date-input"
         value={date}
         onChange={e => {
