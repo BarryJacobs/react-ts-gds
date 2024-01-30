@@ -242,13 +242,16 @@ export const DatePicker = () => {
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUpdateValue(event.target.value)
-    if (isMobile) {
-      if (event.target.value) {
-        setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
-      } else {
-        setDate("dd/mm/yyyy")
-      }
+    if (isMobile && event.target.value) {
+      setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
     }
+    // if (isMobile) {
+    //   if (event.target.value) {
+    //     setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
+    //   } else {
+    //     setDate("dd/mm/yyyy")
+    //   }
+    // }
   }
 
   return (
@@ -278,7 +281,7 @@ export const DatePicker = () => {
       <input
         ref={inputRef}
         type={isMobile ? "date" : "text"}
-        spellCheck={false}
+        // spellCheck={false}
         className="govuk-input date-input"
         value={date}
         onChange={e => handleDateChange(e)}
