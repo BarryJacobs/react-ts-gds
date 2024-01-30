@@ -1,5 +1,6 @@
 import { useState, useRef } from "react"
 import { useIsMobile } from "hooks"
+import { format } from "date-fns"
 
 import "./DatePicker.scss"
 
@@ -238,10 +239,9 @@ export const DatePicker = () => {
   }
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (isMobile) {
-      alert(`New Value: ${event.target.value}`)
+    if (isMobile && event.target.value) {
+      setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
     }
-    console.log("onChange: ", event.target.value)
   }
 
   return (
