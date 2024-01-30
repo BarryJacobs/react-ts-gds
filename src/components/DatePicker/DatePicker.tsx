@@ -237,6 +237,13 @@ export const DatePicker = () => {
     setTrackInput(true)
   }
 
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (isMobile) {
+      alert(`New Value: ${event.target.value}`)
+    }
+    console.log("onChange: ", event.target.value)
+  }
+
   return (
     <div className="date-picker-container">
       <div className="date-spans" onClick={handleSpanClick}>
@@ -264,12 +271,10 @@ export const DatePicker = () => {
       <input
         ref={inputRef}
         readOnly={true}
-        type="date"
+        type={isMobile ? "date" : "text"}
         className="govuk-input date-input"
         value={date}
-        onChange={e => {
-          console.log("onChange: ", e)
-        }}
+        onChange={e => handleDateChange(e)}
         onBlur={() => {
           selectDatePart(DatePart.None)
           setHasFocus(false)
