@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { useIsMobile } from "hooks"
 
 import "./DatePicker.scss"
 
@@ -15,6 +16,7 @@ export const DatePicker = () => {
   const [selectedPart, setSelectedPart] = useState<DatePart>(DatePart.None)
   const [hasFocus, setHasFocus] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const isMobile = useIsMobile()
 
   const selectDatePart = (part: DatePart) => {
     if (part !== selectedPart) {
@@ -238,17 +240,24 @@ export const DatePicker = () => {
   return (
     <div className="date-picker-container">
       <div className="date-spans" onClick={handleSpanClick}>
-        <span className={`day-section${selectedPart === DatePart.Day ? " section-selected" : ""}`}>
+        <span
+          className={`day-section${
+            selectedPart === DatePart.Day && !isMobile ? " section-selected" : ""
+          }`}>
           {date.substring(0, 2)}
         </span>
         <span className="day-month-separator">/</span>
         <span
-          className={`month-section${selectedPart === DatePart.Month ? " section-selected" : ""}`}>
+          className={`month-section${
+            selectedPart === DatePart.Month && !isMobile ? " section-selected" : ""
+          }`}>
           {date.substring(3, 5)}
         </span>
         <span className="month-year-separator">/</span>
         <span
-          className={`year-section${selectedPart === DatePart.Year ? " section-selected" : ""}`}>
+          className={`year-section${
+            selectedPart === DatePart.Year && !isMobile ? " section-selected" : ""
+          }`}>
           {date.substring(6, 10)}
         </span>
       </div>
