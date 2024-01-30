@@ -250,7 +250,7 @@ export const DatePicker = () => {
         setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
         setUpdateValue(prev => prev + "+")
       } else {
-        setDate("dd/mm/yyyy")
+        // setDate("dd/mm/yyyy")
         setUpdateValue(prev => prev + "-")
       }
     }
