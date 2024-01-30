@@ -241,15 +241,17 @@ export const DatePicker = () => {
   }
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdateValue(event.target.value)
+    // setUpdateValue(event.target.value)
     // if (isMobile && event.target.value) {
     //   setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
     // }
     if (isMobile) {
       if (event.target.value) {
         setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
+        setUpdateValue(prev => prev + "+")
       } else {
         setDate("dd/mm/yyyy")
+        setUpdateValue(prev => prev + "-")
       }
     }
   }
