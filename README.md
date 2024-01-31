@@ -64,7 +64,6 @@ yarn storybook
 ## Issues
 
 - There is currently a known [issue](https://github.com/vitejs/vite/issues/5310) with running Vite in Chrome, with the developer tools open, on MacOS and Linux. Please refer to the folowing [solution](https://wilsonmar.github.io/maximum-limits/).
-- During the development I was unable to get the mocking of API calls working using [MSW](https://mswjs.io/) and Node 18. This is the reason for the use of [Mirage](https://miragejs.com/) in the example unit test.
 
 ## Credits
 
