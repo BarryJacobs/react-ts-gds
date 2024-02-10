@@ -25,21 +25,7 @@ export const DatePicker = () => {
     if (part !== selectedPart) {
       setTrackInput(true)
     }
-
-    switch (part) {
-      case DatePart.None:
-        setSelectedPart(DatePart.None)
-        break
-      case DatePart.Day:
-        setSelectedPart(DatePart.Day)
-        break
-      case DatePart.Month:
-        setSelectedPart(DatePart.Month)
-        break
-      case DatePart.Year:
-        setSelectedPart(DatePart.Year)
-        break
-    }
+    setSelectedPart(part)
   }
 
   const handleFocus = () => {
