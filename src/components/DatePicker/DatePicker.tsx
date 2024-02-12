@@ -303,7 +303,7 @@ export const DatePicker = () => {
       </div>
       <input
         ref={inputRef}
-        type={isMobile ? "date" : "text"}
+        type="text"
         spellCheck={false}
         className="govuk-input date-input"
         value={date}
