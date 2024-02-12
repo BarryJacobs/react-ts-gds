@@ -265,16 +265,10 @@ export const DatePicker = () => {
         setShowCalendar(false)
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside)
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-
-    // if (showCalendar && calendarRef.current) {
-    //   console.log("We have a calendar Jim!")
-    // }
   }, [])
 
   return (
@@ -303,6 +297,7 @@ export const DatePicker = () => {
       </div>
       <input
         ref={inputRef}
+        readOnly={true}
         type="text"
         spellCheck={false}
         className="govuk-input date-input"
