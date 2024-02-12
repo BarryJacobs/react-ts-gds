@@ -1,17 +1,20 @@
 import { useState, useRef, useEffect } from "react"
 import { FaRegCalendar } from "react-icons/fa"
 import { useIsMobile } from "hooks"
-import { format } from "date-fns"
+import { format, isValid, parse } from "date-fns"
+import { enGB } from "date-fns/locale"
 import { Value } from "react-calendar/dist/cjs/shared/types"
 import Calendar from "react-calendar"
 
 import "react-calendar/dist/Calendar.css"
 import "./DatePicker.scss"
 
-// TODO: Focus
-// Close calendar on click
+// TODO:
+// Focus change to container?
+// Close calendar on click (Done)
 // Setting calendar and date values
 // RHF and GDS integration
+// Mobile click showing calendar
 
 enum DatePart {
   None = "",
@@ -22,7 +25,7 @@ enum DatePart {
 
 export const DatePicker = () => {
   const [date, setDate] = useState("dd/mm/yyyy")
-  // const [dateValue, setDateValue] = useState(new Date())
+  const [calendarDate, setCalendarDate] = useState(new Date())
   const [trackInput, setTrackInput] = useState(false)
   const [selectedPart, setSelectedPart] = useState<DatePart>(DatePart.None)
   const [showCalendar, setShowCalendar] = useState(false)
@@ -238,26 +241,31 @@ export const DatePicker = () => {
     setTrackInput(true)
   }
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setUpdateValue(event.target.value)
-    // if (isMobile && event.target.value) {
-    //   setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
-    // }
-    if (isMobile) {
-      if (event.target.value) {
-        setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
-        //   setUpdateValue(prev => prev + "+")
-        // } else {
-        //   // setDate("dd/mm/yyyy")
-        //   setUpdateValue(prev => prev + "-")
-      }
-    }
-  }
+  // const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   // setUpdateValue(event.target.value)
+  //   // if (isMobile && event.target.value) {
+  //   //   setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
+  //   // }
+  //   // if (isMobile) {
+  //   //   if (event.target.value) {
+  //   //     setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
+  //   //     //   setUpdateValue(prev => prev + "+")
+  //   //     // } else {
+  //   //     //   // setDate("dd/mm/yyyy")
+  //   //     //   setUpdateValue(prev => prev + "-")
+  //   //   }
+  //   // }
+  // }
 
   const handleCalendarDateChange = (date: Value) => {
-    console.log("New date: ", date)
+    setDate(format(date as Date, "dd/MM/yyyy"))
     setShowCalendar(false)
   }
+
+  useEffect(() => {
+    const parsedDate = parse(date, "P", new Date(), { locale: enGB })
+    setCalendarDate(isValid(parsedDate) ? parsedDate : new Date())
+  }, [date])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -302,7 +310,7 @@ export const DatePicker = () => {
         spellCheck={false}
         className="govuk-input date-input"
         value={date}
-        onChange={e => handleDateChange(e)}
+        // onChange={e => handleDateChange(e)}
         onBlur={() => {
           console.log("Blur")
           selectDatePart(DatePart.None)
@@ -336,7 +344,7 @@ export const DatePicker = () => {
       <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
       {showCalendar && (
         <div ref={calendarRef} className="calendar-popover">
-          <Calendar onChange={handleCalendarDateChange} />
+          <Calendar value={calendarDate} onChange={handleCalendarDateChange} />
         </div>
       )}
     </div>
