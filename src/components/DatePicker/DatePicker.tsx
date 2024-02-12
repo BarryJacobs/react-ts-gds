@@ -1,8 +1,17 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
+import { FaRegCalendar } from "react-icons/fa"
 import { useIsMobile } from "hooks"
 import { format } from "date-fns"
+import { Value } from "react-calendar/dist/cjs/shared/types"
+import Calendar from "react-calendar"
 
+import "react-calendar/dist/Calendar.css"
 import "./DatePicker.scss"
+
+// TODO: Focus
+// Close calendar on click
+// Setting calendar and date values
+// RHF and GDS integration
 
 enum DatePart {
   None = "",
@@ -13,13 +22,16 @@ enum DatePart {
 
 export const DatePicker = () => {
   const [date, setDate] = useState("dd/mm/yyyy")
+  // const [dateValue, setDateValue] = useState(new Date())
   const [trackInput, setTrackInput] = useState(false)
   const [selectedPart, setSelectedPart] = useState<DatePart>(DatePart.None)
+  const [showCalendar, setShowCalendar] = useState(false)
   const [hasFocus, setHasFocus] = useState(false)
+  const calendarRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-
-  const [updateValue, setUpdateValue] = useState("")
   const isMobile = useIsMobile()
+
+  const toggleCalendar = () => setShowCalendar(prevShowCalendar => !prevShowCalendar)
 
   const selectDatePart = (part: DatePart) => {
     if (part !== selectedPart) {
@@ -234,13 +246,36 @@ export const DatePicker = () => {
     if (isMobile) {
       if (event.target.value) {
         setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
-        setUpdateValue(prev => prev + "+")
-      } else {
-        // setDate("dd/mm/yyyy")
-        setUpdateValue(prev => prev + "-")
+        //   setUpdateValue(prev => prev + "+")
+        // } else {
+        //   // setDate("dd/mm/yyyy")
+        //   setUpdateValue(prev => prev + "-")
       }
     }
   }
+
+  const handleCalendarDateChange = (date: Value) => {
+    console.log("New date: ", date)
+    setShowCalendar(false)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
+        setShowCalendar(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+
+    // if (showCalendar && calendarRef.current) {
+    //   console.log("We have a calendar Jim!")
+    // }
+  }, [])
 
   return (
     <div className="date-picker-container">
@@ -274,6 +309,7 @@ export const DatePicker = () => {
         value={date}
         onChange={e => handleDateChange(e)}
         onBlur={() => {
+          console.log("Blur")
           selectDatePart(DatePart.None)
           setHasFocus(false)
         }}
@@ -302,7 +338,12 @@ export const DatePicker = () => {
           e.preventDefault()
         }}
       />
-      <div className="govuk-!-margin-top-2">{`On Change Value: '${updateValue}'`}</div>
+      <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
+      {showCalendar && (
+        <div ref={calendarRef} className="calendar-popover">
+          <Calendar onChange={handleCalendarDateChange} />
+        </div>
+      )}
     </div>
   )
 }

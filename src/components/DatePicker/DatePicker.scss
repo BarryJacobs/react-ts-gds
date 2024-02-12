@@ -12,12 +12,10 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    // padding: 4px;
     @media (min-width: 40.0625em) {
       font-size: 1.1875rem;
       font-size: 19px;
       line-height: 1.3157894737;
-      // height: 40px;
     }
   }
 }
@@ -41,42 +39,14 @@
 }
 
 .day-section {
-  // position: absolute;
-  // top: 8px;
-  // left: 6px;
-  // background-color: lightblue;
   padding: 0 2px; /* Adjust padding as needed */
 }
 
-// .day-month-separator {
-//   // position: absolute;
-//   // top: 8px;
-//   // left: 30px;
-//   //background-color: lightblue;
-//   // padding: 0 2px; /* Adjust padding as needed */
-// }
-
-// .month-year-separator {
-//   // position: absolute;
-//   // top: 8px;
-//   // left: 76px;
-//   //background-color: lightblue;
-//   // padding: 0 2px; /* Adjust padding as needed */
-// }
-
 .month-section {
-  // position: absolute;
-  // top: 8px;
-  // left: 40px; /* Adjust left position based on your design */
-  // background-color: lightgreen;
   padding: 0 2px; /* Adjust padding as needed */
 }
 
 .year-section {
-  // position: absolute;
-  // top: 8px;
-  // left: 86px; /* Adjust left position based on your design */
-  // background-color: lightcoral;
   padding: 0 2px; /* Adjust padding as needed */
 }
 
@@ -107,6 +77,31 @@
 }
 
 .date-input::selection {
-  // background-color: styles.$govuk-focus-colour;
   background-color: transparent;
+}
+
+.calendar-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.calendar-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px; /* Adjust the value as needed */
+  // transform: translateY(-50%);
+  color: black; /* Adjust the color as needed */
+  cursor: pointer;
+}
+
+.calendar-popover {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 999; /* Adjust z-index as needed */
+  // background-color: white;
+  // border: 1px solid #ccc;
+  // border-radius: 4px;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  // padding: 10px;
 }
