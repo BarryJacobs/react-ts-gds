@@ -53,6 +53,27 @@ export const Dates = (): ReactElement => {
       <div className="govuk-grid-row">
         <DatePicker />
       </div>
+      <div className="govuk-grid-row govuk-!-margin-top-5">
+        <DatePicker />
+      </div>
+      <div className="govuk-grid-row govuk-!-margin-top-5">
+        <DatePicker />
+      </div>
+      <div className="govuk-grid-row govuk-!-margin-top-5">
+        <DatePicker />
+      </div>
+      <div className="govuk-grid-row govuk-!-margin-top-5">
+        <DatePicker />
+      </div>
+      <div className="govuk-grid-row govuk-!-margin-top-5">
+        <DatePicker />
+      </div>
+      <div className="govuk-grid-row govuk-!-margin-top-5">
+        <DatePicker />
+      </div>
+      <div className="govuk-grid-row govuk-!-margin-top-5">
+        <DatePicker />
+      </div>
       <div className="govuk-grid-row">
         <div className="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
           Is Mobile Device: {isMobile ? "true" : "false"}

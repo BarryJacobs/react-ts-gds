@@ -283,71 +283,68 @@ export const DatePicker = () => {
   }, [])
 
   return (
-    <>
-      <div className="govuk-!-margin-bottom-4">{`Debug: ${showCalendar}`}</div>
-      <div className="date-picker-container" onClick={handleContainerClick}>
-        <div className="date-spans" onClick={handleSpanClick}>
-          <span
-            className={`day-section${
-              selectedPart === DatePart.Day && !isMobile ? " section-selected" : ""
-            }`}>
-            {date.substring(0, 2)}
-          </span>
-          <span className="day-month-separator">/</span>
-          <span
-            className={`month-section${
-              selectedPart === DatePart.Month && !isMobile ? " section-selected" : ""
-            }`}>
-            {date.substring(3, 5)}
-          </span>
-          <span className="month-year-separator">/</span>
-          <span
-            className={`year-section${
-              selectedPart === DatePart.Year && !isMobile ? " section-selected" : ""
-            }`}>
-            {date.substring(6, 10)}
-          </span>
-        </div>
-        <input
-          ref={inputRef}
-          readOnly={true}
-          type="text"
-          spellCheck={false}
-          className="govuk-input date-input"
-          value={date}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onKeyDown={e => {
-            if (e.key === "ArrowRight") {
-              handleArrowRight()
-            } else if (e.key === "ArrowLeft") {
-              handleArrowLeft()
-            } else if (e.key === "Tab") {
-              e.shiftKey ? handleShiftTab(e) : handleTab(e)
-              return
-            } else if (e.key === "ArrowUp") {
-              if (selectedPart !== DatePart.None) {
-                handleUpArrow()
-              }
-            } else if (e.key === "ArrowDown") {
-              if (selectedPart !== DatePart.None) {
-                handleDownArrow()
-              }
-            } else if (e.key === "Delete" || e.key === "Backspace") {
-              handleDelete()
-            } else if (/[0-9]/.test(e.key)) {
-              handleNumericKeyPress(e.key)
-            }
-            e.preventDefault()
-          }}
-        />
-        <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
-        {showCalendar && (
-          <div ref={calendarRef} className="calendar-popover">
-            <Calendar value={calendarDate} onChange={handleCalendarDateChange} />
-          </div>
-        )}
+    <div className="date-picker-container" onClick={handleContainerClick}>
+      <div className="date-spans" onClick={handleSpanClick}>
+        <span
+          className={`day-section${
+            selectedPart === DatePart.Day && !isMobile ? " section-selected" : ""
+          }`}>
+          {date.substring(0, 2)}
+        </span>
+        <span className="day-month-separator">/</span>
+        <span
+          className={`month-section${
+            selectedPart === DatePart.Month && !isMobile ? " section-selected" : ""
+          }`}>
+          {date.substring(3, 5)}
+        </span>
+        <span className="month-year-separator">/</span>
+        <span
+          className={`year-section${
+            selectedPart === DatePart.Year && !isMobile ? " section-selected" : ""
+          }`}>
+          {date.substring(6, 10)}
+        </span>
       </div>
-    </>
+      <input
+        ref={inputRef}
+        readOnly={true}
+        type="text"
+        spellCheck={false}
+        className="govuk-input date-input"
+        value={date}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onKeyDown={e => {
+          if (e.key === "ArrowRight") {
+            handleArrowRight()
+          } else if (e.key === "ArrowLeft") {
+            handleArrowLeft()
+          } else if (e.key === "Tab") {
+            e.shiftKey ? handleShiftTab(e) : handleTab(e)
+            return
+          } else if (e.key === "ArrowUp") {
+            if (selectedPart !== DatePart.None) {
+              handleUpArrow()
+            }
+          } else if (e.key === "ArrowDown") {
+            if (selectedPart !== DatePart.None) {
+              handleDownArrow()
+            }
+          } else if (e.key === "Delete" || e.key === "Backspace") {
+            handleDelete()
+          } else if (/[0-9]/.test(e.key)) {
+            handleNumericKeyPress(e.key)
+          }
+          e.preventDefault()
+        }}
+      />
+      <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
+      {showCalendar && (
+        <div ref={calendarRef} className="calendar-popover">
+          <Calendar value={calendarDate} onChange={handleCalendarDateChange} />
+        </div>
+      )}
+    </div>
   )
 }
