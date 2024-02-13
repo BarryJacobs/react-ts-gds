@@ -9,13 +9,6 @@ import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
 import "./DatePicker.scss"
 
-// TODO:
-// Focus change to container?
-// Close calendar on click (Done)
-// Setting calendar and date values
-// RHF and GDS integration
-// Mobile click showing calendar
-
 enum DatePart {
   None = "",
   Day = "dd",
@@ -34,7 +27,12 @@ export const DatePicker = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const isMobile = useIsMobile()
 
-  const toggleCalendar = () => setShowCalendar(prevShowCalendar => !prevShowCalendar)
+  const toggleCalendar = () => {
+    if (!showCalendar) {
+      focusInput()
+    }
+    setShowCalendar(prevShowCalendar => !prevShowCalendar)
+  }
 
   const selectDatePart = (part: DatePart) => {
     if (part !== selectedPart) {
@@ -48,7 +46,7 @@ export const DatePicker = () => {
     setHasFocus(true)
   }
 
-  const handleSpanClick = () => {
+  const focusInput = () => {
     const input = inputRef.current
     if (!input || hasFocus) return
     input.focus()
@@ -241,25 +239,10 @@ export const DatePicker = () => {
     setTrackInput(true)
   }
 
-  // const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   // setUpdateValue(event.target.value)
-  //   // if (isMobile && event.target.value) {
-  //   //   setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
-  //   // }
-  //   // if (isMobile) {
-  //   //   if (event.target.value) {
-  //   //     setDate(format(new Date(event.target.value), "dd/MM/yyyy"))
-  //   //     //   setUpdateValue(prev => prev + "+")
-  //   //     // } else {
-  //   //     //   // setDate("dd/mm/yyyy")
-  //   //     //   setUpdateValue(prev => prev + "-")
-  //   //   }
-  //   // }
-  // }
-
   const handleCalendarDateChange = (date: Value) => {
     setDate(format(date as Date, "dd/MM/yyyy"))
     setShowCalendar(false)
+    focusInput()
   }
 
   useEffect(() => {
@@ -281,7 +264,7 @@ export const DatePicker = () => {
 
   return (
     <div className="date-picker-container">
-      <div className="date-spans" onClick={handleSpanClick}>
+      <div className="date-spans" onClick={focusInput}>
         <span
           className={`day-section${
             selectedPart === DatePart.Day && !isMobile ? " section-selected" : ""
@@ -310,7 +293,6 @@ export const DatePicker = () => {
         spellCheck={false}
         className="govuk-input date-input"
         value={date}
-        // onChange={e => handleDateChange(e)}
         onBlur={() => {
           console.log("Blur")
           selectDatePart(DatePart.None)
