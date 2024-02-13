@@ -1,8 +1,7 @@
 import { ReactElement } from "react"
 import { useForm, Controller } from "react-hook-form"
-import { DateInput, DatePicker } from "components"
+import { DatePicker } from "components"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useIsMobile } from "hooks"
 import * as yup from "yup"
 
 interface DateData {
@@ -14,7 +13,6 @@ const schema = yup.object().shape({
 })
 
 export const Dates = (): ReactElement => {
-  const isMobile = useIsMobile()
   const { control, handleSubmit } = useForm<DateData>({
     resolver: yupResolver(schema),
     shouldFocusError: true,
@@ -47,41 +45,12 @@ export const Dates = (): ReactElement => {
           )}
         />
       </div>
-      <div className="govuk-grid-row govuk-!-margin-top-2">
-        <DateInput identifier="test1" />
-      </div>
-      <div className="govuk-grid-row">
+      <div className="govuk-grid-row govuk-!-margin-top-4">
         <DatePicker />
-      </div>
-      <div className="govuk-grid-row govuk-!-margin-top-5">
-        <DatePicker />
-      </div>
-      <div className="govuk-grid-row govuk-!-margin-top-5">
-        <DatePicker />
-      </div>
-      <div className="govuk-grid-row govuk-!-margin-top-5">
-        <DatePicker />
-      </div>
-      <div className="govuk-grid-row govuk-!-margin-top-5">
-        <DatePicker />
-      </div>
-      <div className="govuk-grid-row govuk-!-margin-top-5">
-        <DatePicker />
-      </div>
-      <div className="govuk-grid-row govuk-!-margin-top-5">
-        <DatePicker />
-      </div>
-      <div className="govuk-grid-row govuk-!-margin-top-5">
-        <DatePicker />
-      </div>
-      <div className="govuk-grid-row">
-        <div className="govuk-!-margin-top-2 govuk-!-margin-bottom-2">
-          Is Mobile Device: {isMobile ? "true" : "false"}
-        </div>
       </div>
       <div className="govuk-grid-row">
         <div className="govuk-button-group">
-          <button type="submit" className="govuk-button govuk-!-margin-top-2">
+          <button type="submit" className="govuk-button govuk-!-margin-top-4">
             Submit
           </button>
         </div>

@@ -3,8 +3,6 @@ import { ErrorBoundary } from "./ErrorBoundary"
 import { AccordionV1 } from "./Accordion/AccordionV1"
 import { AccordionV2 } from "./Accordion/AccordionV2"
 import { AutoComplete } from "./Autocomplete/Autocomplete"
-import { DateInput } from "./DateInput/DateInput"
-import { MyDateInput } from "./DateInput/MyDateInput"
 import { DatePicker } from "./DatePicker/DatePicker"
 import { Table } from "./Table/Table"
 
@@ -17,8 +15,6 @@ export {
   Content,
   NavLink,
   Table,
-  DateInput,
-  MyDateInput,
   DatePicker,
   ErrorMessage,
   ErrorBoundary,
