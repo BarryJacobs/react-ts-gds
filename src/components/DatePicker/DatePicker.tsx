@@ -17,7 +17,6 @@ enum DatePart {
 }
 
 export const DatePicker = () => {
-  const [debugText, setDebugText] = useState("")
   const [date, setDate] = useState("dd/mm/yyyy")
   const [calendarDate, setCalendarDate] = useState(new Date())
   const [trackInput, setTrackInput] = useState(false)
@@ -238,7 +237,6 @@ export const DatePicker = () => {
   }
 
   const handleCalendarDateChange = (date: Value) => {
-    setDebugText(format(date as Date, "dd/MM/yyyy"))
     setDate(format(date as Date, "dd/MM/yyyy"))
     setShowCalendar(false)
     focusInput()
@@ -285,7 +283,7 @@ export const DatePicker = () => {
 
   return (
     <>
-      <div className="govuk-!-margin-bottom-4">Debug: {debugText}</div>
+      <div className="govuk-!-margin-bottom-4">{`Debug: ${showCalendar}`}</div>
       <div className="date-picker-container" onClick={handleContainerClick}>
         <div className="date-spans" onClick={handleSpanClick}>
           <span
