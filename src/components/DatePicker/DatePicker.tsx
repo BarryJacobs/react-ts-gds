@@ -309,6 +309,7 @@ export const DatePicker = () => {
       <input
         ref={inputRef}
         readOnly={true}
+        autoComplete="off"
         type="text"
         spellCheck={false}
         className="govuk-input date-input"
