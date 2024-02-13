@@ -237,6 +237,7 @@ export const DatePicker = () => {
   }
 
   const handleCalendarDateChange = (date: Value) => {
+    console.log("handleCalendarDateChange")
     setDate(format(date as Date, "dd/MM/yyyy"))
     setShowCalendar(false)
     focusInput()
@@ -248,7 +249,7 @@ export const DatePicker = () => {
     }
   }
   const handleContainerClick = () => {
-    if (isMobile) {
+    if (isMobile && !showCalendar) {
       setShowCalendar(true)
       focusInput()
     }
