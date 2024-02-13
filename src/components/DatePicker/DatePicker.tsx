@@ -28,10 +28,12 @@ export const DatePicker = () => {
   const isMobile = useIsMobile()
 
   const toggleCalendar = () => {
-    if (!showCalendar) {
-      focusInput()
+    if (!isMobile) {
+      if (!showCalendar) {
+        focusInput()
+      }
+      setShowCalendar(prevShowCalendar => !prevShowCalendar)
     }
-    setShowCalendar(prevShowCalendar => !prevShowCalendar)
   }
 
   const selectDatePart = (part: DatePart) => {
@@ -39,11 +41,6 @@ export const DatePicker = () => {
       setTrackInput(true)
     }
     setSelectedPart(part)
-  }
-
-  const handleFocus = () => {
-    selectDatePart(DatePart.Day)
-    setHasFocus(true)
   }
 
   const focusInput = () => {
@@ -245,6 +242,28 @@ export const DatePicker = () => {
     focusInput()
   }
 
+  const handleSpanClick = () => {
+    if (!isMobile) {
+      focusInput()
+    }
+  }
+  const handleContainerClick = () => {
+    if (isMobile) {
+      setShowCalendar(true)
+      focusInput()
+    }
+  }
+
+  const handleFocus = () => {
+    selectDatePart(DatePart.Day)
+    setHasFocus(true)
+  }
+
+  const handleBlur = () => {
+    selectDatePart(DatePart.None)
+    setHasFocus(false)
+  }
+
   useEffect(() => {
     const parsedDate = parse(date, "P", new Date(), { locale: enGB })
     setCalendarDate(isValid(parsedDate) ? parsedDate : new Date())
@@ -263,8 +282,8 @@ export const DatePicker = () => {
   }, [])
 
   return (
-    <div className="date-picker-container">
-      <div className="date-spans" onClick={focusInput}>
+    <div className="date-picker-container" onClick={handleContainerClick}>
+      <div className="date-spans" onClick={handleSpanClick}>
         <span
           className={`day-section${
             selectedPart === DatePart.Day && !isMobile ? " section-selected" : ""
@@ -293,11 +312,7 @@ export const DatePicker = () => {
         spellCheck={false}
         className="govuk-input date-input"
         value={date}
-        onBlur={() => {
-          console.log("Blur")
-          selectDatePart(DatePart.None)
-          setHasFocus(false)
-        }}
+        onBlur={handleBlur}
         onFocus={handleFocus}
         onKeyDown={e => {
           if (e.key === "ArrowRight") {
