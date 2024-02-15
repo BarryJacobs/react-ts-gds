@@ -1,15 +1,24 @@
 import { ReactElement } from "react"
 import { useForm, Controller } from "react-hook-form"
+import { InputWidth } from "types"
 import { DatePicker } from "components"
+import { parse, isValid } from "date-fns"
+import { enGB } from "date-fns/locale"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
 interface DateData {
-  html5: string
+  datePicker: string
 }
 
 const schema = yup.object().shape({
-  html5: yup.string().trim().required("Please select a date")
+  datePicker: yup
+    .string()
+    .required()
+    .test("required", "Please enter issue date", value => value !== "dd/mm/yyyy")
+    .test("valid", "Issue date is not a valid date", value =>
+      isValid(parse(value!, "P", new Date(), { locale: enGB }))
+    )
 })
 
 export const Dates = (): ReactElement => {
@@ -19,7 +28,7 @@ export const Dates = (): ReactElement => {
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     defaultValues: {
-      html5: ""
+      datePicker: ""
     }
   })
 
@@ -30,27 +39,33 @@ export const Dates = (): ReactElement => {
   return (
     <form className="govuk-!-margin-top-2" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="govuk-grid-row">
+        <input id="html5" className="govuk-input" aria-label="Date" type="date" lang="en-GB" />
+      </div>
+      <div className="govuk-grid-row govuk-!-margin-top-4">
         <Controller
           control={control}
-          name="html5"
-          render={({ field: { onChange } }) => (
-            <input
-              id="html5"
-              className="govuk-input"
-              aria-label="Date"
-              type="date"
-              lang="en-GB"
+          name="datePicker"
+          render={({ field: { value, onBlur, onChange }, fieldState: { error } }) => (
+            <DatePicker
+              identifier="datePicker"
+              label="When was your passport issued?"
+              hint="For example, 27/03/2007"
+              width={InputWidth.Char10}
+              multiQuestion={true}
+              value={value}
+              error={error?.message}
               onChange={x => onChange(x)}
+              onBlur={onBlur}
             />
           )}
         />
       </div>
-      <div className="govuk-grid-row govuk-!-margin-top-4">
-        <DatePicker />
-      </div>
       <div className="govuk-grid-row">
         <div className="govuk-button-group">
-          <button type="submit" className="govuk-button govuk-!-margin-top-4">
+          <button
+            type="submit"
+            className="govuk-button govuk-!-margin-top-4"
+            aria-label="Submit form">
             Submit
           </button>
         </div>
