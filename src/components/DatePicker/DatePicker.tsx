@@ -468,7 +468,7 @@ export const DatePicker = ({
           <span className="govuk-visually-hidden">Error:</span> {error}
         </p>
       )}
-      <div {...datePickerContainerAttr} onClick={handleContainerClick} onPaste={handlePaste}>
+      <div {...datePickerContainerAttr} onClick={handleContainerClick}>
         <div className="date-spans" onClick={handleSpanClick}>
           <span
             className={`date-section${
@@ -501,6 +501,7 @@ export const DatePicker = ({
           onBlur={handleBlur}
           onFocus={handleFocus}
           onChange={handleChange}
+          onPaste={handlePaste}
           onKeyDown={e => {
             if (e.key === "ArrowRight") {
               handleArrowRight()
