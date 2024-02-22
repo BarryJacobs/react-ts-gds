@@ -90,7 +90,7 @@ export const DatePicker = ({
     }
 
     return inputProps
-  }, [hint, disabled, identifier, width, inputClassExt, hint, error])
+  }, [hint, disabled, identifier, width, inputClassExt, hint, error, isMobile])
 
   const labelAttr = useMemo(() => {
     let assignedClass = "govuk-label govuk-label--l"
