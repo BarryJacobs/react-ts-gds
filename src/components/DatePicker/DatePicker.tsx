@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect, useMemo, FocusEvent } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
 import { FaRegCalendar } from "react-icons/fa"
 import { useIsMobile } from "hooks"
 import { InputWidth, InputWidthClass } from "types"
-import { format, isValid, parse } from "date-fns"
+import { format, isValid, parse, parseISO } from "date-fns"
 import { enGB } from "date-fns/locale"
 import { Value } from "react-calendar/dist/cjs/shared/types"
 import Calendar from "react-calendar"
@@ -29,7 +29,7 @@ interface DatePickerProps {
   disabled?: boolean
   error?: string
   onChange: (value: string) => void
-  onBlur: (value: FocusEvent<HTMLInputElement>) => void
+  onBlur: (value: React.FocusEvent<HTMLInputElement>) => void
 }
 
 export const DatePicker = ({
@@ -62,7 +62,7 @@ export const DatePicker = ({
       type: "text",
       className: "govuk-input date-input",
       disabled,
-      readOnly: true,
+      // readOnly: true,
       autoComplete: "off",
       spellCheck: false,
       "aria-disabled": disabled,
@@ -397,13 +397,31 @@ export const DatePicker = ({
     setHasFocus(true)
   }
 
-  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     updateLiveText(DatePart.None, "")
     selectDatePart(DatePart.None)
     setHasFocus(false)
     if (onBlur) {
       onBlur(event)
     }
+  }
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pastedText = e.clipboardData.getData("text")
+    const dateFromISO = parseISO(pastedText)
+    const dateFromDDMMYYYY = parse(pastedText, "dd/MM/yyyy", new Date())
+
+    if (!isNaN(dateFromISO.getTime())) {
+      setDate(format(dateFromISO, "dd/MM/yyyy", { locale: enGB }))
+    } else if (!isNaN(dateFromDDMMYYYY.getTime())) {
+      setDate(pastedText)
+    } else {
+      e.preventDefault()
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
   }
 
   useEffect(() => {
@@ -450,7 +468,7 @@ export const DatePicker = ({
           <span className="govuk-visually-hidden">Error:</span> {error}
         </p>
       )}
-      <div {...datePickerContainerAttr} onClick={handleContainerClick}>
+      <div {...datePickerContainerAttr} onClick={handleContainerClick} onPaste={handlePaste}>
         <div className="date-spans" onClick={handleSpanClick}>
           <span
             className={`date-section${
@@ -482,6 +500,7 @@ export const DatePicker = ({
           value={date}
           onBlur={handleBlur}
           onFocus={handleFocus}
+          onChange={handleChange}
           onKeyDown={e => {
             if (e.key === "ArrowRight") {
               handleArrowRight()
@@ -502,8 +521,12 @@ export const DatePicker = ({
               handleDelete()
             } else if (/[0-9]/.test(e.key)) {
               handleNumericKeyPress(e.key)
+            } else if (e.key === " ") {
+              toggleCalendar()
             }
-            e.preventDefault()
+            if (!(e.metaKey || (e.ctrlKey && e.key === "v"))) {
+              e.preventDefault()
+            }
           }}
         />
         <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
