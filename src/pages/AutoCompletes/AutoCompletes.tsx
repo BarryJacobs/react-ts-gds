@@ -11,23 +11,31 @@ interface NameValuePair {
 
 interface VehicleData {
   make: string
+  model: string
 }
 
 const vehicleMakes: NameValuePair[] = [
-  { label: "Aston Martin", value: "01" },
-  { label: "Audi", value: "02" },
+  { label: "ASTON MARTIN", value: "01" },
+  { label: "AUDI", value: "02" },
   { label: "BMW", value: "03" },
-  { label: "Citroen", value: "04" },
-  { label: "Ferrari", value: "05" },
-  { label: "Ford", value: "06" },
-  { label: "Honda", value: "07" },
-  { label: "Lamborghini", value: "08" },
-  { label: "Peugeot", value: "09" },
-  { label: "Toyota", value: "10" }
+  { label: "CITROEN", value: "04" },
+  { label: "FERRARI", value: "05" },
+  { label: "FORD", value: "06" },
+  { label: "HONDA", value: "07" },
+  { label: "LAMBORGHINI", value: "08" },
+  { label: "PEUGEOT", value: "09" },
+  { label: "TOYOTA", value: "10" }
+]
+
+const vehicleModels: NameValuePair[] = [
+  { label: "MODEL 1", value: "MODEL 1" },
+  { label: "MODEL 2", value: "MODEL 2" },
+  { label: "MODEL 3", value: "MODEL 3" }
 ]
 
 const schema = yup.object().shape({
-  make: yup.string().trim().required("Please select a make of vehicle")
+  make: yup.string().trim().required("Please select a make of vehicle"),
+  model: yup.string().trim().required("Please select a model of vehicle")
 })
 
 export const AutoCompletes = (): ReactElement => {
@@ -58,6 +66,25 @@ export const AutoCompletes = (): ReactElement => {
             containerClassExt="govuk-input--width-20"
             options={vehicleMakes}
             value={vehicleMakes.find(x => x.value === value)}
+            getOptionLabel={x => x.label}
+            onChange={x => onChange(x?.value)}
+            error={error?.message}
+          />
+        )}
+      />
+      <Controller
+        control={control}
+        name="model"
+        render={({ field: { value, onChange }, fieldState: { error } }) => (
+          <AutoComplete
+            identifier="model"
+            label="Model"
+            labelClassExt="govuk-label-s"
+            containerClassExt="govuk-input--width-20"
+            allowCreate={true}
+            useUpperCase={true}
+            options={vehicleModels}
+            value={vehicleModels.find(x => x.value === value)}
             getOptionLabel={x => x.label}
             onChange={x => onChange(x?.value)}
             error={error?.message}

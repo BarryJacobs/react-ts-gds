@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Select, {
   components,
   DropdownIndicatorProps,
@@ -7,6 +8,7 @@ import Select, {
   SingleValue,
   CSSObjectWithLabel
 } from "react-select"
+import CreateableSelect from "react-select/creatable"
 
 import "styles/autocomplete.scss"
 
@@ -26,7 +28,7 @@ const DropdownArrow = () => {
   )
 }
 
-interface AutoCompleteProps<T extends { value: string }> {
+interface AutoCompleteProps<T extends { label: string; value: string }> {
   identifier: string
   label: string
   hint?: string
@@ -35,6 +37,8 @@ interface AutoCompleteProps<T extends { value: string }> {
   isDisabled?: boolean
   placeholder?: string
   required?: boolean
+  allowCreate?: boolean
+  useUpperCase?: boolean
   containerClassExt?: string
   labelClassExt?: string
   options: T[]
@@ -43,7 +47,7 @@ interface AutoCompleteProps<T extends { value: string }> {
   onChange: (value: SingleValue<T>) => void
 }
 
-export const AutoComplete = <T extends { value: string }>({
+export const AutoComplete = <T extends { label: string; value: string }>({
   identifier,
   label,
   hint,
@@ -56,9 +60,14 @@ export const AutoComplete = <T extends { value: string }>({
   value,
   isLoading = false,
   isDisabled = false,
+  allowCreate = false,
+  useUpperCase = false,
   getOptionLabel,
   onChange
 }: AutoCompleteProps<T>) => {
+  const [controlOptions, setControlOptions] = useState(options)
+  const [controlValue, setControlValue] = useState(value)
+
   const containerAttr = {
     className: error
       ? `govuk-form-group govuk-form-group-error ${containerClassExt}`
@@ -95,11 +104,49 @@ export const AutoComplete = <T extends { value: string }>({
 
   const changeHandler = (selectedValue: SingleValue<T>) => {
     onChange(selectedValue)
+    setControlValue(selectedValue)
     const inputElement = document.querySelector<HTMLInputElement>(`#${identifier}`)
     if (inputElement) {
       inputElement.blur()
       inputElement.focus()
     }
+  }
+
+  const createOptionHandler = (label: string) => {
+    const newValue = useUpperCase ? label.toUpperCase() : label
+    const newOption: any = {
+      label: newValue,
+      value: newValue
+    }
+    setControlOptions(prev => [...prev, newOption])
+    setControlValue(newOption)
+    onChange(newOption)
+  }
+
+  const formatLabelHandler = (label: string) =>
+    `Select "${useUpperCase ? label.toUpperCase() : label}"`
+
+  const selectProps = {
+    name: identifier,
+    required,
+    inputId: identifier,
+    "aria-invalid": error !== undefined,
+    "aria-labelledby": labelAttr.id,
+    className: "gds-autocomplete",
+    classNamePrefix: "gds-autocomplete",
+    styles: customStyles,
+    components: {
+      DropdownIndicator,
+      NoOptionsMessage
+    },
+    isSearchable: true,
+    placeholder,
+    options: controlOptions,
+    value: controlValue,
+    getOptionLabel,
+    onChange: changeHandler,
+    isDisabled,
+    isLoading
   }
 
   return (
@@ -121,29 +168,16 @@ export const AutoComplete = <T extends { value: string }>({
         </p>
       )}
 
-      <Select
-        name={identifier}
-        required={required}
-        inputId={identifier}
-        aria-invalid={error !== undefined}
-        aria-labelledby={labelAttr.id}
-        className="gds-autocomplete"
-        classNamePrefix="gds-autocomplete"
-        styles={customStyles}
-        components={{
-          DropdownIndicator,
-          NoOptionsMessage
-        }}
-        isMulti={false}
-        isSearchable={true}
-        placeholder={placeholder}
-        options={options}
-        value={value}
-        getOptionLabel={getOptionLabel}
-        onChange={changeHandler}
-        isDisabled={isDisabled}
-        isLoading={isLoading}
-      />
+      {allowCreate ? (
+        <CreateableSelect
+          isMulti={false}
+          onCreateOption={createOptionHandler}
+          formatCreateLabel={formatLabelHandler}
+          {...selectProps}
+        />
+      ) : (
+        <Select isMulti={false} {...selectProps} />
+      )}
     </div>
   )
 }
