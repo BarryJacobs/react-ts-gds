@@ -489,7 +489,7 @@ export const DatePicker = ({
       <div {...datePickerContainerAttr} onClick={handleContainerClick}>
         <div className="date-spans">
           <span
-            onClick={e => handleSpanClickDay(e)}
+            onMouseDown={e => handleSpanClickDay(e)}
             className={`date-section${
               selectedPart === DatePart.Day && !isMobile ? " section-selected" : ""
             }`}>
@@ -497,7 +497,7 @@ export const DatePicker = ({
           </span>
           <span>/</span>
           <span
-            onClick={e => handleSpanClickMonth(e)}
+            onMouseDown={e => handleSpanClickMonth(e)}
             className={`date-section${
               selectedPart === DatePart.Month && !isMobile ? " section-selected" : ""
             }`}>
@@ -505,7 +505,7 @@ export const DatePicker = ({
           </span>
           <span>/</span>
           <span
-            onClick={e => handleSpanClickYear(e)}
+            onMouseDown={e => handleSpanClickYear(e)}
             className={`date-section${
               selectedPart === DatePart.Year && !isMobile ? " section-selected" : ""
             }`}>
