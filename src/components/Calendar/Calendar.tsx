@@ -12,7 +12,7 @@ import {
 import { CalendarHeading } from "./CalendarHeading"
 import { v4 as uuidv4 } from "uuid"
 import FocusLock from "react-focus-lock"
-import CalendarDay from "./CalendarDay"
+import CalendarDayButton from "./CalendarDayButton"
 
 import DoubleChevronLeft from "assets/double_chevron_left.svg?react"
 import DoubleChevronRight from "assets/double_chevron_right.svg?react"
@@ -20,6 +20,16 @@ import ChevronLeft from "assets/chevron_left.svg?react"
 import ChevronRight from "assets/chevron_right.svg?react"
 
 import "./Calendar.scss"
+
+const dayAbbreviationDescriptionMap: Record<string, string> = {
+  Su: "Sunday",
+  Mo: "Monday",
+  Tu: "Tuesday",
+  We: "Wednesday",
+  Th: "Thursday",
+  Fr: "Friday",
+  Sa: "Saturday"
+}
 
 interface CalendarProps {
   date: Date
@@ -59,7 +69,7 @@ export const Calendar = ({ date, onChange, onCancel }: CalendarProps) => {
         const currentIndex = row * 7 + col
         columns.push(
           <td key={uuidv4()}>
-            <CalendarDay
+            <CalendarDayButton
               index={currentIndex}
               calendarDate={calendarDate}
               dayDate={dayDate}
@@ -153,13 +163,9 @@ export const Calendar = ({ date, onChange, onCancel }: CalendarProps) => {
           </caption>
           <thead>
             <tr>
-              <CalendarHeading text="Su" description="Sunday" />
-              <CalendarHeading text="Mo" description="Monday" />
-              <CalendarHeading text="Tu" description="Tuesday" />
-              <CalendarHeading text="We" description="Wednesday" />
-              <CalendarHeading text="Th" description="Thursday" />
-              <CalendarHeading text="Fr" description="Friday" />
-              <CalendarHeading text="Sa" description="Saturday" />
+              {Object.entries(dayAbbreviationDescriptionMap).map(([key, value]) => (
+                <CalendarHeading key={uuidv4()} text={key} description={value} />
+              ))}
             </tr>
           </thead>
           <tbody>{renderDays}</tbody>

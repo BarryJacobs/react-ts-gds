@@ -25,7 +25,7 @@ interface ButtonAttr {
   [key: string]: string | number
 }
 
-interface CalendarDayProps {
+interface CalendarDayButtonProps {
   calendarDate: Date
   dayDate: Date
   index: number
@@ -42,8 +42,17 @@ const isWithinCurrentMonth = (calendarDate: Date, dateToCheck: Date): boolean =>
   })
 }
 
-const CalendarDay: React.ForwardRefRenderFunction<HTMLButtonElement, CalendarDayProps> = (
-  { calendarDate, dayDate, index, onChangeSelectedDate, onClickedSelectedDate }: CalendarDayProps,
+const CalendarDayButton: React.ForwardRefRenderFunction<
+  HTMLButtonElement,
+  CalendarDayButtonProps
+> = (
+  {
+    calendarDate,
+    dayDate,
+    index,
+    onChangeSelectedDate,
+    onClickedSelectedDate
+  }: CalendarDayButtonProps,
   ref
 ) => {
   const buttonAttr: ButtonAttr = {
@@ -126,4 +135,4 @@ const CalendarDay: React.ForwardRefRenderFunction<HTMLButtonElement, CalendarDay
   )
 }
 
-export default forwardRef<HTMLButtonElement, CalendarDayProps>(CalendarDay)
+export default forwardRef<HTMLButtonElement, CalendarDayButtonProps>(CalendarDayButton)
