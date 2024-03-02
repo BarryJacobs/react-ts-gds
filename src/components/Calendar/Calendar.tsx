@@ -24,6 +24,7 @@ import "./Calendar.scss"
 interface CalendarProps {
   date: Date
   onChange: (date: Date) => void
+  onCancel: () => void
 }
 
 const getFirstSundayBeforeFirstOfMonth = (date: Date) => {
@@ -36,7 +37,7 @@ const getFirstSundayBeforeFirstOfMonth = (date: Date) => {
   }
 }
 
-export const Calendar = ({ date, onChange }: CalendarProps) => {
+export const Calendar = ({ date, onChange, onCancel }: CalendarProps) => {
   const [calendarDate, setCalendarDate] = useState(date)
   const [selectedIndex, setSelectedIndex] = useState({ index: 0 })
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>(Array(42).fill(null))
@@ -76,7 +77,7 @@ export const Calendar = ({ date, onChange }: CalendarProps) => {
       rows.push(<tr key={uuidv4()}>{columns}</tr>)
     }
     return rows
-  }, [calendarDate, buttonRefs, onChangeSelectedDate])
+  }, [calendarDate, buttonRefs])
 
   useEffect(() => {
     if (buttonRefs.current[selectedIndex.index]) {
@@ -118,9 +119,7 @@ export const Calendar = ({ date, onChange }: CalendarProps) => {
               <ChevronLeft className="ds_icon" focusable={false} aria-hidden={true} role="img" />
             </button>
           </div>
-          <h2 className="ds_datepicker__dialog__title  js-datepicker-month-year">
-            {format(calendarDate, "MMMM yyyy")}
-          </h2>
+          <h2 className="ds_datepicker__dialog__title">{format(calendarDate, "MMMM yyyy")}</h2>
           <div className="ds_datepicker__dialog__navbuttons">
             <button
               type="button"
@@ -148,7 +147,7 @@ export const Calendar = ({ date, onChange }: CalendarProps) => {
           </div>
         </div>
 
-        <table className="ds_datepicker__dialog__table  js-datepicker-grid" role="grid">
+        <table className="ds_datepicker__dialog__table" role="grid">
           <caption id="datepicker-ds1-caption" className="ds_datepicker__dialog__table-caption">
             You can use the cursor keys to select a date
           </caption>
@@ -171,7 +170,8 @@ export const Calendar = ({ date, onChange }: CalendarProps) => {
             type="button"
             className="govuk-button govuk-button--secondary"
             value="cancel"
-            data-button="button-datepicker-cancel">
+            data-button="button-datepicker-cancel"
+            onClick={() => onCancel()}>
             Cancel
           </button>
           <button

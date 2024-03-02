@@ -6,7 +6,6 @@ import { format, parse, startOfDay, parseISO, isValid } from "date-fns"
 import { Calendar } from "components"
 import { enGB } from "date-fns/locale"
 
-import "react-calendar/dist/Calendar.css"
 import "./DatePicker.scss"
 
 enum DatePart {
@@ -50,7 +49,6 @@ export const DatePicker = ({
   const [trackInput, setTrackInput] = useState(false)
   const [selectedPart, setSelectedPart] = useState<DatePart>(DatePart.None)
   const [showCalendar, setShowCalendar] = useState(false)
-  // const [hasFocus, setHasFocus] = useState(false)
   const liveRegionRef = useRef<HTMLSpanElement>(null)
   const calendarRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -166,11 +164,8 @@ export const DatePicker = ({
   }
 
   const focusInput = () => {
-    // console.log("In focus Input: ", hasFocus)
     const input = inputRef.current
-    // if (!input || hasFocus) return
     if (!input) return
-    // console.log("focusInput: ", hasFocus)
     setTimeout(() => input.focus(), 50)
   }
 
@@ -376,11 +371,14 @@ export const DatePicker = ({
     setTrackInput(true)
   }
 
-  const handleCalendarDateChange = (date: Date) => {
-    console.log("New date: ", date)
-    setDate(format(date as Date, "dd/MM/yyyy"))
+  const handleCalendarCancel = () => {
     setShowCalendar(false)
     focusInput()
+  }
+
+  const handleCalendarDateChange = (date: Date) => {
+    setDate(format(date as Date, "dd/MM/yyyy"))
+    handleCalendarCancel()
   }
 
   const handleSpanClick = (
@@ -388,7 +386,6 @@ export const DatePicker = ({
     datePart: DatePart
   ) => {
     if (!isMobile) {
-      console.log("Span click: ", datePart)
       event.preventDefault()
       event.stopPropagation()
       updateLiveText(datePart, "")
@@ -407,7 +404,6 @@ export const DatePicker = ({
     handleSpanClick(event, DatePart.Year)
 
   const handleContainerClick = () => {
-    console.log("Container click")
     if (isMobile && !showCalendar) {
       setShowCalendar(true)
       focusInput()
@@ -415,19 +411,14 @@ export const DatePicker = ({
   }
 
   const handleFocus = () => {
-    console.log("Input Focus")
     if (selectedPart === DatePart.None) {
       selectDatePart(DatePart.Day)
     }
-    // selectDatePart(DatePart.Day)
-    // setHasFocus(true)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    console.log("Input Blur")
     updateLiveText(DatePart.None, "")
     selectDatePart(DatePart.None)
-    // setHasFocus(false)
     if (onBlur) {
       onBlur(event)
     }
@@ -563,7 +554,11 @@ export const DatePicker = ({
         <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
         {showCalendar && (
           <div ref={calendarRef} className="calendar-popover">
-            <Calendar date={calendarDate} onChange={handleCalendarDateChange} />
+            <Calendar
+              date={calendarDate}
+              onChange={handleCalendarDateChange}
+              onCancel={handleCalendarCancel}
+            />
           </div>
         )}
       </div>

@@ -23,7 +23,6 @@
     "govuk-frontend": "^5.0.0",
     "immer": "^10.0.3",
     "react": "^18.2.0",
-    "react-calendar": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.11.2",
     "react-hook-form": "^7.49.2",
