@@ -2,7 +2,6 @@
 
 import { defineConfig } from "vite"
 import { viteStaticCopy, Target } from "vite-plugin-static-copy"
-import svgr from "vite-plugin-svgr"
 import react from "@vitejs/plugin-react"
 import tsconfigPaths from "vite-tsconfig-paths"
 
@@ -17,7 +16,6 @@ export default defineConfig(({ command }) => {
 
   const config = {
     plugins: [
-      svgr(),
       react(),
       tsconfigPaths(),
       viteStaticCopy({

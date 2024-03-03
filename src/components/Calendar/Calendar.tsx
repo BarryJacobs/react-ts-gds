@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react"
+import { v4 as uuidv4 } from "uuid"
 import {
   format,
   startOfMonth,
@@ -9,15 +10,16 @@ import {
   addYears,
   isEqual
 } from "date-fns"
-import { CalendarHeading } from "./CalendarHeading"
-import { v4 as uuidv4 } from "uuid"
+import {
+  HiMiniChevronLeft,
+  HiMiniChevronDoubleLeft,
+  HiMiniChevronRight,
+  HiMiniChevronDoubleRight
+} from "react-icons/hi2"
+import { CalendarNavigationButton } from "./CalendarNavigationButton"
+import { CalendarDayHeading } from "./CalendarDayHeading"
+import { CalendarDayButton } from "./CalendarDayButton"
 import FocusLock from "react-focus-lock"
-import CalendarDayButton from "./CalendarDayButton"
-
-import DoubleChevronLeft from "assets/double_chevron_left.svg?react"
-import DoubleChevronRight from "assets/double_chevron_right.svg?react"
-import ChevronLeft from "assets/chevron_left.svg?react"
-import ChevronRight from "assets/chevron_right.svg?react"
 
 import "./Calendar.scss"
 
@@ -105,55 +107,29 @@ export const Calendar = ({ date, onChange, onCancel }: CalendarProps) => {
         aria-label="March 2024">
         <div className="ds_datepicker__dialog__header">
           <div className="ds_datepicker__dialog__navbuttons">
-            <button
-              type="button"
-              className="ds_button ds_button--icon-only"
-              aria-label="previous year"
-              data-button="button-datepicker-prevyear"
-              onClick={() => onChangeSelectedDate(addYears(calendarDate, -1))}>
-              <span className="visually-hidden">Previous year</span>
-              <DoubleChevronLeft
-                className="ds_icon"
-                focusable={false}
-                aria-hidden={true}
-                role="img"
-              />
-            </button>
-            <button
-              type="button"
-              className="ds_button ds_button--icon-only"
-              aria-label="previous month"
-              data-button="button-datepicker-prevmonth"
-              onClick={() => onChangeSelectedDate(addMonths(calendarDate, -1))}>
-              <span className="visually-hidden">Previous month</span>
-              <ChevronLeft className="ds_icon" focusable={false} aria-hidden={true} role="img" />
-            </button>
+            <CalendarNavigationButton
+              description="Previous year"
+              icon={HiMiniChevronDoubleLeft}
+              onClick={() => onChangeSelectedDate(addYears(calendarDate, -1))}
+            />
+            <CalendarNavigationButton
+              description="Previous month"
+              icon={HiMiniChevronLeft}
+              onClick={() => onChangeSelectedDate(addMonths(calendarDate, -1))}
+            />
           </div>
           <h2 className="ds_datepicker__dialog__title">{format(calendarDate, "MMMM yyyy")}</h2>
           <div className="ds_datepicker__dialog__navbuttons">
-            <button
-              type="button"
-              className="ds_button ds_button--icon-only"
-              aria-label="next month"
-              data-button="button-datepicker-nextmonth"
-              onClick={() => onChangeSelectedDate(addMonths(calendarDate, 1))}>
-              <span className="visually-hidden">Next month</span>
-              <ChevronRight className="ds_icon" focusable={false} aria-hidden={true} role="img" />
-            </button>
-            <button
-              type="button"
-              className="ds_button ds_button--icon-only"
-              aria-label="next year"
-              data-button="button-datepicker-nextyear"
-              onClick={() => onChangeSelectedDate(addYears(calendarDate, 1))}>
-              <span className="visually-hidden">Next year</span>
-              <DoubleChevronRight
-                className="ds_icon"
-                focusable={false}
-                aria-hidden={true}
-                role="img"
-              />
-            </button>
+            <CalendarNavigationButton
+              description="Next month"
+              icon={HiMiniChevronRight}
+              onClick={() => onChangeSelectedDate(addMonths(calendarDate, 1))}
+            />
+            <CalendarNavigationButton
+              description="Next year"
+              icon={HiMiniChevronDoubleRight}
+              onClick={() => onChangeSelectedDate(addYears(calendarDate, 1))}
+            />
           </div>
         </div>
 
@@ -164,7 +140,7 @@ export const Calendar = ({ date, onChange, onCancel }: CalendarProps) => {
           <thead>
             <tr>
               {Object.entries(dayAbbreviationDescriptionMap).map(([key, value]) => (
-                <CalendarHeading key={uuidv4()} text={key} description={value} />
+                <CalendarDayHeading key={uuidv4()} text={key} description={value} />
               ))}
             </tr>
           </thead>

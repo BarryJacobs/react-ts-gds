@@ -388,6 +388,9 @@ export const DatePicker = ({
     if (!isMobile) {
       event.preventDefault()
       event.stopPropagation()
+      if (showCalendar) {
+        setShowCalendar(false)
+      }
       updateLiveText(datePart, "")
       selectDatePart(datePart)
       focusInput()
