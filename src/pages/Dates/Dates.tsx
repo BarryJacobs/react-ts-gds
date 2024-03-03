@@ -39,7 +39,12 @@ export const Dates = (): ReactElement => {
   return (
     <form className="govuk-!-margin-top-2" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="govuk-grid-row">
-        <input id="html5" className="govuk-input" aria-label="Date" type="date" lang="en-GB" />
+        <div className="govuk-form-group">
+          <label htmlFor="html5" className="govuk-label" id="datePicker-label">
+            HTML5 Date Control for Reference
+          </label>
+          <input id="html5" className="govuk-input" aria-label="Date" type="date" lang="en-GB" />
+        </div>
       </div>
       <div className="govuk-grid-row govuk-!-margin-top-4">
         <Controller
