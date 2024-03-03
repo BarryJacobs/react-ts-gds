@@ -501,7 +501,8 @@ export const DatePicker = ({
   }, [])
 
   useEffect(() => {
-    if (!value || value.trim() === "") {
+    const pattern: RegExp = /^(\d{2}|dd)\/(\d{2}|mm)\/(\d{4}|yyyy)$/
+    if (!value || value.trim() === "" || !pattern.test(value)) {
       setDate("dd/mm/yyyy")
     } else {
       setDate(value)
