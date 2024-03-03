@@ -371,6 +371,44 @@ export const DatePicker = ({
     setTrackInput(true)
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    switch (e.key) {
+      case "ArrowRight":
+        handleArrowRight()
+        break
+      case "ArrowLeft":
+        handleArrowLeft()
+        break
+      case "ArrowUp":
+        if (selectedPart !== DatePart.None) {
+          handleUpArrow()
+        }
+        break
+      case "ArrowDown":
+        if (selectedPart !== DatePart.None) {
+          handleDownArrow()
+        }
+        break
+      case "Tab":
+        e.shiftKey ? handleShiftTab(e) : handleTab(e)
+        break
+      case "Delete":
+      case "Backspace":
+        handleDelete()
+        break
+      case " ":
+        toggleCalendar()
+        break
+      default:
+        if (/[0-9]/.test(e.key)) {
+          handleNumericKeyPress(e.key)
+        }
+    }
+    if (!(e.metaKey || (e.ctrlKey && e.key === "v"))) {
+      e.preventDefault()
+    }
+  }
+
   const handleCalendarCancel = () => {
     setShowCalendar(false)
     focusInput()
@@ -526,33 +564,7 @@ export const DatePicker = ({
           onFocus={handleFocus}
           onChange={handleChange}
           onPaste={handlePaste}
-          onKeyDown={e => {
-            if (e.key === "ArrowRight") {
-              handleArrowRight()
-            } else if (e.key === "ArrowLeft") {
-              handleArrowLeft()
-            } else if (e.key === "Tab") {
-              e.shiftKey ? handleShiftTab(e) : handleTab(e)
-              return
-            } else if (e.key === "ArrowUp") {
-              if (selectedPart !== DatePart.None) {
-                handleUpArrow()
-              }
-            } else if (e.key === "ArrowDown") {
-              if (selectedPart !== DatePart.None) {
-                handleDownArrow()
-              }
-            } else if (e.key === "Delete" || e.key === "Backspace") {
-              handleDelete()
-            } else if (/[0-9]/.test(e.key)) {
-              handleNumericKeyPress(e.key)
-            } else if (e.key === " ") {
-              toggleCalendar()
-            }
-            if (!(e.metaKey || (e.ctrlKey && e.key === "v"))) {
-              e.preventDefault()
-            }
-          }}
+          onKeyDown={handleKeyDown}
         />
         <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
         {showCalendar && (
