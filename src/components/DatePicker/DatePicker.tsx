@@ -567,7 +567,7 @@ export const DatePicker = ({
           onPaste={handlePaste}
           onKeyDown={handleKeyDown}
         />
-        <FaRegCalendar size={18} className="calendar-icon" onClick={toggleCalendar} />
+        <FaRegCalendar size={19} className="calendar-icon" onClick={toggleCalendar} />
         {showCalendar && (
           <div ref={calendarRef} className="calendar-popover">
             <Calendar
