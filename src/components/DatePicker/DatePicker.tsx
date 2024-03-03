@@ -391,7 +391,7 @@ export const DatePicker = ({
         break
       case "Tab":
         e.shiftKey ? handleShiftTab(e) : handleTab(e)
-        break
+        return
       case "Delete":
       case "Backspace":
         handleDelete()
