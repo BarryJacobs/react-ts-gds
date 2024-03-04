@@ -23,6 +23,7 @@ interface DatePickerProps {
   multiQuestion?: boolean
   labelClassExt?: string
   inputClassExt?: string
+  showCalendarButton?: boolean
   hint?: string
   disabled?: boolean
   error?: string
@@ -39,6 +40,7 @@ export const DatePicker = ({
   multiQuestion,
   labelClassExt,
   inputClassExt,
+  showCalendarButton = true,
   disabled,
   error,
   onBlur,
@@ -397,7 +399,9 @@ export const DatePicker = ({
         handleDelete()
         break
       case " ":
-        toggleCalendar()
+        if (showCalendarButton) {
+          toggleCalendar()
+        }
         break
       default:
         if (/[0-9]/.test(e.key)) {
@@ -412,6 +416,12 @@ export const DatePicker = ({
   const handleCalendarCancel = () => {
     setShowCalendar(false)
     focusInput()
+  }
+
+  const handleCalendarButtonKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Tab" && event.shiftKey) {
+      selectDatePart(DatePart.Year)
+    }
   }
 
   const handleCalendarDateChange = (date: Date) => {
@@ -555,22 +565,38 @@ export const DatePicker = ({
           </span>
           <span ref={liveRegionRef} className="date-picker-announce" aria-live="assertive"></span>
         </div>
-        <input
-          id={identifier}
-          name={identifier}
-          ref={inputRef}
-          {...inputAttr}
-          value={date}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onChange={handleChange}
-          onPaste={handlePaste}
-          onKeyDown={handleKeyDown}
-        />
-        <FaRegCalendar size={19} className="calendar-icon" onClick={toggleCalendar} />
+        <div className="date-picker-wrapper">
+          <input
+            id={identifier}
+            name={identifier}
+            ref={inputRef}
+            {...inputAttr}
+            value={date}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            onChange={handleChange}
+            onPaste={handlePaste}
+            onKeyDown={handleKeyDown}
+          />
+          {showCalendarButton && !isMobile && (
+            <div className="calendar-button">
+              <button
+                type="button"
+                className="govuk-button"
+                data-button="button-datepicker-calendar"
+                aria-expanded={showCalendar}
+                aria-controls={`${identifier}-calendar`}
+                onKeyDown={handleCalendarButtonKeyDown}
+                onClick={() => toggleCalendar()}>
+                <FaRegCalendar size={16} />
+              </button>
+            </div>
+          )}
+        </div>
         {showCalendar && (
           <div ref={calendarRef} className="calendar-popover">
             <Calendar
+              id={`${identifier}-calendar`}
               date={calendarDate}
               onChange={handleCalendarDateChange}
               onCancel={handleCalendarCancel}

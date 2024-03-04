@@ -274,10 +274,8 @@ $ds_breakpoints: (
 }
 
 .ds_datepicker {
-  position: relative;
+  position: absolute;
   margin-bottom: 24px;
-
-  position: absolute !important;
   top: 40px !important;
   left: 0 !important;
   z-index: 999;
@@ -295,6 +293,7 @@ $ds_breakpoints: (
   &__dialog {
     @include ds_box-shadow;
 
+    font-family: "Roboto";
     background-color: $ds_colour__background--primary;
     clear: both;
     display: none;
@@ -387,6 +386,7 @@ $ds_breakpoints: (
       }
 
       button {
+        font-family: "Roboto";
         background-color: transparent;
         border-width: 0;
         color: $ds_colour__text;
@@ -416,7 +416,7 @@ $ds_breakpoints: (
               inset #{$date-picker-focus-outline-width * -1} 0 $ds_colour__focus--background,
               inset 0 #{($date-picker-focus-outline-width + $date-picker-focus-border-width) * -1}
                 $ds_colour__focus--background,
-              inset $date-picker-focus-outline-width 0 $ds_colour__focus--background; // left
+              inset $date-picker-focus-outline-width 0 $ds_colour__focus--background;
           }
         }
 

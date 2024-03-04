@@ -34,6 +34,7 @@ const dayAbbreviationDescriptionMap: Record<string, string> = {
 }
 
 interface CalendarProps {
+  id: string
   date: Date
   onChange: (date: Date) => void
   onCancel: () => void
@@ -49,7 +50,7 @@ const getFirstSundayBeforeFirstOfMonth = (date: Date) => {
   }
 }
 
-export const Calendar = ({ date, onChange, onCancel }: CalendarProps) => {
+export const Calendar = ({ id, date, onChange, onCancel }: CalendarProps) => {
   const [calendarDate, setCalendarDate] = useState(date)
   const [selectedIndex, setSelectedIndex] = useState({ index: 0 })
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>(Array(42).fill(null))
@@ -100,7 +101,7 @@ export const Calendar = ({ date, onChange, onCancel }: CalendarProps) => {
   return (
     <FocusLock>
       <div
-        id="datepicker-ds1"
+        id={id}
         className="ds_datepicker__dialog datepickerDialog ds_datepicker__dialog--open"
         role="dialog"
         aria-modal="true"
