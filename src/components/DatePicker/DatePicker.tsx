@@ -61,7 +61,7 @@ export const DatePicker = ({
       type: "text",
       className: "govuk-input date-input",
       disabled,
-      readOnly: isMobile,
+      // readOnly: isMobile,
       autoComplete: "off",
       spellCheck: false,
       "aria-disabled": disabled,
@@ -126,12 +126,10 @@ export const DatePicker = ({
   }, [width])
 
   const toggleCalendar = () => {
-    if (!isMobile) {
-      if (!showCalendar) {
-        focusInput()
-      }
-      setShowCalendar(prevShowCalendar => !prevShowCalendar)
+    if (!showCalendar) {
+      focusInput()
     }
+    setShowCalendar(prevShowCalendar => !prevShowCalendar)
   }
 
   const updateLiveText = (part: DatePart, value: string = "") => {
@@ -578,7 +576,7 @@ export const DatePicker = ({
             onPaste={handlePaste}
             onKeyDown={handleKeyDown}
           />
-          {showCalendarButton && !isMobile && (
+          {showCalendarButton && (
             <div className="calendar-button">
               <button
                 type="button"
