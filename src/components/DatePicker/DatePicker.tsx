@@ -397,7 +397,7 @@ export const DatePicker = ({
         handleDelete()
         break
       case " ":
-        if (showCalendarButton) {
+        if (!isMobile && showCalendarButton) {
           toggleCalendar()
         }
         break
@@ -453,8 +453,12 @@ export const DatePicker = ({
     handleSpanClick(event, DatePart.Year)
 
   const handleContainerClick = () => {
-    if (isMobile && !showCalendar) {
-      setShowCalendar(true)
+    // if (isMobile && !showCalendar) {
+    //   setShowCalendar(true)
+    //   focusInput()
+    // }
+    if (isMobile) {
+      // setShowCalendar(true)
       focusInput()
     }
   }
