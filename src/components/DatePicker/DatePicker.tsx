@@ -58,7 +58,7 @@ export const DatePicker = ({
 
   const inputAttr = useMemo(() => {
     const inputProps = {
-      type: "text",
+      type: "number",
       className: "govuk-input date-input",
       disabled,
       // readOnly: isMobile,
@@ -431,16 +431,16 @@ export const DatePicker = ({
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     datePart: DatePart
   ) => {
-    // if (!isMobile) {
-    event.preventDefault()
-    event.stopPropagation()
-    if (showCalendar) {
-      setShowCalendar(false)
+    if (!isMobile) {
+      event.preventDefault()
+      event.stopPropagation()
+      if (showCalendar) {
+        setShowCalendar(false)
+      }
+      updateLiveText(datePart, "")
+      selectDatePart(datePart)
+      focusInput()
     }
-    updateLiveText(datePart, "")
-    selectDatePart(datePart)
-    focusInput()
-    // }
   }
 
   const handleSpanClickDay: React.MouseEventHandler<HTMLSpanElement> = event =>
@@ -453,6 +453,9 @@ export const DatePicker = ({
     handleSpanClick(event, DatePart.Year)
 
   const handleContainerClick = () => {
+    if (isMobile) {
+      focusInput()
+    }
     // if (isMobile && !showCalendar) {
     //   setShowCalendar(true)
     //   focusInput()
@@ -572,6 +575,7 @@ export const DatePicker = ({
             onFocus={handleFocus}
             onChange={handleChange}
             onPaste={handlePaste}
+            // onKeyDown={e => alert(e.key)}
             onKeyDown={handleKeyDown}
           />
           {showCalendarButton && (
