@@ -61,7 +61,6 @@ export const DatePicker = ({
       type: "number",
       className: "govuk-input date-input",
       disabled,
-      // readOnly: isMobile,
       autoComplete: "off",
       spellCheck: false,
       "aria-disabled": disabled,
