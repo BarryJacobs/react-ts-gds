@@ -166,7 +166,7 @@ export const DatePicker = ({
   const focusInput = () => {
     const input = inputRef.current
     if (!input) return
-    setTimeout(() => input.focus(), 50)
+    setTimeout(() => input.focus(), 10)
   }
 
   const handleArrowLeft = () => {
@@ -456,14 +456,6 @@ export const DatePicker = ({
     if (isMobile) {
       focusInput()
     }
-    // if (isMobile && !showCalendar) {
-    //   setShowCalendar(true)
-    //   focusInput()
-    // }
-    // if (isMobile) {
-    //   // setShowCalendar(true)
-    //   focusInput()
-    // }
   }
 
   const handleFocus = () => {
@@ -575,7 +567,6 @@ export const DatePicker = ({
             onFocus={handleFocus}
             onChange={handleChange}
             onPaste={handlePaste}
-            // onKeyDown={e => alert(e.key)}
             onKeyDown={handleKeyDown}
           />
           {showCalendarButton && (

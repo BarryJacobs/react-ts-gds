@@ -6,12 +6,6 @@
     font-weight: 400;
     font-family: "Roboto";
     display: inline-block;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     @media (min-width: 40.0625em) {
       font-size: 1.1875rem;
       font-size: 19px;
@@ -30,6 +24,13 @@
     .date-section {
       cursor: pointer;
       padding: 0 2px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      &::selection {
+        background-color: transparent;
+      }
     }
 
     .section-selected {
