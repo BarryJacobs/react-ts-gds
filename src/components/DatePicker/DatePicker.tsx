@@ -133,7 +133,7 @@ export const DatePicker = ({
   }
 
   const updateLiveText = (part: DatePart, value: string = "") => {
-    if (!isMobile && liveRegionRef.current) {
+    if (liveRegionRef.current) {
       if (!value) {
         switch (part) {
           case DatePart.Day:
@@ -431,16 +431,16 @@ export const DatePicker = ({
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     datePart: DatePart
   ) => {
-    if (!isMobile) {
-      event.preventDefault()
-      event.stopPropagation()
-      if (showCalendar) {
-        setShowCalendar(false)
-      }
-      updateLiveText(datePart, "")
-      selectDatePart(datePart)
-      focusInput()
+    // if (!isMobile) {
+    event.preventDefault()
+    event.stopPropagation()
+    if (showCalendar) {
+      setShowCalendar(false)
     }
+    updateLiveText(datePart, "")
+    selectDatePart(datePart)
+    focusInput()
+    // }
   }
 
   const handleSpanClickDay: React.MouseEventHandler<HTMLSpanElement> = event =>
@@ -457,10 +457,10 @@ export const DatePicker = ({
     //   setShowCalendar(true)
     //   focusInput()
     // }
-    if (isMobile) {
-      // setShowCalendar(true)
-      focusInput()
-    }
+    // if (isMobile) {
+    //   // setShowCalendar(true)
+    //   focusInput()
+    // }
   }
 
   const handleFocus = () => {
@@ -544,25 +544,19 @@ export const DatePicker = ({
         <div className="date-spans">
           <span
             onMouseDown={e => handleSpanClickDay(e)}
-            className={`date-section${
-              selectedPart === DatePart.Day && !isMobile ? " section-selected" : ""
-            }`}>
+            className={`date-section${selectedPart === DatePart.Day ? " section-selected" : ""}`}>
             {date.substring(0, 2)}
           </span>
           <span>/</span>
           <span
             onMouseDown={e => handleSpanClickMonth(e)}
-            className={`date-section${
-              selectedPart === DatePart.Month && !isMobile ? " section-selected" : ""
-            }`}>
+            className={`date-section${selectedPart === DatePart.Month ? " section-selected" : ""}`}>
             {date.substring(3, 5)}
           </span>
           <span>/</span>
           <span
             onMouseDown={e => handleSpanClickYear(e)}
-            className={`date-section${
-              selectedPart === DatePart.Year && !isMobile ? " section-selected" : ""
-            }`}>
+            className={`date-section${selectedPart === DatePart.Year ? " section-selected" : ""}`}>
             {date.substring(6, 10)}
           </span>
           <span ref={liveRegionRef} className="date-picker-announce" aria-live="assertive"></span>
