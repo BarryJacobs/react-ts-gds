@@ -578,7 +578,8 @@ export const DatePicker = ({
                 aria-controls={`${identifier}-calendar`}
                 onKeyDown={handleCalendarButtonKeyDown}
                 onClick={() => toggleCalendar()}>
-                <FaRegCalendar size={16} />
+                <span className="visually-hidden">Choose date</span>
+                <FaRegCalendar aria-hidden={true} role="img" size={16} />
               </button>
             </div>
           )}
