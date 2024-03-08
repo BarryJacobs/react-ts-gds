@@ -67,7 +67,6 @@ export const DatePicker = ({
       "aria-describedby": "",
       "aria-invalid": false
     }
-
     if (width) {
       inputProps.className += ` ${InputWidthClass[width]}`
     }
@@ -75,17 +74,14 @@ export const DatePicker = ({
       inputProps.className += ` ${inputClassExt}`
     }
     if (error) {
-      inputProps["aria-describedby"] = `${identifier}-error `
+      inputProps["aria-describedby"] += `${identifier}-error `
+      inputProps.className += " govuk-input--error"
+      inputProps["aria-invalid"] = true
     }
     if (hint) {
       inputProps["aria-describedby"] += `${identifier}-hint `
     }
     inputProps["aria-describedby"] += `${identifier}-label`
-
-    if (error) {
-      inputProps.className += " govuk-input--error"
-      inputProps["aria-invalid"] = true
-    }
 
     return inputProps
   }, [hint, disabled, identifier, width, inputClassExt, hint, error, isMobile])
