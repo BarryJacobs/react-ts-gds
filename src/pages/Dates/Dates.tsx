@@ -1,7 +1,6 @@
 import { ReactElement } from "react"
 import { useForm, Controller } from "react-hook-form"
-import { InputWidth } from "types"
-import { DatePicker } from "components"
+import { DatePicker, InputWidth } from "react-govuk-datepicker"
 import { parse, isValid } from "date-fns"
 import { enGB } from "date-fns/locale"
 import { yupResolver } from "@hookform/resolvers/yup"

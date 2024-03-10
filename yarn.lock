@@ -1520,6 +1520,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.3.tgz#6ee493102b45d796d69f1f472d4bf64e5244500a"
   integrity sha512-uvnFKtPgzLnpzzTRfhDlvXX0kLYi9lDRQbcDmT8iXl71Rx+uwSuaUIQl3DNC7w5OweAQ7XQMDObML+KaYDQfng==
 
+"@fontsource/roboto@^5.0.12":
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-5.0.12.tgz#418f7305a3be7fc567dd154db20090f7ece7fc6c"
+  integrity sha512-x0o17jvgoSSbS9OZnUX2+xJmVRvVCfeaYJjkS7w62iN7CuJWtMf5vJj8LqgC7ibqIkitOHVW+XssRjgrcHn62g==
+
 "@fontsource/roboto@^5.0.8":
   version "5.0.8"
   resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-5.0.8.tgz#613b477a56f21b5705db1a67e995c033ef317f76"
@@ -5365,9 +5370,9 @@ flow-parser@0.*:
   integrity sha512-S1P78o0VLB1FZvkoGSIpaRiiTUQ3xDhm9I4Z1qc3lglmkjehfR2sjM0vhwKS7UC1G12VT4Leb/GGV/KlactqjA==
 
 focus-lock@^1.3.2:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-1.3.3.tgz#b26711506025ec1ecdca69bb41fd10f0c15c4ae2"
-  integrity sha512-hfXkZha7Xt4RQtrL1HBfspAuIj89Y0fb6GX0dfJilb8S2G/lvL4akPAcHq6xoD2NuZnDMCnZL/zQesMyeu6Psg==
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-1.3.4.tgz#a143aa327224df2e83414f87e8a3328cb5a62156"
+  integrity sha512-Gv0N3mvej3pD+HWkNryrF8sExzEHqhQ6OSFxD4DPxm9n5HGCaHme98ZMBZroNEAJcsdtHxk+skvThGKyUeoEGA==
   dependencies:
     tslib "^2.0.3"
 
@@ -5661,6 +5666,11 @@ govuk-frontend@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.0.0.tgz#c08a4d1115fb31eb39b6d19979c627f816185dd7"
   integrity sha512-3WSfvQ+3kw/q/m8jrq/t8XnMUA8D2r0uhGyZaDbIh1gWTJBQzJBHbHiKYI9nc9ixIXdCFsc9RozkgEm57a795g==
+
+govuk-frontend@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.2.0.tgz#f8e0bf98b771b8ee1501fd45bbba24a091f3846d"
+  integrity sha512-beD3wztHpkKz6JUpPwnwop1ejb4rTFMPLCutKLCIDmUS4BPpW59ggVUfctsRqHd2Zjw9wxljdRdeIJ8AZFyyTw==
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4, graceful-fs@^4.2.9:
   version "4.2.11"
@@ -7724,6 +7734,18 @@ react-focus-lock@^2.11.2:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
+react-govuk-datepicker@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-govuk-datepicker/-/react-govuk-datepicker-1.0.3.tgz#7dd27e4138bfa1146d9f7d56cfe408c0295b21d2"
+  integrity sha512-ZEMUsOQVXY9kEf6HvB17CDAHL10aF/wPpw7F0Bv/MNuPe/WYwV+ICpgmP7vnwZLnbfdq5CyHtEkTOyMOlxi9Ow==
+  dependencies:
+    "@fontsource/roboto" "^5.0.12"
+    date-fns "^3.3.1"
+    govuk-frontend "^5.2.0"
+    react-focus-lock "^2.11.2"
+    react-icons "^5.0.1"
+    uuid "^9.0.1"
+
 react-hook-form@^7.49.2:
   version "7.49.2"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.49.2.tgz#6fb2742e1308020f26cb1915c7012b6c07b11ade"
@@ -7733,6 +7755,11 @@ react-icons@^4.12.0:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.12.0.tgz#54806159a966961bfd5cdb26e492f4dafd6a8d78"
   integrity sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==
+
+react-icons@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.0.1.tgz#1694e11bfa2a2888cab47dcc30154ce90485feee"
+  integrity sha512-WqLZJ4bLzlhmsvme6iFdgO8gfZP17rfjYEJ2m9RsZjZ+cc4k1hTzknEz63YS1MeT50kVzoa1Nz36f4BEx+Wigw==
 
 react-inspector@6.0.2:
   version "6.0.2"

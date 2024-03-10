@@ -3,8 +3,6 @@ import { ErrorBoundary } from "./ErrorBoundary"
 import { AccordionV1 } from "./Accordion/AccordionV1"
 import { AccordionV2 } from "./Accordion/AccordionV2"
 import { AutoComplete } from "./Autocomplete/Autocomplete"
-import { DatePicker } from "./DatePicker/DatePicker"
-import { Calendar } from "./Calendar/Calendar"
 import { Table } from "./Table/Table"
 
 import { Content } from "./GDS/Content"
@@ -16,8 +14,6 @@ export {
   Content,
   NavLink,
   Table,
-  DatePicker,
-  Calendar,
   ErrorMessage,
   ErrorBoundary,
   AccordionV1,
