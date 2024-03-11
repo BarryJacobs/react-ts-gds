@@ -7734,10 +7734,10 @@ react-focus-lock@^2.11.2:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-govuk-datepicker@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-govuk-datepicker/-/react-govuk-datepicker-1.0.3.tgz#7dd27e4138bfa1146d9f7d56cfe408c0295b21d2"
-  integrity sha512-ZEMUsOQVXY9kEf6HvB17CDAHL10aF/wPpw7F0Bv/MNuPe/WYwV+ICpgmP7vnwZLnbfdq5CyHtEkTOyMOlxi9Ow==
+react-govuk-datepicker@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-govuk-datepicker/-/react-govuk-datepicker-1.0.5.tgz#a1c27542b92fb63ac7165aab0994704dfcb9084e"
+  integrity sha512-LQyfSS2U3pnDxhXm7zZcDCbNcqoGPaRrg0ouMWlk30rfZmLahFg8ozBAgLCCNOrNBQzLqZNVKfYCVkaIw2pSWw==
   dependencies:
     "@fontsource/roboto" "^5.0.12"
     date-fns "^3.3.1"
