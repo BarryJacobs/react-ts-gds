@@ -1,4 +1,4 @@
-import { Home, Users, usersLoader, Accordions, AutoCompletes } from "pages"
+import { Home, Users, usersLoader, Accordions, AutoCompletes, Dates } from "pages"
 import { ReactElement } from "react"
 import { ErrorBoundary } from "components"
 import { QueryClientProvider } from "@tanstack/react-query"
@@ -23,6 +23,10 @@ const App = (): ReactElement => {
         {
           path: "/autocomplete",
           element: <AutoCompletes />
+        },
+        {
+          path: "/dates",
+          element: <Dates />
         },
         {
           path: "/users",

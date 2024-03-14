@@ -34,6 +34,21 @@ export default defineConfig(({ command }): UserConfig => {
           replacement: "$1"
         }
       ]
+    },
+    server: {
+      host: "0.0.0.0",
+      port: 5173
+    },
+    test: {
+      setupFiles: ["./setupTests.ts"],
+      globals: true,
+      environment: "jsdom",
+      css: true,
+      environmentOptions: {
+        jsdom: {
+          resources: "usable"
+        }
+      }
     }
   }
 
