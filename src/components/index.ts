@@ -3,6 +3,7 @@ import { ErrorBoundary } from "./ErrorBoundary"
 import { AccordionV1 } from "./Accordion/AccordionV1"
 import { AccordionV2 } from "./Accordion/AccordionV2"
 import { AutoComplete } from "./Autocomplete/Autocomplete"
+import { AutoComplete2 } from "./Autocomplete/AutoComplete2"
 import { Table } from "./Table/Table"
 
 import { Content } from "./GDS/Content"
@@ -19,6 +20,7 @@ export {
   AccordionV1,
   AccordionV2,
   AutoComplete,
+  AutoComplete2,
   Pagination,
   Tabs
 }

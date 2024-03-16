@@ -1,6 +1,10 @@
 @use "src/styles";
 
 .gds-autocomplete {
+  .gds-autocomplete__single-value {
+    color: black;
+  }
+
   .gds-autocomplete__no-options {
     font-size: 19px;
     text-align: left;

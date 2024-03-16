@@ -21,3 +21,8 @@ export type PartialRecord<K extends keyof any, T> = {
 export type AuthorisationHeaders = Dictionary<string> & {
   ["Authorization"]: string
 }
+
+export interface Option {
+  label: string
+  value: string
+}
