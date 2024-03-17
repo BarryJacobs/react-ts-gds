@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef, ChangeEvent, KeyboardEvent } from "react"
+import { useIsMobile } from "hooks"
 import { Option } from "types"
 
 import "./AutoComplete2.scss"
@@ -50,6 +51,7 @@ export const AutoComplete2 = ({
   const [searchTerm, setSearchTerm] = useState(value ? value.label : "")
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
+  const isMobile = useIsMobile()
 
   const containerAttr = {
     className: error
@@ -167,6 +169,9 @@ export const AutoComplete2 = ({
       inputRef.current?.select()
     } else {
       setIsItemSelected(false)
+    }
+    if (isMobile) {
+      setShowDropdown(true)
     }
   }
 
