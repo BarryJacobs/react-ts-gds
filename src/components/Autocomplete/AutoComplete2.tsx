@@ -167,11 +167,11 @@ export const AutoComplete2 = ({
   const handleFocus = () => {
     if (!isItemSelected) {
       inputRef.current?.select()
+      if (isMobile) {
+        setShowDropdown(true)
+      }
     } else {
       setIsItemSelected(false)
-    }
-    if (isMobile) {
-      setShowDropdown(true)
     }
   }
 
