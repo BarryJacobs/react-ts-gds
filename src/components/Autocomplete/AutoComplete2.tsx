@@ -34,20 +34,20 @@ export const AutoComplete2 = ({
   labelClassExt = "",
   inputClassExt = "",
   options,
-  // value,
+  value,
   isDisabled = false,
   allowCreate = false,
   useUpperCase = false,
   onChange
 }: AutoComplete2Props) => {
   const [focusIndex, setFocusIndex] = useState(0)
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null)
+  const [selectedOption, setSelectedOption] = useState<Option | undefined>(value)
   const [listItems, setListItems] = useState<Option[]>(options)
   const [filteredItems, setFilteredItems] = useState<Option[]>([])
   const [isMouseOverDropdown, setIsMouseOverDropdown] = useState(false)
   const [isItemSelected, setIsItemSelected] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState(value ? value.label : "")
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 
@@ -98,9 +98,11 @@ export const AutoComplete2 = ({
   const focusInput = () =>
     setTimeout(() => {
       inputRef.current?.focus()
-    }, 10)
+    }, 20)
 
-  const toggleDropdown = () => {
+  const toggleDropdown: React.MouseEventHandler<SVGSVGElement> = e => {
+    e.preventDefault()
+    e.stopPropagation()
     setShowDropdown(prev => !prev)
     if (!showDropdown) {
       focusInput()
@@ -147,8 +149,8 @@ export const AutoComplete2 = ({
       case "Tab":
       case "Enter":
         if (showDropdown) {
-          e.preventDefault()
           if (filteredItems.length) {
+            e.preventDefault()
             handleSelect(filteredItems[focusIndex])
           }
         }
@@ -163,17 +165,20 @@ export const AutoComplete2 = ({
   const handleFocus = () => {
     if (!isItemSelected) {
       inputRef.current?.select()
-      setShowDropdown(true)
     } else {
       setIsItemSelected(false)
     }
   }
 
   const handleBlur = () => {
-    if (selectedOption && searchTerm !== selectedOption.label) {
-      setSearchTerm(selectedOption.label)
-    }
     if (!isMouseOverDropdown) {
+      if (selectedOption && searchTerm !== selectedOption.label) {
+        setSearchTerm(selectedOption.label)
+      } else {
+        if (filteredItems.length === 0) {
+          setSearchTerm("")
+        }
+      }
       setShowDropdown(false)
     }
   }
@@ -291,7 +296,6 @@ export const AutoComplete2 = ({
                 <li
                   key={`gds-autocomplete__option-${index}`}
                   role="option"
-                  aria-selected={false}
                   className={`gds-autocomplete__option ${
                     index === focusIndex ? " gds-autocomplete__option--is-focused" : ""
                   }`}

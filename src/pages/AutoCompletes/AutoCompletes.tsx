@@ -9,7 +9,6 @@ interface VehicleData {
   make: string
   model: string
   make2: string
-  model2: string
 }
 
 const vehicleMakes: Option[] = [
@@ -34,8 +33,7 @@ const vehicleModels: Option[] = [
 const schema = yup.object().shape({
   make: yup.string().trim().required("Please select a make of vehicle"),
   model: yup.string().trim().required("Please select a model of vehicle"),
-  make2: yup.string().trim().required("Please select a make of vehicle"),
-  model2: yup.string().trim().required("Please select a model of vehicle")
+  make2: yup.string().trim().required("Please select a make of vehicle")
 })
 
 export const AutoCompletes = (): ReactElement => {
@@ -69,10 +67,7 @@ export const AutoCompletes = (): ReactElement => {
             useUpperCase={true}
             options={vehicleMakes}
             value={vehicleMakes.find(x => x.value === value)}
-            onChange={x => {
-              console.log("New value: ", x)
-              onChange(x?.value)
-            }}
+            onChange={x => onChange(x?.value)}
             error={error?.message}
           />
         )}
@@ -106,7 +101,7 @@ export const AutoCompletes = (): ReactElement => {
             containerClassExt="govuk-input--width-20"
             hint="Does provide item creation"
             useUpperCase={true}
-            allowCreate={true}
+            allowCreate={false}
             options={vehicleModels}
             value={vehicleModels.find(x => x.value === value)}
             getOptionLabel={x => x.label}
