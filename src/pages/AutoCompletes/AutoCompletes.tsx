@@ -101,7 +101,7 @@ export const AutoCompletes = (): ReactElement => {
             containerClassExt="govuk-input--width-20"
             hint="Does provide item creation"
             useUpperCase={true}
-            allowCreate={false}
+            allowCreate={true}
             options={vehicleModels}
             value={vehicleModels.find(x => x.value === value)}
             getOptionLabel={x => x.label}

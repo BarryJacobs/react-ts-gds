@@ -171,15 +171,16 @@ export const AutoComplete2 = ({
   }
 
   const handleBlur = () => {
-    if (!isMouseOverDropdown) {
-      if (selectedOption && searchTerm !== selectedOption.label) {
-        setSearchTerm(selectedOption.label)
-      } else {
-        if (filteredItems.length === 0) {
-          setSearchTerm("")
-        }
-      }
+    const itemMenuIsNotActive = !isMouseOverDropdown || filteredItems.length === 0
+    if (itemMenuIsNotActive) {
       setShowDropdown(false)
+    }
+    if (itemMenuIsNotActive && selectedOption && searchTerm !== selectedOption.label) {
+      setSearchTerm(selectedOption.label)
+    } else {
+      if (!selectedOption) {
+        setSearchTerm("")
+      }
     }
   }
 
