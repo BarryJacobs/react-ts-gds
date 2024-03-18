@@ -1,35 +1,10 @@
 @use "src/styles";
 
-// .gds-autocomplete__single-value {
-//   display: none;
-// }
-
-// .gds-autocomplete__input-container {
-//   input {
-//     &::after {
-//       visibility: visible !important; // Set the visibility to visible by default
-//       content: none !important; // Remove any content added by ::after
-//       display: none !important; // Hide the ::after pseudo-element
-//     }
-//   }
-// }
-
 .gds-autocomplete {
-  // .gds-autocomplete__input {
-  //   font-weight: normal !important;
-  //   // margin-left: 1px !important;
-  // }
-
   .gds-autocomplete__input-container {
     input {
       opacity: 1 !important;
     }
-    // &::after {
-    //   // color: transparent;
-    //   // background-color: transparent;
-    //   // color: transparent;
-    //   // visibility: visible !important;
-    // }
   }
 
   .gds-autocomplete__no-options {

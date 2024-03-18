@@ -64,6 +64,7 @@ export const AutoCompletes = (): ReactElement => {
             label="Make"
             labelClassExt="govuk-label-s"
             containerClassExt="govuk-input--width-20"
+            useUpperCase={true}
             options={vehicleMakes}
             value={vehicleMakes.find(x => x.value === value)}
             getOptionLabel={x => x.label}

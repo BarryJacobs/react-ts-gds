@@ -3,9 +3,7 @@ import Select, {
   components,
   DropdownIndicatorProps,
   NoticeProps,
-  // InputProps,
   GroupBase,
-  PropsValue,
   SingleValue,
   SelectInstance,
   CSSObjectWithLabel,
@@ -31,7 +29,12 @@ const DropdownArrow = () => {
   )
 }
 
-interface AutoCompleteProps<T extends { label: string; value: string }> {
+interface LabelValuePair {
+  label: string
+  value: string
+}
+
+interface AutoCompleteProps<T extends LabelValuePair> {
   identifier: string
   label: string
   hint?: string
@@ -45,12 +48,12 @@ interface AutoCompleteProps<T extends { label: string; value: string }> {
   containerClassExt?: string
   labelClassExt?: string
   options: T[]
-  value: PropsValue<T> | undefined
+  value: SingleValue<T> | undefined
   getOptionLabel: (value: T) => string
   onChange: (value: SingleValue<T>) => void
 }
 
-export const AutoComplete = <T extends { label: string; value: string }>({
+export const AutoComplete = <T extends LabelValuePair>({
   identifier,
   label,
   hint,
@@ -99,14 +102,6 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     )
   }
 
-  // const ValueContainer = (props: any) => {
-  //   return (
-  //     <components.ValueContainer {...props}>
-  //       <div onClick={() => props?.selectProps?.selectRef?.current?.focus()}>{props.children}</div>
-  //     </components.ValueContainer>
-  //   )
-  // }
-
   const DropdownIndicator = (props: DropdownIndicatorProps<T, boolean, GroupBase<T>>) => {
     return (
       <components.DropdownIndicator {...props}>
@@ -115,53 +110,25 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     )
   }
 
-  // const Input = (props: InputProps<T, boolean, GroupBase<T>>) => (
-  //   <components.Input {...props} isHidden={false} />
-  // )
-
-  const focusHandler = () => {
-    setTimeout(() => {
-      selectRef.current?.inputRef?.select()
-    }, 30)
-  }
-
   const changeHandler = (selectedValue: SingleValue<T>) => {
-    console.log("changeHandler: ", selectedValue)
     onChange(selectedValue)
     setControlValue(selectedValue)
     setSearchTerm(selectedValue ? selectedValue.label : "")
-    // setTimeout(() => {
-    //   selectRef.current?.inputRef?.focus()
-    // }, 50)
-    // const inputElement = document.querySelector<HTMLInputElement>(`#${identifier}`)
-    // if (inputElement) {
-    //   // selectRef.current?.inputRef?.focus()
-    //   // setTimeout(() => input.focus(), 10)
-    //   // inputElement.blur()
-    //   // inputElement.focus()
-    // }
   }
 
   const inputChangeHandler = (inputValue: string, { action }: InputActionMeta) => {
-    // onBlur => setInputValue to last selected value
-    // if (action === "input-blur") {
-    //   setInputValue(value ? value.label : "");
-    // }
-
-    // onInputChange => update inputValue
-    console.log("inputChangeHandler: ", inputValue, action)
     if (action === "input-change") {
       setSearchTerm(useUpperCase ? inputValue.toUpperCase() : inputValue)
+    } else if (action === "input-blur") {
+      if (controlValue) {
+        if (searchTerm !== controlValue.label) {
+          setSearchTerm(controlValue.label)
+        }
+      } else {
+        setSearchTerm("")
+      }
     }
-    // if (action === "set-value") {
-    //   console.log("set value: ", inputValue)
-    // }
   }
-
-  // const inputChangeHandler = (newValue: string, _actionMeta: InputActionMeta) => {
-  //   console.log("inputChangeHandler: ", newValue)
-  //   setSearchTerm(newValue)
-  // }
 
   const createOptionHandler = (label: string) => {
     const newValue = useUpperCase ? label.toUpperCase() : label
@@ -190,21 +157,19 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     components: {
       DropdownIndicator,
       NoOptionsMessage
-      // ValueContainer
-      // Input
     },
     isSearchable: true,
+    controlShouldRenderValue: false,
+    value: controlValue,
+    inputValue: searchTerm,
+    onChange: changeHandler,
+    onInputChange: inputChangeHandler,
     placeholder,
     options: controlOptions,
     getOptionLabel,
     isDisabled,
     isLoading
   }
-
-  // useEffect(() => {
-  //   console.log("Testing ... ", (controlValue as any)?.label)
-  //   setSearchTerm((controlValue as any)?.label || "")
-  // }, [controlValue])
 
   return (
     <div {...containerAttr}>
@@ -225,45 +190,16 @@ export const AutoComplete = <T extends { label: string; value: string }>({
         </p>
       )}
 
-      {/* <Select
-        ref={selectRef}
-        isMulti={false}
-        // hideSelectedOptions={true}
-        controlShouldRenderValue={false}
-        value={controlValue}
-        inputValue={searchTerm}
-        onChange={changeHandler}
-        onInputChange={inputChangeHandler}
-        onFocus={onFocus}
-        {...selectProps}
-      /> */}
-
       {allowCreate ? (
         <CreateableSelect
           ref={selectRef}
           isMulti={false}
-          controlShouldRenderValue={false}
-          value={controlValue}
-          inputValue={searchTerm}
-          onChange={changeHandler}
-          onInputChange={inputChangeHandler}
-          onFocus={focusHandler}
           onCreateOption={createOptionHandler}
           formatCreateLabel={formatLabelHandler}
           {...selectProps}
         />
       ) : (
-        <Select
-          ref={selectRef}
-          isMulti={false}
-          controlShouldRenderValue={false}
-          value={controlValue}
-          inputValue={searchTerm}
-          onChange={changeHandler}
-          onInputChange={inputChangeHandler}
-          onFocus={focusHandler}
-          {...selectProps}
-        />
+        <Select ref={selectRef} isMulti={false} {...selectProps} />
       )}
     </div>
   )
