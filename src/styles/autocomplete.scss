@@ -15,16 +15,21 @@
 // }
 
 .gds-autocomplete {
-  .gds-autocomplete__input {
-    font-weight: normal !important;
-    // margin-left: 1px !important;
-  }
+  // .gds-autocomplete__input {
+  //   font-weight: normal !important;
+  //   // margin-left: 1px !important;
+  // }
 
   .gds-autocomplete__input-container {
-    &::after {
-      // color: transparent;
-      visibility: visible !important;
+    input {
+      opacity: 1 !important;
     }
+    // &::after {
+    //   // color: transparent;
+    //   // background-color: transparent;
+    //   // color: transparent;
+    //   // visibility: visible !important;
+    // }
   }
 
   .gds-autocomplete__no-options {
