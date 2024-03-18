@@ -110,6 +110,10 @@ export const AutoComplete = <T extends LabelValuePair>({
     )
   }
 
+  const focusHandler = () => {
+    selectRef.current?.inputRef?.select()
+  }
+
   const changeHandler = (selectedValue: SingleValue<T>) => {
     onChange(selectedValue)
     setControlValue(selectedValue)
@@ -194,12 +198,13 @@ export const AutoComplete = <T extends LabelValuePair>({
         <CreateableSelect
           ref={selectRef}
           isMulti={false}
+          onFocus={focusHandler}
           onCreateOption={createOptionHandler}
           formatCreateLabel={formatLabelHandler}
           {...selectProps}
         />
       ) : (
-        <Select ref={selectRef} isMulti={false} {...selectProps} />
+        <Select ref={selectRef} onFocus={focusHandler} isMulti={false} {...selectProps} />
       )}
     </div>
   )
