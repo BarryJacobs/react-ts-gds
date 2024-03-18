@@ -1,12 +1,15 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Select, {
   components,
   DropdownIndicatorProps,
   NoticeProps,
+  // InputProps,
   GroupBase,
   PropsValue,
   SingleValue,
-  CSSObjectWithLabel
+  SelectInstance,
+  CSSObjectWithLabel,
+  InputActionMeta
 } from "react-select"
 import CreateableSelect from "react-select/creatable"
 
@@ -67,6 +70,8 @@ export const AutoComplete = <T extends { label: string; value: string }>({
 }: AutoCompleteProps<T>) => {
   const [controlOptions, setControlOptions] = useState(options)
   const [controlValue, setControlValue] = useState(value)
+  const [searchTerm, setSearchTerm] = useState("")
+  const selectRef = useRef<SelectInstance<T, false, GroupBase<T>>>(null)
 
   const containerAttr = {
     className: error
@@ -94,6 +99,14 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     )
   }
 
+  // const ValueContainer = (props: any) => {
+  //   return (
+  //     <components.ValueContainer {...props}>
+  //       <div onClick={() => props?.selectProps?.selectRef?.current?.focus()}>{props.children}</div>
+  //     </components.ValueContainer>
+  //   )
+  // }
+
   const DropdownIndicator = (props: DropdownIndicatorProps<T, boolean, GroupBase<T>>) => {
     return (
       <components.DropdownIndicator {...props}>
@@ -102,15 +115,53 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     )
   }
 
+  // const Input = (props: InputProps<T, boolean, GroupBase<T>>) => (
+  //   <components.Input {...props} isHidden={false} />
+  // )
+
+  const focusHandler = () => {
+    setTimeout(() => {
+      selectRef.current?.inputRef?.select()
+    }, 30)
+  }
+
   const changeHandler = (selectedValue: SingleValue<T>) => {
+    console.log("changeHandler: ", selectedValue)
     onChange(selectedValue)
     setControlValue(selectedValue)
-    const inputElement = document.querySelector<HTMLInputElement>(`#${identifier}`)
-    if (inputElement) {
-      inputElement.blur()
-      inputElement.focus()
-    }
+    setSearchTerm(selectedValue ? selectedValue.label : "")
+    // setTimeout(() => {
+    //   selectRef.current?.inputRef?.focus()
+    // }, 50)
+    // const inputElement = document.querySelector<HTMLInputElement>(`#${identifier}`)
+    // if (inputElement) {
+    //   // selectRef.current?.inputRef?.focus()
+    //   // setTimeout(() => input.focus(), 10)
+    //   // inputElement.blur()
+    //   // inputElement.focus()
+    // }
   }
+
+  const inputChangeHandler = (inputValue: string, { action }: InputActionMeta) => {
+    // onBlur => setInputValue to last selected value
+    // if (action === "input-blur") {
+    //   setInputValue(value ? value.label : "");
+    // }
+
+    // onInputChange => update inputValue
+    console.log("inputChangeHandler: ", inputValue, action)
+    if (action === "input-change") {
+      setSearchTerm(useUpperCase ? inputValue.toUpperCase() : inputValue)
+    }
+    // if (action === "set-value") {
+    //   console.log("set value: ", inputValue)
+    // }
+  }
+
+  // const inputChangeHandler = (newValue: string, _actionMeta: InputActionMeta) => {
+  //   console.log("inputChangeHandler: ", newValue)
+  //   setSearchTerm(newValue)
+  // }
 
   const createOptionHandler = (label: string) => {
     const newValue = useUpperCase ? label.toUpperCase() : label
@@ -118,8 +169,9 @@ export const AutoComplete = <T extends { label: string; value: string }>({
       label: newValue,
       value: newValue
     }
-    setControlOptions(prev => [...prev, newOption])
+    setControlOptions(prev => [newOption, ...prev])
     setControlValue(newOption)
+    setSearchTerm(newValue)
     onChange(newOption)
   }
 
@@ -138,16 +190,21 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     components: {
       DropdownIndicator,
       NoOptionsMessage
+      // ValueContainer
+      // Input
     },
     isSearchable: true,
     placeholder,
     options: controlOptions,
-    value: controlValue,
     getOptionLabel,
-    onChange: changeHandler,
     isDisabled,
     isLoading
   }
+
+  // useEffect(() => {
+  //   console.log("Testing ... ", (controlValue as any)?.label)
+  //   setSearchTerm((controlValue as any)?.label || "")
+  // }, [controlValue])
 
   return (
     <div {...containerAttr}>
@@ -168,15 +225,45 @@ export const AutoComplete = <T extends { label: string; value: string }>({
         </p>
       )}
 
+      {/* <Select
+        ref={selectRef}
+        isMulti={false}
+        // hideSelectedOptions={true}
+        controlShouldRenderValue={false}
+        value={controlValue}
+        inputValue={searchTerm}
+        onChange={changeHandler}
+        onInputChange={inputChangeHandler}
+        onFocus={onFocus}
+        {...selectProps}
+      /> */}
+
       {allowCreate ? (
         <CreateableSelect
+          ref={selectRef}
           isMulti={false}
+          controlShouldRenderValue={false}
+          value={controlValue}
+          inputValue={searchTerm}
+          onChange={changeHandler}
+          onInputChange={inputChangeHandler}
+          onFocus={focusHandler}
           onCreateOption={createOptionHandler}
           formatCreateLabel={formatLabelHandler}
           {...selectProps}
         />
       ) : (
-        <Select isMulti={false} {...selectProps} />
+        <Select
+          ref={selectRef}
+          isMulti={false}
+          controlShouldRenderValue={false}
+          value={controlValue}
+          inputValue={searchTerm}
+          onChange={changeHandler}
+          onInputChange={inputChangeHandler}
+          onFocus={focusHandler}
+          {...selectProps}
+        />
       )}
     </div>
   )

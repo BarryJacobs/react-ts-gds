@@ -1,6 +1,32 @@
 @use "src/styles";
 
+// .gds-autocomplete__single-value {
+//   display: none;
+// }
+
+// .gds-autocomplete__input-container {
+//   input {
+//     &::after {
+//       visibility: visible !important; // Set the visibility to visible by default
+//       content: none !important; // Remove any content added by ::after
+//       display: none !important; // Hide the ::after pseudo-element
+//     }
+//   }
+// }
+
 .gds-autocomplete {
+  .gds-autocomplete__input {
+    font-weight: normal !important;
+    // margin-left: 1px !important;
+  }
+
+  .gds-autocomplete__input-container {
+    &::after {
+      // color: transparent;
+      visibility: visible !important;
+    }
+  }
+
   .gds-autocomplete__no-options {
     font-size: 19px;
     text-align: left;
@@ -8,6 +34,7 @@
     color: #646b6f;
     cursor: not-allowed;
   }
+
   .gds-autocomplete__control {
     font-size: 19px;
     border: 2px solid #0b0c0c;
