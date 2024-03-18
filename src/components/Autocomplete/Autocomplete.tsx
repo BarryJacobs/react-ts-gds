@@ -168,6 +168,7 @@ export const AutoComplete = <T extends LabelValuePair>({
     inputValue: searchTerm,
     onChange: changeHandler,
     onInputChange: inputChangeHandler,
+    onFocus: focusHandler,
     placeholder,
     options: controlOptions,
     getOptionLabel,
@@ -198,13 +199,13 @@ export const AutoComplete = <T extends LabelValuePair>({
         <CreateableSelect
           ref={selectRef}
           isMulti={false}
-          onFocus={focusHandler}
+          createOptionPosition="first"
           onCreateOption={createOptionHandler}
           formatCreateLabel={formatLabelHandler}
           {...selectProps}
         />
       ) : (
-        <Select ref={selectRef} onFocus={focusHandler} isMulti={false} {...selectProps} />
+        <Select ref={selectRef} isMulti={false} {...selectProps} />
       )}
     </div>
   )
