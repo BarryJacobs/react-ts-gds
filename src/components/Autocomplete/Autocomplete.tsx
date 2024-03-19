@@ -7,7 +7,8 @@ import Select, {
   SingleValue,
   SelectInstance,
   CSSObjectWithLabel,
-  InputActionMeta
+  InputActionMeta,
+  StylesConfig
 } from "react-select"
 import CreateableSelect from "react-select/creatable"
 
@@ -89,12 +90,12 @@ export const AutoComplete = <T extends LabelValuePair>({
     id: `${identifier}-label`
   }
 
-  const customStyles = {
+  const customStyles: StylesConfig<T, false> = {
     control: (provided: CSSObjectWithLabel) => ({
       ...provided,
       borderColor: error ? "#d4351c !important" : "#0b0c0c"
     }),
-    indicatorsContainer: (provided: any) => ({
+    indicatorsContainer: (provided: CSSObjectWithLabel) => ({
       ...provided,
       pointerEvents: "none"
     })
