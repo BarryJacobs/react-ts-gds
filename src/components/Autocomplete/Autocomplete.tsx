@@ -93,6 +93,10 @@ export const AutoComplete = <T extends LabelValuePair>({
     control: (provided: CSSObjectWithLabel) => ({
       ...provided,
       borderColor: error ? "#d4351c !important" : "#0b0c0c"
+    }),
+    indicatorsContainer: (provided: any) => ({
+      ...provided,
+      pointerEvents: "none"
     })
   }
 
