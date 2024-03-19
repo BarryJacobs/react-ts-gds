@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Select, {
   components,
   DropdownIndicatorProps,
@@ -9,7 +9,6 @@ import Select, {
   CSSObjectWithLabel,
   InputActionMeta
 } from "react-select"
-import { useIsMobile } from "hooks"
 import CreateableSelect from "react-select/creatable"
 
 import "styles/autocomplete.scss"
@@ -76,9 +75,8 @@ export const AutoComplete = <T extends LabelValuePair>({
   const [controlValue, setControlValue] = useState(value)
   const [searchTerm, setSearchTerm] = useState("")
   const [hasUpdatedValue, setHasUpdatedValue] = useState(false)
-
+  const [hasFocus, setHasFocus] = useState(false)
   const selectRef = useRef<SelectInstance<T, false, GroupBase<T>>>(null)
-  const isMobile = useIsMobile()
 
   const containerAttr = {
     className: error
@@ -116,6 +114,11 @@ export const AutoComplete = <T extends LabelValuePair>({
 
   const focusHandler = () => {
     selectRef.current?.inputRef?.select()
+    setHasFocus(true)
+  }
+
+  const blurHandler = () => {
+    setHasFocus(false)
   }
 
   const changeHandler = (selectedValue: SingleValue<T>) => {
@@ -127,17 +130,6 @@ export const AutoComplete = <T extends LabelValuePair>({
   const inputChangeHandler = (inputValue: string, { action }: InputActionMeta) => {
     if (action === "input-change") {
       setSearchTerm(useUpperCase ? inputValue.toUpperCase() : inputValue)
-    } else if (action === "input-blur") {
-      if (!isMobile || (isMobile && hasUpdatedValue)) {
-        if (controlValue) {
-          if (searchTerm !== controlValue.label) {
-            setSearchTerm(controlValue.label)
-          }
-        } else {
-          setSearchTerm("")
-        }
-        setHasUpdatedValue(false)
-      }
     } else if (action === "set-value") {
       setHasUpdatedValue(true)
     }
@@ -157,6 +149,22 @@ export const AutoComplete = <T extends LabelValuePair>({
 
   const formatLabelHandler = (label: string) =>
     `Select "${useUpperCase ? label.toUpperCase() : label}"`
+
+  useEffect(() => {
+    if (!hasFocus) {
+      if (!hasUpdatedValue) {
+        if (controlValue) {
+          if (searchTerm !== controlValue.label) {
+            setSearchTerm(controlValue.label)
+          }
+        } else {
+          setSearchTerm("")
+        }
+      } else {
+        setHasUpdatedValue(false)
+      }
+    }
+  }, [hasFocus, hasUpdatedValue, controlValue, searchTerm])
 
   const selectProps = {
     name: identifier,
@@ -178,6 +186,7 @@ export const AutoComplete = <T extends LabelValuePair>({
     onChange: changeHandler,
     onInputChange: inputChangeHandler,
     onFocus: focusHandler,
+    onBlur: blurHandler,
     placeholder,
     options: controlOptions,
     getOptionLabel,
