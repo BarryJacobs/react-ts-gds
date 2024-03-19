@@ -9,6 +9,7 @@ import Select, {
   CSSObjectWithLabel,
   InputActionMeta
 } from "react-select"
+import { useIsMobile } from "hooks"
 import CreateableSelect from "react-select/creatable"
 
 import "styles/autocomplete.scss"
@@ -74,7 +75,10 @@ export const AutoComplete = <T extends LabelValuePair>({
   const [controlOptions, setControlOptions] = useState(options)
   const [controlValue, setControlValue] = useState(value)
   const [searchTerm, setSearchTerm] = useState("")
+  const [hasUpdatedValue, setHasUpdatedValue] = useState(false)
+
   const selectRef = useRef<SelectInstance<T, false, GroupBase<T>>>(null)
+  const isMobile = useIsMobile()
 
   const containerAttr = {
     className: error
@@ -124,13 +128,18 @@ export const AutoComplete = <T extends LabelValuePair>({
     if (action === "input-change") {
       setSearchTerm(useUpperCase ? inputValue.toUpperCase() : inputValue)
     } else if (action === "input-blur") {
-      if (controlValue) {
-        if (searchTerm !== controlValue.label) {
-          setSearchTerm(controlValue.label)
+      if (!isMobile || (isMobile && hasUpdatedValue)) {
+        if (controlValue) {
+          if (searchTerm !== controlValue.label) {
+            setSearchTerm(controlValue.label)
+          }
+        } else {
+          setSearchTerm("")
         }
-      } else {
-        setSearchTerm("")
+        setHasUpdatedValue(false)
       }
+    } else if (action === "set-value") {
+      setHasUpdatedValue(true)
     }
   }
 
