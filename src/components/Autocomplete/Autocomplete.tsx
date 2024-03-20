@@ -140,6 +140,12 @@ export const AutoComplete = <T extends LabelValuePair>({
     }
   }
 
+  const keyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === " " && searchTerm === "") {
+      e.preventDefault()
+    }
+  }
+
   const createOptionHandler = (label: string) => {
     const newValue = useUpperCase ? label.toUpperCase() : label
     const newOption: any = {
@@ -190,6 +196,7 @@ export const AutoComplete = <T extends LabelValuePair>({
     inputValue: searchTerm,
     onChange: changeHandler,
     onInputChange: inputChangeHandler,
+    onKeyDown: keyDownHandler,
     onFocus: focusHandler,
     onBlur: blurHandler,
     placeholder,
