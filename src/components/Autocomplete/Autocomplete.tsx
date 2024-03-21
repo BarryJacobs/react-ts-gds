@@ -10,6 +10,8 @@ import Select, {
   InputActionMeta,
   StylesConfig
 } from "react-select"
+import { LabelValuePair } from "interfaces"
+import { VirtualMenuList } from "./VirtualMenuList"
 import CreateableSelect from "react-select/creatable"
 
 import "styles/autocomplete.scss"
@@ -28,11 +30,6 @@ const DropdownArrow = () => {
       </g>
     </svg>
   )
-}
-
-interface LabelValuePair {
-  label: string
-  value: string
 }
 
 interface AutoCompleteProps<T extends LabelValuePair> {
@@ -177,6 +174,13 @@ export const AutoComplete = <T extends LabelValuePair>({
     }
   }, [hasFocus, hasUpdatedValue, controlValue, searchTerm])
 
+  useEffect(() => {
+    if (selectRef.current && !searchTerm) {
+      selectRef.current.clearValue()
+      selectRef.current.focusOption(undefined)
+    }
+  }, [searchTerm])
+
   const selectProps = {
     name: identifier,
     required,
@@ -188,8 +192,10 @@ export const AutoComplete = <T extends LabelValuePair>({
     styles: customStyles,
     components: {
       DropdownIndicator,
-      NoOptionsMessage
+      NoOptionsMessage,
+      MenuList: VirtualMenuList<T>
     },
+    captureMenuScroll: false,
     isSearchable: true,
     controlShouldRenderValue: false,
     value: controlValue,
