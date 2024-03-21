@@ -1,6 +1,8 @@
 @use "src/styles";
 
 .gds-autocomplete {
+  font-family: "Roboto";
+
   .gds-autocomplete__input-container {
     input {
       opacity: 1 !important;
