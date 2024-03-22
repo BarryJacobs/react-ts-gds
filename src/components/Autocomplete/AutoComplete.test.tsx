@@ -12,6 +12,23 @@ import { AutoComplete } from "components"
 
 extendExpectForAxe()
 
+Object.defineProperty(Element.prototype, "getBoundingClientRect", {
+  configurable: true,
+  value: jest.fn(() => {
+    return {
+      width: 120,
+      height: 120,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      x: 0,
+      y: 0,
+      toJSON: () => {}
+    }
+  })
+})
+
 const mockOnChange = vi.fn()
 
 const cars = [
@@ -111,6 +128,25 @@ describe("AutoComplete", () => {
     })
   })
 
+  it("must render correctly by default", async () => {
+    render(
+      <AutoComplete
+        identifier="cars"
+        label="Cars"
+        options={cars}
+        value={null}
+        getOptionLabel={x => x.label}
+        onChange={mockOnChange}
+      />
+    )
+
+    const select = await screen.findByRole("combobox")
+    expect(select).toBeInTheDocument()
+    expect(select).toHaveClass("gds-autocomplete__input")
+    expect(select).toHaveAttribute("id", "cars")
+    expect(select).toHaveAttribute("aria-invalid", "false")
+  })
+
   it("must call onChange when an option is selected", async () => {
     render(
       <AutoComplete
@@ -118,6 +154,7 @@ describe("AutoComplete", () => {
         label="Cars"
         options={cars}
         value={null}
+        allowCreate={true}
         getOptionLabel={x => x.label}
         onChange={mockOnChange}
       />
@@ -132,8 +169,9 @@ describe("AutoComplete", () => {
       await userEvent.type(autoComplete, "{enter}")
     })
 
-    expect(mockOnChange.mock.calls.length).toEqual(1)
-    expect(mockOnChange.mock.calls[0]).toEqual([
+    expect(mockOnChange.mock.calls.length).toEqual(2)
+    expect(mockOnChange.mock.calls[0]).toEqual([null])
+    expect(mockOnChange.mock.calls[1]).toEqual([
       {
         label: "BMW",
         value: "01"
@@ -141,11 +179,12 @@ describe("AutoComplete", () => {
     ])
   })
 
-  it("must render correctly by default", async () => {
+  it("must render creatable select correctly by default", async () => {
     render(
       <AutoComplete
         identifier="cars"
         label="Cars"
+        allowCreate={true}
         options={cars}
         value={null}
         getOptionLabel={x => x.label}

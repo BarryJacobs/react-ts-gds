@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
 import Select, {
   components,
   DropdownIndicatorProps,
@@ -39,6 +39,7 @@ interface AutoCompleteProps<T extends LabelValuePair> {
   error?: string
   isLoading?: boolean
   isDisabled?: boolean
+  multiQuestion?: boolean
   placeholder?: string
   required?: boolean
   allowCreate?: boolean
@@ -62,6 +63,7 @@ export const AutoComplete = <T extends LabelValuePair>({
   labelClassExt = "",
   options,
   value,
+  multiQuestion = true,
   isLoading = false,
   isDisabled = false,
   allowCreate = false,
@@ -82,10 +84,23 @@ export const AutoComplete = <T extends LabelValuePair>({
       : `govuk-form-group ${containerClassExt}`
   }
 
-  const labelAttr = {
-    className: `govuk-label ${labelClassExt}`,
-    id: `${identifier}-label`
-  }
+  const labelAttr = useMemo(() => {
+    let assignedClass = "govuk-label govuk-label--l"
+    if (labelClassExt) {
+      if (multiQuestion) {
+        assignedClass = `govuk-label ${labelClassExt}`
+      } else {
+        assignedClass = `govuk-label govuk-label--l ${labelClassExt}`
+      }
+    } else if (multiQuestion) {
+      assignedClass = "govuk-label"
+    }
+
+    return {
+      className: assignedClass,
+      id: `${identifier}-label`
+    }
+  }, [identifier, labelClassExt, multiQuestion])
 
   const customStyles: StylesConfig<T, false> = {
     control: (provided: CSSObjectWithLabel) => ({
