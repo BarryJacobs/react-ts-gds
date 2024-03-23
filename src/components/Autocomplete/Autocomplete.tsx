@@ -1,13 +1,17 @@
-import { useState } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
 import Select, {
   components,
   DropdownIndicatorProps,
   NoticeProps,
   GroupBase,
-  PropsValue,
   SingleValue,
-  CSSObjectWithLabel
+  SelectInstance,
+  CSSObjectWithLabel,
+  InputActionMeta,
+  StylesConfig
 } from "react-select"
+import { LabelValuePair } from "interfaces"
+import { VirtualMenuList } from "./VirtualMenuList"
 import CreateableSelect from "react-select/creatable"
 
 import "styles/autocomplete.scss"
@@ -28,13 +32,14 @@ const DropdownArrow = () => {
   )
 }
 
-interface AutoCompleteProps<T extends { label: string; value: string }> {
+interface AutoCompleteProps<T extends LabelValuePair> {
   identifier: string
   label: string
   hint?: string
   error?: string
   isLoading?: boolean
   isDisabled?: boolean
+  multiQuestion?: boolean
   placeholder?: string
   required?: boolean
   allowCreate?: boolean
@@ -42,12 +47,12 @@ interface AutoCompleteProps<T extends { label: string; value: string }> {
   containerClassExt?: string
   labelClassExt?: string
   options: T[]
-  value: PropsValue<T> | undefined
+  value: SingleValue<T> | undefined
   getOptionLabel: (value: T) => string
   onChange: (value: SingleValue<T>) => void
 }
 
-export const AutoComplete = <T extends { label: string; value: string }>({
+export const AutoComplete = <T extends LabelValuePair>({
   identifier,
   label,
   hint,
@@ -58,6 +63,7 @@ export const AutoComplete = <T extends { label: string; value: string }>({
   labelClassExt = "",
   options,
   value,
+  multiQuestion = true,
   isLoading = false,
   isDisabled = false,
   allowCreate = false,
@@ -67,6 +73,10 @@ export const AutoComplete = <T extends { label: string; value: string }>({
 }: AutoCompleteProps<T>) => {
   const [controlOptions, setControlOptions] = useState(options)
   const [controlValue, setControlValue] = useState(value)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [hasUpdatedValue, setHasUpdatedValue] = useState(false)
+  const [hasFocus, setHasFocus] = useState(false)
+  const selectRef = useRef<SelectInstance<T, false, GroupBase<T>>>(null)
 
   const containerAttr = {
     className: error
@@ -74,15 +84,32 @@ export const AutoComplete = <T extends { label: string; value: string }>({
       : `govuk-form-group ${containerClassExt}`
   }
 
-  const labelAttr = {
-    className: `govuk-label ${labelClassExt}`,
-    id: `${identifier}-label`
-  }
+  const labelAttr = useMemo(() => {
+    let assignedClass = "govuk-label govuk-label--l"
+    if (labelClassExt) {
+      if (multiQuestion) {
+        assignedClass = `govuk-label ${labelClassExt}`
+      } else {
+        assignedClass = `govuk-label govuk-label--l ${labelClassExt}`
+      }
+    } else if (multiQuestion) {
+      assignedClass = "govuk-label"
+    }
 
-  const customStyles = {
+    return {
+      className: assignedClass,
+      id: `${identifier}-label`
+    }
+  }, [identifier, labelClassExt, multiQuestion])
+
+  const customStyles: StylesConfig<T, false> = {
     control: (provided: CSSObjectWithLabel) => ({
       ...provided,
       borderColor: error ? "#d4351c !important" : "#0b0c0c"
+    }),
+    indicatorsContainer: (provided: CSSObjectWithLabel) => ({
+      ...provided,
+      pointerEvents: "none"
     })
   }
 
@@ -102,13 +129,32 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     )
   }
 
+  const focusHandler = () => {
+    selectRef.current?.inputRef?.select()
+    setHasFocus(true)
+  }
+
+  const blurHandler = () => {
+    setHasFocus(false)
+  }
+
   const changeHandler = (selectedValue: SingleValue<T>) => {
     onChange(selectedValue)
     setControlValue(selectedValue)
-    const inputElement = document.querySelector<HTMLInputElement>(`#${identifier}`)
-    if (inputElement) {
-      inputElement.blur()
-      inputElement.focus()
+    setSearchTerm(selectedValue ? selectedValue.label : "")
+  }
+
+  const inputChangeHandler = (inputValue: string, { action }: InputActionMeta) => {
+    if (action === "input-change") {
+      setSearchTerm(useUpperCase ? inputValue.toUpperCase() : inputValue)
+    } else if (action === "set-value") {
+      setHasUpdatedValue(true)
+    }
+  }
+
+  const keyDownHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === " " && searchTerm === "") {
+      e.preventDefault()
     }
   }
 
@@ -118,13 +164,37 @@ export const AutoComplete = <T extends { label: string; value: string }>({
       label: newValue,
       value: newValue
     }
-    setControlOptions(prev => [...prev, newOption])
+    setControlOptions(prev => [newOption, ...prev])
     setControlValue(newOption)
+    setSearchTerm(newValue)
     onChange(newOption)
   }
 
   const formatLabelHandler = (label: string) =>
     `Select "${useUpperCase ? label.toUpperCase() : label}"`
+
+  useEffect(() => {
+    if (!hasFocus) {
+      if (!hasUpdatedValue) {
+        if (controlValue) {
+          if (searchTerm !== controlValue.label) {
+            setSearchTerm(controlValue.label)
+          }
+        } else {
+          setSearchTerm("")
+        }
+      } else {
+        setHasUpdatedValue(false)
+      }
+    }
+  }, [hasFocus, hasUpdatedValue, controlValue, searchTerm])
+
+  useEffect(() => {
+    if (selectRef.current && !searchTerm) {
+      selectRef.current.clearValue()
+      selectRef.current.focusOption(undefined)
+    }
+  }, [searchTerm])
 
   const selectProps = {
     name: identifier,
@@ -137,14 +207,22 @@ export const AutoComplete = <T extends { label: string; value: string }>({
     styles: customStyles,
     components: {
       DropdownIndicator,
-      NoOptionsMessage
+      NoOptionsMessage,
+      MenuList: VirtualMenuList<T>
     },
+    captureMenuScroll: false,
     isSearchable: true,
+    controlShouldRenderValue: false,
+    value: controlValue,
+    inputValue: searchTerm,
+    onChange: changeHandler,
+    onInputChange: inputChangeHandler,
+    onKeyDown: keyDownHandler,
+    onFocus: focusHandler,
+    onBlur: blurHandler,
     placeholder,
     options: controlOptions,
-    value: controlValue,
     getOptionLabel,
-    onChange: changeHandler,
     isDisabled,
     isLoading
   }
@@ -170,13 +248,15 @@ export const AutoComplete = <T extends { label: string; value: string }>({
 
       {allowCreate ? (
         <CreateableSelect
+          ref={selectRef}
           isMulti={false}
+          createOptionPosition="first"
           onCreateOption={createOptionHandler}
           formatCreateLabel={formatLabelHandler}
           {...selectProps}
         />
       ) : (
-        <Select isMulti={false} {...selectProps} />
+        <Select ref={selectRef} isMulti={false} {...selectProps} />
       )}
     </div>
   )

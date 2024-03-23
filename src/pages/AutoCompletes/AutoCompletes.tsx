@@ -1,17 +1,16 @@
-import { ReactElement } from "react"
-import { AutoComplete, AutoComplete2 } from "components"
+import { ReactElement, useMemo } from "react"
+import { AutoComplete } from "components"
 import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Option } from "types"
+import { LabelValuePair } from "interfaces"
 import * as yup from "yup"
 
 interface VehicleData {
   make: string
   model: string
-  make2: string
 }
 
-const vehicleMakes: Option[] = [
+const vehicleMakes: LabelValuePair[] = [
   { label: "ASTON MARTIN", value: "01" },
   { label: "AUDI", value: "02" },
   { label: "BMW", value: "03" },
@@ -24,19 +23,24 @@ const vehicleMakes: Option[] = [
   { label: "TOYOTA", value: "10" }
 ]
 
-const vehicleModels: Option[] = [
-  { label: "MODEL 1", value: "MODEL 1" },
-  { label: "MODEL 2", value: "MODEL 2" },
-  { label: "MODEL 3", value: "MODEL 3" }
-]
-
 const schema = yup.object().shape({
   make: yup.string().trim().required("Please select a make of vehicle"),
-  model: yup.string().trim().required("Please select a model of vehicle"),
-  make2: yup.string().trim().required("Please select a make of vehicle")
+  model: yup.string().trim().required("Please select a model of vehicle")
 })
 
 export const AutoCompletes = (): ReactElement => {
+  const vehicleModels = useMemo(() => {
+    const items: LabelValuePair[] = []
+    for (let i = 1; i <= 10000; i++) {
+      const item: LabelValuePair = {
+        label: `MODEL ${i}`,
+        value: `MODEL ${i}`
+      }
+      items.push(item)
+    }
+    return items
+  }, [])
+
   const { control, handleSubmit } = useForm<VehicleData>({
     resolver: yupResolver(schema),
     shouldFocusError: true,
@@ -57,16 +61,16 @@ export const AutoCompletes = (): ReactElement => {
         control={control}
         name="make"
         render={({ field: { value, onChange }, fieldState: { error } }) => (
-          <AutoComplete2
+          <AutoComplete
             identifier="make"
-            label="Make (New - allow create)"
+            label="Make"
             labelClassExt="govuk-label-s"
             containerClassExt="govuk-input--width-20"
-            hint="Test Autocomplete"
-            allowCreate={true}
+            hint="Simple with no create"
             useUpperCase={true}
             options={vehicleMakes}
             value={vehicleMakes.find(x => x.value === value)}
+            getOptionLabel={x => x.label}
             onChange={x => onChange(x?.value)}
             error={error?.message}
           />
@@ -76,32 +80,14 @@ export const AutoCompletes = (): ReactElement => {
         control={control}
         name="model"
         render={({ field: { value, onChange }, fieldState: { error } }) => (
-          <AutoComplete2
-            identifier="model"
-            label="Model (New - no create)"
-            labelClassExt="govuk-label-s"
-            containerClassExt="govuk-input--width-20"
-            hint="Test Autocomplete"
-            useUpperCase={true}
-            options={vehicleModels}
-            value={vehicleModels.find(x => x.value === value)}
-            onChange={x => onChange(x?.value)}
-            error={error?.message}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="make2"
-        render={({ field: { value, onChange }, fieldState: { error } }) => (
           <AutoComplete
-            identifier="make2"
-            label="Make (Old - allow create)"
+            identifier="model"
+            label="Model"
             labelClassExt="govuk-label-s"
             containerClassExt="govuk-input--width-20"
-            hint="Does provide item creation"
-            useUpperCase={true}
+            hint="Large dataset and create"
             allowCreate={true}
+            useUpperCase={true}
             options={vehicleModels}
             value={vehicleModels.find(x => x.value === value)}
             getOptionLabel={x => x.label}

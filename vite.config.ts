@@ -52,5 +52,5 @@ export default defineConfig(({ command }): UserConfig => {
     }
   }
 
-  return config
+  return config as any
 })
