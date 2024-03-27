@@ -1,8 +1,7 @@
 import { ReactElement, useMemo } from "react"
-import { AutoComplete } from "components"
+import { AutoComplete, LabelValuePair } from "react-govuk-autocomplete"
 import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { LabelValuePair } from "interfaces"
 import * as yup from "yup"
 
 interface VehicleData {
