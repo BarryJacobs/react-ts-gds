@@ -7871,10 +7871,10 @@ react-focus-lock@^2.11.2:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-govuk-autocomplete@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.0.2.tgz#a0eced39eda3398b723643625f430f9770c4cea0"
-  integrity sha512-cGmEj3bZZ0rswrnm3fnWd1S7mw/5MKBQkU50AFQOzmYzidrgn27TfM3HCrsFEtOcb4sHW6KLn7CxBLB0G/SgJg==
+react-govuk-autocomplete@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.0.3.tgz#e0e48ab9b444fd13ecbd16e474b55629e58b0f29"
+  integrity sha512-dLez/17EgVdgiink4B7c/BBZRz/OoN8Mo9Za7VxquBmisd3thWXJUXwIMNHRf+q9t1GCu+YfbjPzdB7unY+uDw==
   dependencies:
     "@tanstack/react-virtual" "^3.2.0"
     react-select "^5.8.0"
