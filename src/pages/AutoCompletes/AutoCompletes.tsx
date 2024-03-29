@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from "react"
+import { ReactElement, useMemo, useState } from "react"
 import { AutoComplete, LabelValuePair } from "react-govuk-autocomplete"
 import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -10,16 +10,16 @@ interface VehicleData {
 }
 
 const vehicleMakes: LabelValuePair[] = [
-  { label: "ASTON MARTIN", value: "01" },
-  { label: "AUDI", value: "02" },
-  { label: "BMW", value: "03" },
-  { label: "CITROEN", value: "04" },
-  { label: "FERRARI", value: "05" },
-  { label: "FORD", value: "06" },
-  { label: "HONDA", value: "07" },
-  { label: "LAMBORGHINI", value: "08" },
-  { label: "PEUGEOT", value: "09" },
-  { label: "TOYOTA", value: "10" }
+  { label: "ASTON MARTIN", value: "ASTON MARTIN" },
+  { label: "AUDI", value: "AUDI" },
+  { label: "BMW", value: "BMW" },
+  { label: "CITROEN", value: "CITROEN" },
+  { label: "FERRARI", value: "FERRARI" },
+  { label: "FORD", value: "FORD" },
+  { label: "HONDA", value: "HONDA" },
+  { label: "LAMBORGHINI", value: "LAMBORGHINI" },
+  { label: "PEUGEOT", value: "PEUGEOT" },
+  { label: "TOYOTA", value: "TOYOTA" }
 ]
 
 const schema = yup.object().shape({
@@ -28,25 +28,34 @@ const schema = yup.object().shape({
 })
 
 export const AutoCompletes = (): ReactElement => {
+  const [selectedMake, setSelectedMake] = useState<string | undefined>("BMW")
+  const [isFetchingModels, setIsFetchingModels] = useState(false)
+
   const vehicleModels = useMemo(() => {
     const items: LabelValuePair[] = []
-    for (let i = 1; i <= 10000; i++) {
-      const item: LabelValuePair = {
-        label: `MODEL ${i}`,
-        value: `MODEL ${i}`
+    if (selectedMake) {
+      for (let i = 1; i <= 10000; i++) {
+        const item: LabelValuePair = {
+          label: `${selectedMake} MODEL ${i}`,
+          value: `${selectedMake} MODEL ${i}`
+        }
+        items.push(item)
       }
-      items.push(item)
+      setTimeout(() => {
+        setIsFetchingModels(false)
+      }, 2000)
     }
     return items
-  }, [])
+  }, [selectedMake])
 
-  const { control, handleSubmit } = useForm<VehicleData>({
+  const { control, handleSubmit, setValue } = useForm<VehicleData>({
     resolver: yupResolver(schema),
     shouldFocusError: true,
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     defaultValues: {
-      make: ""
+      make: "BMW",
+      model: "BMW MODEL 3"
     }
   })
 
@@ -70,7 +79,12 @@ export const AutoCompletes = (): ReactElement => {
             options={vehicleMakes}
             value={vehicleMakes.find(x => x.value === value)}
             getOptionLabel={x => x.label}
-            onChange={x => onChange(x?.value)}
+            onChange={(value, _isNew) => {
+              onChange(value?.value)
+              setSelectedMake(value?.value)
+              setIsFetchingModels(true)
+              setValue("model", "")
+            }}
             error={error?.message}
           />
         )}
@@ -84,14 +98,21 @@ export const AutoCompletes = (): ReactElement => {
             label="Model"
             labelClassExt="govuk-label-s"
             containerClassExt="govuk-input--width-20"
-            hint="Large dataset and create"
+            hint="Large dataset, create and async loading"
             allowCreate={true}
             useUpperCase={true}
             options={vehicleModels}
             value={vehicleModels.find(x => x.value === value)}
             getOptionLabel={x => x.label}
-            onChange={x => onChange(x?.value)}
+            onChange={(value, isNew) => {
+              if (value && isNew) {
+                vehicleModels.unshift(value)
+              }
+              onChange(value?.value)
+            }}
             error={error?.message}
+            isDisabled={vehicleModels.length === 0 || isFetchingModels}
+            isLoading={isFetchingModels}
           />
         )}
       />
