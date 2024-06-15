@@ -11,7 +11,7 @@ interface VehicleData {
 
 const vehicleMakes: LabelValuePair[] = [
   { label: "ASTON MARTIN", value: "ASTON MARTIN" },
-  { label: "AUDI", value: "AUDI" },
+  { label: "AUDI WITH A VERY LONG DESCRIPTION THAT WRAPS OVER THE NEXT LINE", value: "AUDI" },
   { label: "BMW", value: "BMW" },
   { label: "CITROEN", value: "CITROEN" },
   { label: "FERRARI", value: "FERRARI" },
@@ -34,7 +34,7 @@ export const AutoCompletes = (): ReactElement => {
   const vehicleModels = useMemo(() => {
     const items: LabelValuePair[] = []
     if (selectedMake) {
-      for (let i = 1; i <= 10000; i++) {
+      for (let i = 1; i <= 50000; i++) {
         const item: LabelValuePair = {
           label: `${selectedMake} MODEL ${i}`,
           value: `${selectedMake} MODEL ${i}`

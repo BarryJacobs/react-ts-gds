@@ -2832,6 +2832,13 @@
   dependencies:
     "@tanstack/virtual-core" "3.2.0"
 
+"@tanstack/react-virtual@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.5.1.tgz#1ce466f530a10f781871360ed2bf7ff83e664f85"
+  integrity sha512-jIsuhfgy8GqA67PdWqg73ZB2LFE+HD9hjWL1L6ifEIZVyZVAKpYmgUG4WsKQ005aEyImJmbuimPiEvc57IY0Aw==
+  dependencies:
+    "@tanstack/virtual-core" "3.5.1"
+
 "@tanstack/table-core@8.10.7":
   version "8.10.7"
   resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.10.7.tgz#577e8a635048875de4c9d6d6a3c21d26ff9f9d08"
@@ -2841,6 +2848,11 @@
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.2.0.tgz#874d36135e4badce2719e7bdc556ce240cbaff14"
   integrity sha512-P5XgYoAw/vfW65byBbJQCw+cagdXDT/qH6wmABiLt4v4YBT2q2vqCOhihe+D1Nt325F/S/0Tkv6C5z0Lv+VBQQ==
+
+"@tanstack/virtual-core@3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.5.1.tgz#f519149bce9156d0e7954b9531df15f446f2fc12"
+  integrity sha512-046+AUSiDru/V9pajE1du8WayvBKeCvJ2NmKPy/mR8/SbKKrqmSbj7LJBfXE+nSq4f5TBXvnCzu0kcYebI9WdQ==
 
 "@testing-library/dom@^9.0.0":
   version "9.3.3"
@@ -7871,12 +7883,12 @@ react-focus-lock@^2.11.2:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-govuk-autocomplete@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.0.7.tgz#c14b5eecb47d1dc7c553a052e9854675f1b0178c"
-  integrity sha512-6j4KxVgoIknZPFXumFGxmwz0o3/a6SYnRg46aaS25KeZI0Qgm/+pgQZz/43wO7fJnBF4gdUO4Psdj+VlusMExA==
+react-govuk-autocomplete@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.0.12.tgz#f81c8543bfec4a6df11e5e2e6d37b6f8c0a9bc37"
+  integrity sha512-zlVA6zmI3/wqHjXWJVOqFRK4CQo0BxEn0LaInur5cvpsfyN/WfsDcDb8IQIZLWF/E7OOXTC0f7dKeUupDSKKZQ==
   dependencies:
-    "@tanstack/react-virtual" "^3.2.0"
+    "@tanstack/react-virtual" "^3.5.1"
     react-select "^5.8.0"
 
 react-govuk-datepicker@^1.0.12:
