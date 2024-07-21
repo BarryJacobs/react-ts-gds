@@ -1,6 +1,6 @@
 import { ReactElement } from "react"
 import { useForm, Controller } from "react-hook-form"
-import { DatePicker, InputWidth } from "react-govuk-datepicker"
+import { DatePicker, InputWidth, DayEnum } from "react-govuk-datepicker"
 import { parse, isValid } from "date-fns"
 import { enGB } from "date-fns/locale"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -56,6 +56,7 @@ export const Dates = (): ReactElement => {
               hint="For example, 27/03/2007"
               width={InputWidth.Char10}
               multiQuestion={true}
+              calendarStartDay={DayEnum.Monday}
               value={value}
               error={error?.message}
               onChange={x => onChange(x)}

@@ -5,9 +5,19 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
 interface VehicleData {
+  colour: string
   make: string
   model: string
 }
+
+const colours: LabelValuePair[] = [
+  { label: "BLACK", value: "BLACK" },
+  { label: "BLUE", value: "BLUE" },
+  { label: "GREEN", value: "GREEN" },
+  { label: "RED", value: "RED" },
+  { label: "SILVER", value: "SILVER" },
+  { label: "WHITE", value: "WHITE" }
+]
 
 const vehicleMakes: LabelValuePair[] = [
   { label: "ASTON MARTIN", value: "ASTON MARTIN" },
@@ -23,6 +33,7 @@ const vehicleMakes: LabelValuePair[] = [
 ]
 
 const schema = yup.object().shape({
+  colour: yup.string().trim().required("Please select the colour of the vehicle"),
   make: yup.string().trim().required("Please select a make of vehicle"),
   model: yup.string().trim().required("Please select a model of vehicle")
 })
@@ -48,7 +59,14 @@ export const AutoCompletes = (): ReactElement => {
     return items
   }, [selectedMake])
 
-  const { control, handleSubmit, setValue } = useForm<VehicleData>({
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    register,
+    watch,
+    formState: { errors }
+  } = useForm<VehicleData>({
     resolver: yupResolver(schema),
     shouldFocusError: true,
     mode: "onSubmit",
@@ -63,8 +81,27 @@ export const AutoCompletes = (): ReactElement => {
     console.log("Form Data: ", formData)
   }
 
+  const colourValue = watch("colour")
+
   return (
     <form className="govuk-!-margin-top-2" onSubmit={handleSubmit(onSubmit)} noValidate>
+      <AutoComplete
+        identifier="colour"
+        label="Colour"
+        labelClassExt="govuk-label-s"
+        containerClassExt="govuk-input--width-20"
+        hint="Simple with no create (register)"
+        useUpperCase={true}
+        options={colours}
+        value={colours.find(x => x.value === colourValue)}
+        {...(register("colour"),
+        {
+          error: errors.colour?.message,
+          onChange: (value, _isNew) => {
+            setValue("colour", value?.value ?? "")
+          }
+        })}
+      />
       <Controller
         control={control}
         name="make"
@@ -74,13 +111,12 @@ export const AutoCompletes = (): ReactElement => {
             label="Make"
             labelClassExt="govuk-label-s"
             containerClassExt="govuk-input--width-20"
-            hint="Simple with no create"
+            hint="Simple with no create (controller)"
             useUpperCase={true}
             options={vehicleMakes}
             value={vehicleMakes.find(x => x.value === value)}
-            getOptionLabel={x => x.label}
             onChange={(value, _isNew) => {
-              onChange(value?.value)
+              onChange(value?.value ?? null)
               setSelectedMake(value?.value)
               setIsFetchingModels(true)
               setValue("model", "")
@@ -103,12 +139,11 @@ export const AutoCompletes = (): ReactElement => {
             useUpperCase={true}
             options={vehicleModels}
             value={vehicleModels.find(x => x.value === value)}
-            getOptionLabel={x => x.label}
             onChange={(value, isNew) => {
               if (value && isNew) {
                 vehicleModels.unshift(value)
               }
-              onChange(value?.value)
+              onChange(value?.value ?? null)
             }}
             error={error?.message}
             isDisabled={vehicleModels.length === 0 || isFetchingModels}
