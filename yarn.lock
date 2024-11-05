@@ -2833,26 +2833,26 @@
     "@tanstack/virtual-core" "3.2.0"
 
 "@tanstack/react-virtual@^3.5.1":
-  version "3.8.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.8.6.tgz#4806eb468668d89399a2520ec8f201fb31302ebe"
-  integrity sha512-YcOQAxccjIqiC8cQ8QQiDU6F+JZtfpKNvYsw/ju5Q6S5/m9KDs5SaJvKz1kLj3RKNAOBMIFA9snN2MDmyT9lBQ==
+  version "3.10.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.10.8.tgz#bf4b06f157ed298644a96ab7efc1a2b01ab36e3c"
+  integrity sha512-VbzbVGSsZlQktyLrP5nxE+vE1ZR+U0NFAWPbJLoG2+DKPwd2D7dVICTVIIaYlJqX1ZCEnYDbaOpmMwbsyhBoIA==
   dependencies:
-    "@tanstack/virtual-core" "3.8.6"
+    "@tanstack/virtual-core" "3.10.8"
 
 "@tanstack/table-core@8.10.7":
   version "8.10.7"
   resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.10.7.tgz#577e8a635048875de4c9d6d6a3c21d26ff9f9d08"
   integrity sha512-KQk5OMg5OH6rmbHZxuNROvdI+hKDIUxANaHlV+dPlNN7ED3qYQ/WkpY2qlXww1SIdeMlkIhpN/2L00rof0fXFw==
 
+"@tanstack/virtual-core@3.10.8":
+  version "3.10.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.10.8.tgz#975446a667755222f62884c19e5c3c66d959b8b4"
+  integrity sha512-PBu00mtt95jbKFi6Llk9aik8bnR3tR/oQP1o3TSi+iG//+Q2RTIzCEgKkHG8BB86kxMNW6O8wku+Lmi+QFR6jA==
+
 "@tanstack/virtual-core@3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.2.0.tgz#874d36135e4badce2719e7bdc556ce240cbaff14"
   integrity sha512-P5XgYoAw/vfW65byBbJQCw+cagdXDT/qH6wmABiLt4v4YBT2q2vqCOhihe+D1Nt325F/S/0Tkv6C5z0Lv+VBQQ==
-
-"@tanstack/virtual-core@3.8.6":
-  version "3.8.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.8.6.tgz#ccecf84099a9a0e9732b4f17bf021b82f215d15e"
-  integrity sha512-UJeU4SBrx3hqULNzJ3oC0kgJ5miIAg+FwomxMTlQNxob6ppTInifANHd9ukETvzdzxr6zt3CjQ0rttQpVjbt6Q==
 
 "@testing-library/dom@^9.0.0":
   version "9.3.3"
@@ -7883,18 +7883,18 @@ react-focus-lock@^2.11.2:
     use-callback-ref "^1.3.2"
     use-sidecar "^1.1.2"
 
-react-govuk-autocomplete@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.1.3.tgz#3317cebb6c14aa086f2b1dd57f2460fa1cba242f"
-  integrity sha512-n5Tc7+BO7+nap3KMNh1aXLrbqbO0LWufBPwRRaZvy5Plf+PClJR9RdaYndphrD0Kk4ivYLkiCznA4qx9FGE45g==
+react-govuk-autocomplete@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.1.8.tgz#18ebb1238b2efcd34eb231730e862c1ffc04e26e"
+  integrity sha512-+NmR1IMsQiGkwnbLvGW1Q9Gl8gMrnrJcCkHHz7ZlXpTX8tbepyf5qeD3WOEx7/w0AYbfjOoeihJoqwfHZ/WnEg==
   dependencies:
     "@tanstack/react-virtual" "^3.5.1"
     react-select "^5.8.0"
 
-react-govuk-datepicker@^1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/react-govuk-datepicker/-/react-govuk-datepicker-1.0.13.tgz#a36a37205535192a3696db25ac67e5c12da0455f"
-  integrity sha512-pWs6Y4byPOPDeZMJka/ndePl4Vbr6fv0cnyezXMGVXuxRwrJKUEW90tvp03+A35xtkfEtyHno575N9EqiJA9Ww==
+react-govuk-datepicker@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/react-govuk-datepicker/-/react-govuk-datepicker-1.0.14.tgz#ebd3befbc37d6585fe02a565323341ad3e571130"
+  integrity sha512-98Gjn/RyYegniUgCjQGsbIt7E2Dt8+Iug2NL5LtIfm99sBw/09kRU1APxucOaJmwvjZfrs6nZovzP+KEs9s0uQ==
   dependencies:
     date-fns "^3.3.1"
     react-focus-lock "^2.11.2"
