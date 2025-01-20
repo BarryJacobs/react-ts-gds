@@ -2833,21 +2833,21 @@
     "@tanstack/virtual-core" "3.2.0"
 
 "@tanstack/react-virtual@^3.5.1":
-  version "3.10.8"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.10.8.tgz#bf4b06f157ed298644a96ab7efc1a2b01ab36e3c"
-  integrity sha512-VbzbVGSsZlQktyLrP5nxE+vE1ZR+U0NFAWPbJLoG2+DKPwd2D7dVICTVIIaYlJqX1ZCEnYDbaOpmMwbsyhBoIA==
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.11.2.tgz#d6b9bd999c181f0a2edce270c87a2febead04322"
+  integrity sha512-OuFzMXPF4+xZgx8UzJha0AieuMihhhaWG0tCqpp6tDzlFwOmNBPYMuLOtMJ1Tr4pXLHmgjcWhG6RlknY2oNTdQ==
   dependencies:
-    "@tanstack/virtual-core" "3.10.8"
+    "@tanstack/virtual-core" "3.11.2"
 
 "@tanstack/table-core@8.10.7":
   version "8.10.7"
   resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.10.7.tgz#577e8a635048875de4c9d6d6a3c21d26ff9f9d08"
   integrity sha512-KQk5OMg5OH6rmbHZxuNROvdI+hKDIUxANaHlV+dPlNN7ED3qYQ/WkpY2qlXww1SIdeMlkIhpN/2L00rof0fXFw==
 
-"@tanstack/virtual-core@3.10.8":
-  version "3.10.8"
-  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.10.8.tgz#975446a667755222f62884c19e5c3c66d959b8b4"
-  integrity sha512-PBu00mtt95jbKFi6Llk9aik8bnR3tR/oQP1o3TSi+iG//+Q2RTIzCEgKkHG8BB86kxMNW6O8wku+Lmi+QFR6jA==
+"@tanstack/virtual-core@3.11.2":
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.11.2.tgz#00409e743ac4eea9afe5b7708594d5fcebb00212"
+  integrity sha512-vTtpNt7mKCiZ1pwU9hfKPhpdVO2sVzFQsxoVBGtOSHxlrRRzYr8iQ2TlwbAcRYCcEiZ9ECAM8kBzH0v2+VzfKw==
 
 "@tanstack/virtual-core@3.2.0":
   version "3.2.0"
@@ -7883,10 +7883,10 @@ react-focus-lock@^2.11.2:
     use-callback-ref "^1.3.2"
     use-sidecar "^1.1.2"
 
-react-govuk-autocomplete@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.1.8.tgz#18ebb1238b2efcd34eb231730e862c1ffc04e26e"
-  integrity sha512-+NmR1IMsQiGkwnbLvGW1Q9Gl8gMrnrJcCkHHz7ZlXpTX8tbepyf5qeD3WOEx7/w0AYbfjOoeihJoqwfHZ/WnEg==
+react-govuk-autocomplete@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/react-govuk-autocomplete/-/react-govuk-autocomplete-1.1.9.tgz#efe0fb7993c0ec3114749fa8769c844ce4088f12"
+  integrity sha512-SSimbezNHcYQMKPDD13T3l965FGoQZQufDUU25EZiCpUU/XxwyZqRk876pBnFWAh6jgveIO8772F7uoto1H5Aw==
   dependencies:
     "@tanstack/react-virtual" "^3.5.1"
     react-select "^5.8.0"
