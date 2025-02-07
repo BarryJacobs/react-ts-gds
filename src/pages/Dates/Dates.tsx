@@ -27,7 +27,7 @@ export const Dates = (): ReactElement => {
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     defaultValues: {
-      datePicker: ""
+      datePicker: "12/02/2024"
     }
   })
 
