@@ -7,27 +7,42 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
 interface DateData {
-  datePicker: string
+  licenceIssued: string
+  passportIssued: string
 }
 
 const schema = yup.object().shape({
-  datePicker: yup
+  licenceIssued: yup
     .string()
-    .required()
-    .test("required", "Please enter issue date", value => value !== "dd/mm/yyyy")
-    .test("valid", "Issue date is not a valid date", value =>
+    .required("Driving licence issue date is a required field")
+    .test("required", "Please enter driving licence issue date", value => value !== "dd/mm/yyyy")
+    .test("valid", "Driving licence issue date is not a valid date", value =>
+      isValid(parse(value!, "P", new Date(), { locale: enGB }))
+    ),
+  passportIssued: yup
+    .string()
+    .required("Passport issue date is a required field")
+    .test("required", "Please enter passport issue date", value => value !== "dd/mm/yyyy")
+    .test("valid", "Passport issue date is not a valid date", value =>
       isValid(parse(value!, "P", new Date(), { locale: enGB }))
     )
 })
 
 export const Dates = (): ReactElement => {
-  const { control, handleSubmit } = useForm<DateData>({
+  const {
+    control,
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<DateData>({
     resolver: yupResolver(schema),
     shouldFocusError: true,
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     defaultValues: {
-      datePicker: "12/02/2024"
+      // passportIssued: "12/02/2024"
     }
   })
 
@@ -35,6 +50,7 @@ export const Dates = (): ReactElement => {
     console.log("Form Data: ", formData)
   }
 
+  const licenceIssuedValue = watch("licenceIssued")
   return (
     <form className="govuk-!-margin-top-2" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="govuk-grid-row">
@@ -46,14 +62,30 @@ export const Dates = (): ReactElement => {
         </div>
       </div>
       <div className="govuk-grid-row govuk-!-margin-top-4">
+        <DatePicker
+          identifier="licenceIssued"
+          label="When was your driving licence issued?"
+          hint="React hook form register"
+          width={InputWidth.Char10}
+          multiQuestion={true}
+          calendarStartDay={DayEnum.Monday}
+          value={licenceIssuedValue}
+          {...(register("licenceIssued"),
+          {
+            error: errors.licenceIssued?.message,
+            onChange: (value: string) => {
+              setValue("licenceIssued", value)
+            }
+          })}
+        />
         <Controller
           control={control}
-          name="datePicker"
+          name="passportIssued"
           render={({ field: { value, onBlur, onChange }, fieldState: { error } }) => (
             <DatePicker
-              identifier="datePicker"
+              identifier="passportIssued"
               label="When was your passport issued?"
-              hint="For example, 27/03/2007"
+              hint="React hook form controller"
               width={InputWidth.Char10}
               multiQuestion={true}
               calendarStartDay={DayEnum.Monday}

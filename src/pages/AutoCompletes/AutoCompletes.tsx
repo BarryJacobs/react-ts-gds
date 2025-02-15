@@ -82,7 +82,6 @@ export const AutoCompletes = (): ReactElement => {
   }
 
   const colourValue = watch("colour")
-
   return (
     <form className="govuk-!-margin-top-2" onSubmit={handleSubmit(onSubmit)} noValidate>
       <AutoComplete
